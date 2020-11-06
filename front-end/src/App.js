@@ -1,30 +1,26 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
+import PrivateRoute from "./auth/PrivateRoute";
+import { AuthProvider } from "./auth/Auth";
+
+import Login from './routes/Login.js';
+import Home from './routes/Home.js';
+
 
 import { Button } from 'rsuite';
 
-const StyledButton = styled(Button)`
-  width: 200px;
-  height: 100px;
-`;
-
-const TestWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 function App() {
   const [ count, setCount ] = useState(0);
   return (
-    <TestWrapper>
-      Hello
-      <StyledButton appearance="primary" onClick={() => { setCount(count + 1)}}>Click Me</StyledButton>
-      <h2>Current count: {count}</h2>
-    </TestWrapper>
+      <AuthProvider>
+        <Router>
+            <div>
+                <PrivateRoute exact path= "/" component={Home} />
+                <Route exact path= "/login" component={Login} />
+            </div>
+        </Router>
+      </AuthProvider>
   );
 }
 
