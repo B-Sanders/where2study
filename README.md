@@ -3,3 +3,6 @@
 When you go into a specific folder you may need to run:
 ### `npm install`
 
+## To start the server on your machine:
+### `npm run start`
+
