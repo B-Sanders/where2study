@@ -11,7 +11,7 @@ const Login = ({ history }) => {
                 <FlexboxGrid.Item>
                     <Col>
                         <h1 align="center">Login</h1>
-                        <img src="../images/where2study.png" height={300} width={300}></img>
+                        <img src="images/where2study.png" height={300} width={300} alt="logo"></img>
                         <Form>
                             <FormGroup>
                                 <ControlLabel>Email</ControlLabel>

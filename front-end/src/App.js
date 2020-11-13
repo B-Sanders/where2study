@@ -4,7 +4,7 @@ import PrivateRoute from "./auth/PrivateRoute";
 import { AuthProvider } from "./auth/Auth";
 
 import Login from './routes/Login.js';
-import Home from './routes/Home.js';
+import Home from './routes/Home/index.js';
 
 
 import { Button } from 'rsuite';
@@ -16,7 +16,7 @@ function App() {
       <AuthProvider>
         <Router>
             <div>
-                <PrivateRoute exact path= "/" component={Home} />
+                <Route exact path= "/" component={Home} />
                 <Route exact path= "/login" component={Login} />
             </div>
         </Router>
