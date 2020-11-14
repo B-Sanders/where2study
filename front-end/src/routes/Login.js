@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock } from 'rsuite';
-import { Grid, Row, Col } from 'rsuite';
+import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock, Alert } from 'rsuite';
+import { Col } from 'rsuite';
 import { Button } from 'rsuite';
 import db from "../base"
 import logo from '../images/where2study.png';
@@ -23,14 +23,30 @@ class Login extends React.Component {
     handleLogin() {
         const { email, password } = this.state.formValue;
 
-        try{
-            db
-                .auth()
-                .signInWithEmailAndPassword(email, password);
-                this.props.history.push("/");
-        } catch(error){
-            alert(error);
+        if(email.trim()=="" || password.trim()=="") {
+            Alert.warning("Email and password fields cannot be empty",4000);
+        } else {
+            try{
+                db.auth().signInWithEmailAndPassword(email, password)
+                    .then((user) => {
+                        if (user) {
+                            this.props.history.push("/");
+                        }
+                    })
+                    .catch(function(error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        if (errorCode === 'auth/wrong-password') {
+                            Alert.error("The username and password did not match",4000);
+                          } else {
+                            alert(errorCode + errorMessage,4000);
+                        }
+                    });
+            } catch(error){
+                alert(error);
+            }
         }
+
     }
 
     handleChange(value) {
