@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid } from 'rsuite';
 import { Grid, Row, Col } from 'rsuite';
 import { Button } from 'rsuite';
+import logo from '../images/where2study.png';
 
 
 const Login = ({ history }) => {
@@ -11,7 +12,7 @@ const Login = ({ history }) => {
                 <FlexboxGrid.Item>
                     <Col>
                         <h1 align="center">Login</h1>
-                        <img src="../images/where2study.png" height={300} width={300}></img>
+                        <img src={logo} height={300} width={300}></img>
                         <Form>
                             <FormGroup>
                                 <ControlLabel>Email</ControlLabel>
