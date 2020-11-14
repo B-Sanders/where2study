@@ -42,7 +42,7 @@ class Login extends React.Component {
     render() {
         return (
             <div className="show-login">
-                <FlexboxGrid colspan={20} justify="center">
+                <FlexboxGrid colSpan={20} justify="center">
                     <FlexboxGrid.Item>
                         <Col>
                             <h1 align="center">Login</h1>
