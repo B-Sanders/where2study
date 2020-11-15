@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer';
 const UCSD_LIBRARY_URL = 'https://library.ucsd.edu/assets/availability/mobile/index.html';
 
 async function scrapeUCSD() {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.goto(UCSD_LIBRARY_URL, {
         waitUntil: 'networkidle2',
