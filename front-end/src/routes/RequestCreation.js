@@ -50,7 +50,8 @@ class RequestCreation extends React.Component{
     handleCancel(){
 
     }
-    handleSubmit(){
+    
+    createNewRequest(){
 
     }
 
@@ -137,8 +138,8 @@ class RequestCreation extends React.Component{
                                 </FormGroup>
                                 <FormGroup>
                                     <ButtonToolbar>
-                                        <Button onClick={this.handleSubmit} appearance="primary" >Submit</Button>
-                                        <Button onClick={this.handleCancel}appearance="default" color="red">Cancel</Button>
+                                        <Button onClick={this.createNewRequest} appearance="primary"> Create </Button>
+                                        <Button onClick={this.handleCancel}appearance="default" color="red"> Cancel </Button>
                                     </ButtonToolbar>
                                 </FormGroup>
                             </Form>
