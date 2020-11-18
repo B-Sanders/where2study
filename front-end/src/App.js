@@ -18,7 +18,7 @@ function App() {
             <div>
                 <PrivateRoute exact path= "/" component={Home} />
                 <Route exact path= "/login" component={Login} />
-                <Route exact path= "/requestCreation" component={RequestCreation} />  // Should eventually be made into a PrivateRoute
+                <Route exact path= "/requestCreation" component={RequestCreation} /> 
             </div>
         </Router>
       </AuthProvider>
