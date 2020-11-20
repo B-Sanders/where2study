@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
-    Content, Footer, Sidebar, Divider, List, Tooltip, Whisper } from 'rsuite';
-import "../App.css"
+    Content, Footer, Sidebar, Divider, List, Tooltip, Whisper, Alert, Progress } from 'rsuite';
+
 
 class Home extends React.Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class Home extends React.Component {
                                         <Col xs={10}> <h5>Studying Times</h5> </Col>
                                     </Row>
                                     <Row className="show-grid">
-                                        <Col xs={10}><Rate defaultValue={3.5} size="xs" allowHalf readOnly /></Col>
+                                        <Col xs={10}><Rate defaultValue={3.5} size="xs" allowHalf  /></Col>
                                         <Col xs={4}> </Col>
                                         <Col xs={10}> 12:00am - 5:00pm </Col>
                                     </Row>

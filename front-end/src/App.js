@@ -5,9 +5,8 @@ import { AuthProvider } from "./auth/Auth";
 
 import Login from './routes/Login.js';
 import Home from './routes/Home.js';
-import SampleRequest from "./routes/SampleRequest";
+import SampleRequest from "./routes/SampleCreateRequest";
 
-import { Button } from 'rsuite';
 import { Button, Modal } from 'rsuite';
 
 
@@ -21,8 +20,8 @@ function App() {
         <Router>
             <div>
                 <PrivateRoute exact path= "/" component={Home} />
-                <Route exact path= "/login" component={Login} />
-                <Route exact path= "/SampleRequest" component={SampleRequest} />
+                <Route exact path= "/login" component={SampleRequest} />
+                <Route exact path= "/SampleRequest" component={Login} />
             </div>
         </Router>
       </AuthProvider>
