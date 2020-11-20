@@ -3,6 +3,7 @@ import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar,
 import { DatePicker } from 'rsuite';
 import { Col } from 'rsuite'
 import { Button } from 'rsuite'
+import db from '../base'
 import logo from '../images/where2study.png'
 
 const{ StringType, NumberType, DateType } = Schema.Types;
@@ -11,13 +12,13 @@ const model = Schema.Model({
     class: StringType().isRequired('This field is required'),
     study_start: DateType().isRequired('Please enter a valid start time'),
     study_end: DateType()
-        .addRule((value, data) => {
-            if( value < data.study_start ){
+        /*.addRule((value, data) => {
+            if( Math.abs(value) < Math.abs(data.study_start) ){
                 return false;
             }
 
             return true;
-        }, 'Study End must be later than Study Start' )
+        }, 'Study End must be later than Study Start' )*/
         .isRequired('Please enter a valid end time'),
       
     location: StringType().isRequired('This field is required'),
@@ -66,8 +67,8 @@ class RequestCreation extends React.Component{
                 study_start: new Date(),
                 study_end: new Date(),
                 location: '',
-                noise_level: '',    // Number
-                study_partners: '', // Number
+                noise_level: '',    
+                study_partners: '', 
                 collab_level: '',
                 description: '',
             },
@@ -75,24 +76,78 @@ class RequestCreation extends React.Component{
             chars_left: max_chars
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.createNewRequest = this.createNewRequest.bind(this);
     }
 
+    /**
+     * The user no longer wishes to create the request 
+     * return them to the previous page they were on.
+     */
     handleCancel(){
-
+        this.props.history.goBack();
     }
 
+    /**
+     * Once the user has submitted the form validate it against the
+     * datbase schema model. If no errors create the request.
+     */
     handleSubmit(){
-        const{ formValue } = this.state;
         if( !this.form.check()){
-           Alert.error('Please fix the highlighted fields', alert_time);
+            Alert.error('Please fix the highlighted fields', alert_time);
         } else {
-        // No error occurred handle accordingly
-        Alert.success('Request Submitted Successfully')
+            // No error occurred handle accordingly
+            this.createNewRequest();
         }
     }
  
-    createNewRequest(){
+    /**
+     * Format the current state of the User's form request and POST to the 
+     * Firebase Database 
+     */
+    async createNewRequest(){
+        var database = db.database();
+        
+        /**
+         * Calculate the time in minutes between the study dates.
+         */
+        var studyLength = this.state.formValue.study_end.getTime() - this.state.formValue.study_start.getTime();
+        studyLength = (studyLength / 1000) / 60;
 
+        /**
+         * Create new request Object for POST call making sure to convert
+         * 'study_start' and 'study_end' from Date datatype to 
+         * appropriate string data type for storage
+         */
+        const newRequest = {
+            class: this.state.formValue.class,
+            study_start: this.state.formValue.study_start.toUTCString(),
+            study_end: this.state.formValue.study_end.toUTCString(),
+            study_length: studyLength,
+            location: this.state.formValue.location,
+            noise_level: this.state.formValue.noise_level,
+            study_partners: this.state.formValue.study_partners,
+            collab_level: this.state.formValue.collab_level,
+            description: this.state.formValue.description
+        }
+
+        /**
+         * API Call to database to POST new request ( sychronously )
+         */
+        var ref = await database.ref('Requests/' + 'userId2' ).set( newRequest, 
+            function( error ){
+                if( error ){
+                   Alert.error( 'Failed to Create Request please try again', alert_time );
+                } else {
+                   Alert.success( 'Request Submitted Successfully', alert_time );
+                }
+            });
+
+        /**
+         * If the request succeeded we should have a non-null reference to it.
+         * Then, route them back to page they were before
+         */
+        if( ref !== null ){ this.props.history.goBack(); }       
     }
 
     render() {

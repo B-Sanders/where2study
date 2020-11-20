@@ -20,6 +20,7 @@ class Login extends React.Component {
         this.handleLogin = this.handleLogin.bind(this);
     }
 
+
     handleLogin() {
         const { email, password } = this.state.formValue;
 
@@ -77,7 +78,7 @@ class Login extends React.Component {
                                 <FormGroup>
                                     <ButtonToolbar>
                                         <Button onClick={this.handleLogin} appearance="primary">Sign In</Button>
-                                        <Button appearance="primary" color="green">Sign Up</Button>
+                                        <Button onClick={this.handleCancel} appearance="primary" color="green">Sign Up</Button>
                                     </ButtonToolbar>
                                 </FormGroup>
                             </Form>
