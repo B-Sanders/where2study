@@ -1,5 +1,12 @@
-# Mono-repo containing two folders for the front-end and back-end of Where2Study
-## Please note that there are seperate package.json files for each repo.
-When you go into a specific folder you may need to run:
-### `npm install`
+# Contains the code for the modals used in the Screen Sequence Diagrams!
+The files are called:
+SampleViewRequest.js
+SampleCreateRequest.js
+SampleEditRequest.js
+
+There is a bit more info within the files themselves, but essentially the modals and the fields
+will still need to be implemented into the website itself, but it has the layout of each one
+completed for you to import. Let me know if you have any questions and sorry if the code is crappy
+and messy.
+### 
 
