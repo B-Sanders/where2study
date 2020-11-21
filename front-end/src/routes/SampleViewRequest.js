@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
-    Content, Footer, Sidebar, Divider, List, Tooltip, Whisper, Alert, Progress } from 'rsuite';
+import ButtonToolbar, {
+    Button, Modal, Grid, Row, Col, Rate, Container, Header,
+    Content, Footer, Sidebar, Divider, List, Tooltip, Whisper, Alert, Progress, Icon
+} from 'rsuite';
 
 
 class Home extends React.Component {
@@ -13,9 +15,11 @@ class Home extends React.Component {
         this.open = this.open.bind(this);
         this.studyPartners = ['Nicholas Weaver', 'Andre Lopez', 'Rigo Caretto', 'Brian Sanders', 'Gary Gillespie'];
     }
+
     close() {
         this.setState({ show: false });
     }
+
     open() {
         this.setState({ show: true });
     }
@@ -47,7 +51,7 @@ class Home extends React.Component {
                                         <Col xs={10}> <h5>Studying Times</h5> </Col>
                                     </Row>
                                     <Row className="show-grid">
-                                        <Col xs={10}><Rate defaultValue={3.5} size="xs" allowHalf  /></Col>
+                                        <Col xs={10}> <Rate defaultValue={3} max={5} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> </Col>
                                         <Col xs={4}> </Col>
                                         <Col xs={10}> 12:00am - 5:00pm </Col>
                                     </Row>

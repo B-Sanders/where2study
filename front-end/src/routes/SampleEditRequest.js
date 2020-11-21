@@ -7,7 +7,6 @@ import styled from 'styled-components'
 
 const ButtonContainer = styled.div`display: flex; justify-content: space-between;`;
 
-
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -51,21 +50,6 @@ class Home extends React.Component {
                 "role": "Master"
             }];
 
-
-
-        this.renderCharacter = (value, index) => {
-            // unselected character
-            if (value < index + 1) {
-                return <Icon icon="meh-o" />;
-            }
-            if (value < 3) {
-                return <Icon icon="frown-o" style={{ color: '#99A9BF' }} />;
-            }
-            if (value < 4) {
-                return <Icon icon="meh-o" style={{ color: '#F4CA1D' }} />;
-            }
-            return <Icon icon="smile-o" style={{ color: '#ff9800' }} />;
-        };
     }
     close() {
         this.setState({ show: false });
@@ -112,7 +96,7 @@ class Home extends React.Component {
                                     <Row><Divider></Divider></Row>
                                     <Row className="show-grid">
                                         <h5>Rate Your Study Location's Noise Level:</h5>
-                                        <Rate defaultValue={3} size="sm" renderCharacter={this.renderCharacter} />
+                                        <Col xs={10}> <Rate defaultValue={3} max={5} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> </Col>
                                     </Row>
                                     <Row><Divider></Divider></Row>
                                     <Row className="show-grid">

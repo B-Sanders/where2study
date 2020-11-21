@@ -5,7 +5,7 @@ import { AuthProvider } from "./auth/Auth";
 
 import Login from './routes/Login.js';
 import Home from './routes/Home.js';
-import SampleRequest from "./routes/SampleCreateRequest";
+import SampleRequest from "./routes/SampleViewRequest";
 
 import { Button, Modal } from 'rsuite';
 
