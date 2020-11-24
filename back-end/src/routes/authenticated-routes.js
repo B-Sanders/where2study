@@ -1,5 +1,4 @@
 import express from 'express';
-import admin from 'firebase-admin';
 import db from '../database/base';
 
 const authenticatedRoute = express.Router();
