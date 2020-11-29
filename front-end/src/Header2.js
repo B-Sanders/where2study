@@ -9,7 +9,7 @@ const headerStyles = {
     background:  '#006A96',
     color: 'white',
     whiteSpace: 'nowrap',
-    overflow: 'hidden'
+    //overflow: 'hidden'
   };
   const iconStyles = {
     width: 56,
@@ -28,7 +28,6 @@ class Header2 extends React.Component {
     render() {
       const { expanded } = this.state;
       return (
-        <div className="show-fake-browser sidebar-page" style={{background: '#006A96'}} justify="center">
             <Sidebar
               style={{ display: 'flex', flexDirection: 'column'}}
               collapsible
@@ -60,7 +59,6 @@ class Header2 extends React.Component {
                 </Sidenav>
                 <Button appearance="primary" block>Logout</Button>
             </Sidebar>
-        </div>
       );
     }
 }
