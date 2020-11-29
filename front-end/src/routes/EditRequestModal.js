@@ -5,6 +5,8 @@ import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
 import FlexboxGrid from "rsuite";
 import styled from 'styled-components'
 
+import ConfirmDeleteModal from './ConfirmDeleteModal'
+
 const ButtonContainer = styled.div`display: flex; justify-content: space-between;`;
 
 
@@ -12,7 +14,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: false
+            show: false,
+            showConfirmModal: false
         };
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
@@ -92,17 +95,11 @@ class Home extends React.Component {
             <>
                 <div className="centered">
                     <div className="modal-container">
+                     { this.state.showConfirmModal && <ConfirmDeleteModal shouldShow={this.state.showConfirmModal} parentCallBack ={ ()=>{this.setState({ showConfirmModal: false})} } /> }
                         <Modal show={ this.open } onHide={this.close}>
                             <Modal.Header>
                             <Modal.Title> <h2>Edit Your Study Request!</h2></Modal.Title>
                             </Modal.Header>
-
-                            {/* This doesn't have everything actually implemented, it's just for the style really.
-                            Pretty much everything here is just for style really. For the most part implementation
-                            would just require replacing the variables and connecting them to the database, as well
-                            as implementing the modal itself into the website, as opposed to just being a single
-                            button on a page.*/}
-
                             <Modal.Body>
                                 <Grid fluid>
                                     <Row>
@@ -125,7 +122,7 @@ class Home extends React.Component {
                                     <Row><Divider></Divider></Row>
                                     <Row className="show-grid">
                                         <h5>Rate Your Study Location's Noise Level:</h5>
-                                        <Rate defaultValue={3} size="sm" renderCharacter={this.renderCharacter} />
+                                        <Col xs={10}> <Rate defaultValue={1} max={5} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> </Col>
                                     </Row>
                                     <Row><Divider></Divider></Row>
                                     <Row className="show-grid">
@@ -148,7 +145,7 @@ class Home extends React.Component {
                                 <ButtonContainer>
                                     <Whisper placement="top" trigger="hover"
                                              speaker={<Tooltip>Do you want to delete to this study request?</Tooltip>}>
-                                        <Button color="red" onClick={this.close} appearance="primary">
+                                        <Button color="red" onClick={ ()=>{this.setState({showConfirmModal: true})} } appearance="primary">
                                             DELETE
                                         </Button>
                                     </Whisper>
@@ -165,8 +162,6 @@ class Home extends React.Component {
                                     </div>
                                 </ButtonContainer>
                             </Modal.Footer>
-
-
                         </Modal>
                     </div>
                 </div>

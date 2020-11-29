@@ -3,6 +3,7 @@ import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
     Content, Footer, Sidebar, Divider, List, Tooltip, Whisper, Alert, Progress, Form, FormGroup, FormControl,
     ControlLabel, HelpBlock, InputPicker, Input, InputGroup, DatePicker, SelectPicker, AutoComplete, Icon  } from 'rsuite';
 
+import speaker from '../images/speaker.svg';
 
 class Home extends React.Component {
     constructor(props) {
@@ -49,17 +50,7 @@ class Home extends React.Component {
                 "role": "Master"
             }];
         this.renderCharacter = (value, index) => {
-            // unselected character
-            if (value < index + 1) {
-                return <Icon icon="meh-o" />;
-            }
-            if (value < 3) {
-                return <Icon icon="frown-o" style={{ color: '#99A9BF' }} />;
-            }
-            if (value < 4) {
-                return <Icon icon="meh-o" style={{ color: '#F4CA1D' }} />;
-            }
-            return <Icon icon="smile-o" style={{ color: '#ff9800' }} />;
+            return <Icon icon={speaker} style={{ color: '#ff9800' }} />;
         };
        
     }
@@ -90,16 +81,9 @@ class Home extends React.Component {
                 <div className="centered">
                     <div className="modal-container">
                         <Modal show={this.open} onHide={this.close}>
-
                             <Modal.Header>
                                 <Modal.Title> <h2>Create a Study Request!</h2></Modal.Title>
                             </Modal.Header>
-                            {/* This doesn't have everything actually implemented, it's just for the style really.
-                            Pretty much everything here is just for style really. For the most part implementation
-                            would just require replacing the variables and connecting them to the database, as well
-                            as implementing the modal itself into the website, as opposed to just being a single
-                            button on a page.*/}
-
                             <Modal.Body>
                                 <Grid fluid>
                                     <Row>
@@ -119,7 +103,7 @@ class Home extends React.Component {
                                     <Row><Divider></Divider></Row>
                                     <Row className="show-grid">
                                         <h5>Rate Your Study Location's Noise Level:</h5>
-                                        <Rate defaultValue={3} size="sm" renderCharacter={this.renderCharacter} />
+                                        <Col xs={10}> <Rate defaultValue={1} max={5} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> </Col>
                                     </Row>
                                     <Row><Divider></Divider></Row>
                                     <Row className="show-grid">

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock, Alert } from 'rsuite';
 import { Col } from 'rsuite';
-import { Button } from 'rsuite';
+import { Button, IconButton, ButtonGroup, Icon} from 'rsuite';
+import { Tooltip, Whisper } from 'rsuite';
 import db from "../base"
 import logo from '../images/where2study.png';
 import EditRequestModal from './EditRequestModal'
@@ -60,6 +61,16 @@ class Login extends React.Component {
     }
 
     render() {
+          const createTip = (
+            <Tooltip>
+              Create a Study Request
+            </Tooltip>
+          );
+          const editTip = (
+            <Tooltip>
+              Edit Study Request
+            </Tooltip>
+          );
         return (
             <div className="show-login">
                 <FlexboxGrid colSpan={100} justify="center">
@@ -95,11 +106,13 @@ class Login extends React.Component {
                         </Col>
 
                         <Col>
-                             {/**
-                              * Respective buttons for each modal
-                              */}
-                            <Button onClick={ ()=>{this.setState({showEditModal: true})} } appearance="default" color="yellow"> SHOW EDIT MODAL </Button>
-                            <Button onClick={ ()=>{this.setState({showCreateModal: true})} } appearance="default" color="red"> SHOW CREATE MODAL </Button>
+                            <Whisper placement="top" trigger="hover" speaker={createTip}>
+                                <IconButton icon={<Icon icon="plus-circle" />} onClick={ ()=>{this.setState({showCreateModal: true})} } size="lg" color="yellow" circle />
+                            </Whisper>
+                            <Whisper placement="top" trigger="hover" speaker={editTip}>
+                                <IconButton icon={<Icon icon="edit" />} onClick={ ()=>{this.setState({showEditModal: true})} }  size="lg" color="yellow" circle />
+                            </Whisper>
+
                         </Col>
                         
                     </FlexboxGrid.Item>

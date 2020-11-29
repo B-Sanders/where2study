@@ -1,7 +1,9 @@
 import React from 'react'
 import { FlexboxGrid } from 'rsuite';
 import { Col } from 'rsuite'
-import { Button } from 'rsuite'
+import { Button, IconButton, ButtonGroup, ButtonToolbar, Icon} from 'rsuite';
+import { Tooltip, Whisper } from 'rsuite';
+
 import logo from '../images/where2study.png'
 
 /**
@@ -25,7 +27,16 @@ class RequestCreation extends React.Component{
     }
 
     render() {
-      
+      const createTip = (
+        <Tooltip>
+          Create a Study Request
+        </Tooltip>
+      );
+      const editTip = (
+        <Tooltip>
+          Edit Study Request
+        </Tooltip>
+      );
         return(
             <>
             <div className="show-requestCreation">
@@ -51,8 +62,13 @@ class RequestCreation extends React.Component{
 
                         </Col>
                         <Col>
-                            <Button onClick={ ()=>{this.setState({showEditModal: true})} } appearance="default" color="yellow"> SHOW EDIT MODAL </Button>
-                            <Button onClick={ ()=>{this.setState({showCreateModal: true})} } appearance="default" color="red"> SHOW CREATE MODAL </Button>
+                            <Whisper placement="top" trigger="hover" speaker={createTip}>
+                                <IconButton icon={<Icon icon="plus-circle" />} onClick={ ()=>{this.setState({showCreateModal: true})} } size="lg" color="yellow" circle />
+                            </Whisper>
+                            <Whisper placement="top" trigger="hover" speaker={editTip}>
+                                <IconButton icon={<Icon icon="edit" />} onClick={ ()=>{this.setState({showEditModal: true})} }  size="lg" color="yellow" circle />
+                            </Whisper>
+
                         </Col>
 
                     </FlexboxGrid.Item>
