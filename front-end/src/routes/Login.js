@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
+// import { Redirect } from 'react-router-dom';
 import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock, Alert } from 'rsuite';
 import { Col } from 'rsuite';
 import { Button } from 'rsuite';
@@ -18,12 +18,13 @@ class Login extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.redirectSignup = this.redirectSignup.bind(this);
     }
 
     handleLogin() {
         const { email, password } = this.state.formValue;
 
-        if(email.trim()=="" || password.trim()=="") {
+        if(email.trim()==="" || password.trim()==="") {
             Alert.warning("Email and password fields cannot be empty",4000);
         } else {
             try{
@@ -55,6 +56,10 @@ class Login extends React.Component {
         });
     }
 
+    redirectSignup() {
+        this.props.history.push('/signup');
+    }
+
     render() {
         return (
             <div className="show-login">
@@ -62,7 +67,7 @@ class Login extends React.Component {
                     <FlexboxGrid.Item>
                         <Col>
                             <h1 align="center">Login</h1>
-                            <img src={logo} height={300} width={300} />
+                            <img src={logo} alt="Logo" height={300} width={300} />
                             <Form onChange={this.handleChange} formValue={this.state.formValue}>
                                 <FormGroup>
                                     <ControlLabel>Email</ControlLabel>
@@ -77,7 +82,7 @@ class Login extends React.Component {
                                 <FormGroup>
                                     <ButtonToolbar>
                                         <Button onClick={this.handleLogin} appearance="primary">Sign In</Button>
-                                        <Button appearance="primary" color="green">Sign Up</Button>
+                                        <Button onClick={this.redirectSignup} appearance="primary" color="green">Sign Up</Button>
                                     </ButtonToolbar>
                                 </FormGroup>
                             </Form>
