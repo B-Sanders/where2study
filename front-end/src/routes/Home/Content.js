@@ -1,15 +1,47 @@
 import { Grid, Row, Col, FlexboxGrid } from 'rsuite';
 import React, { Component } from 'react';
 import {Container, Header, Content, InputGroup, Input, Icon} from 'rsuite';
-import { Form, FormGroup, FormControl, ControlLabel, Panel, ButtonToolbar, Button, Progress, Rate} from 'rsuite';
-
+import { Form, FormGroup, FormControl, ControlLabel, Panel, ButtonToolbar, Button, Progress, Rate,SelectPicker} from 'rsuite';
+import cseBuilding from "../../images/cse-building.jpeg"
 
 // Note will need to implement Unit 4 in order to adjust to changes in DB
 const styles = {
     width: 300,
     marginBottom: 10
 };
+const locationData = [
+   {
+    "label": "Geisel",
+    "value": "Geisel"
+  },
+  {
+    "label": "Price Center",
+    "value": "Price Center"
+  }
+]
 
+const classData = [
+  {
+    "label": "CSE 12",
+    "value": "CSE 12"
+  },
+  {
+    "label": "CSE 110",
+    "value": "CSE 110"
+  }
+]
+
+const ratingData = [
+  {
+    "label": "1 star",
+    "value": "1 star"
+  },
+  {
+    "label": "2 stars",
+    "value": "2 stars"
+
+  }
+]
 const { Line } = Progress;
 const { Circle } = Progress;
 const circleStyle = {
@@ -24,63 +56,67 @@ class Home extends Component {
     
     render() {
         return (
-            <Container>
+            <div className="show-grid">
+              <FlexboxGrid justify="center">
+                <FlexboxGrid.Item colspan="6">
+                  <SelectPicker
+                    data={locationData}
+                    appearance="default"
+                    placeholder="Filter by Location"
+                  />
+                </FlexboxGrid.Item>
+                <FlexboxGrid.Item colspan="6">
+                  <SelectPicker
+                    data={classData}
+                    appearance="default"
+                    placeholder="Filter by Class"
+                  />
+                </FlexboxGrid.Item>
+                <FlexboxGrid.Item colspan="6">
+                  <div>
+                    <h6>Filter by Rating</h6>
+                    <Rate defaultValue={0} size="xs" />
+                  </div>
+                </FlexboxGrid.Item>
+                <FlexboxGrid.Item colspan="6">
+                  <Input style={{ width: 300 }} placeholder="Search by Estimated End Time" />
+                </FlexboxGrid.Item>
+              <FlexboxGrid/>
+              <Content>
                 <FlexboxGrid justify="center">
-                    <Header>
-                        <InputGroup inside style={styles}>
-                            <Input placeholder="search by study location"/>
-                            <InputGroup.Button >
-                                <Icon icon="search"  />
-                            </InputGroup.Button>
-                        </InputGroup>
-                        <InputGroup inside style={styles}>
-                            <Input placeholder="search by class"/>
-                            <InputGroup.Button >
-                                <Icon icon="search"  />
-                            </InputGroup.Button>
-                        </InputGroup>
-                        <InputGroup inside style={styles}>
-                            <Input placeholder="search by noise level"/>
-                            <InputGroup.Button >
-                                <Icon icon="search"  />
-                            </InputGroup.Button>
-                        </InputGroup>
-                    </Header>
+                  <FlexboxGrid.Item colspan={6} justify="center">
+                    <Panel header="John Doe" shaded>
+                      <img src={cseBuilding} style={{height: '100px', width: '100px'}}/>
+                      <Row fluid>
+                        <Rate defaultValue={3} size="xs" 
+                          disabled
+                          character= {<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} 
+                        /> 
+                        <h5>Studying for final</h5>
+                        <h5>CSE 12</h5>
+                        <h5>CSE Building</h5>
+                      </Row>
+                    </Panel>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item colspan={6}>
+                    <Panel header="John Doe" shaded>
+                      <Row fluid>
+                        <Rate defaultValue={3} size="xs" 
+                          disabled
+                          character= {<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} 
+                        /> 
+                        <h5>Studying for final</h5>
+                        <h5>CSE 12</h5>
+                        <h5>CSE Building</h5>
+                      </Row>
+                    </Panel>
+                  </FlexboxGrid.Item>
                 </FlexboxGrid>
-                <FlexboxGrid justify="center">
-                <Content>
-        <FlexboxGrid justify="center">
-          <FlexboxGrid.Item colspan={12}>
-            <Panel header={<h3>Study Request</h3>} shaded>
-              <Form fluid>
-                <h3>Name</h3>
-                <h3>Class</h3>
-                <h3>Location</h3>
-                <h3>Noise level</h3>
-                <Rate defaultValue={3} color="red" allowHalf disabled />;
-                <h3>Duration</h3>
-                <div style={circleStyle}>
-                    <Circle percent="30" showInfo={false}/>
-                </div>
-                <h3># of partners</h3>
-                <h3>Collaboration level</h3>
-                <Rate defaultValue={4.5} color="red" allowHalf disabled />;
-                <h3>Description</h3>
-                <FormGroup>
-                  <ButtonToolbar>
-                    <Button appearance="primary">Join (Accept)</Button>
-                    <Button appearance="secondary">View more</Button>
-                  </ButtonToolbar>
-                </FormGroup>
-              </Form>
-            </Panel>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
-      </Content>
-                </FlexboxGrid>
-          </Container>
+              </Content>
+            </FlexboxGrid>
+            </div>
         )
-    }
+      }
 };
 
 export default Home;
