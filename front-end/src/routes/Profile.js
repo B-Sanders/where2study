@@ -1,46 +1,66 @@
 import React, {useContext} from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid } from 'rsuite';
+import {Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, Alert, HelpBlock, ButtonToolbar} from 'rsuite';
 import { Grid, Row, Col } from 'rsuite';
 import { Button } from 'rsuite';
 import { TagPicker } from 'rsuite';
 import db from '../base';
 
-
 const database = db.database();
 
+var uid;
+const user = db.auth().currentUser;
 
-const Profile = () => {
-    return (
-        <FlexboxGrid colspan={20} justify="center">
-            <FlexboxGrid.Item>
-                <Col>
-                    <h1 align="center">Profile</h1>
-                    <Form>
-                        <FormGroup>
-                            <ControlLabel>User ID</ControlLabel>
+if (user) {
+    // User is signed in.
+    uid = user.uid;
+} else {
+    // No user is signed in.
+    Alert.warning("No user is signed in.",4000);
+}
 
-                            <ControlLabel>Major</ControlLabel>
+class Profile extends React.Component {
+    constructor(props) {
+        super(props);
 
-                            <ControlLabel>Classes</ControlLabel>
+        this.handleEdit.bind(this);
+    }
+    handleEdit= () => {
+        this.props.history.push("/profileEdit");
+    }
 
-                            <ControlLabel>Pronouns</ControlLabel>
 
-                        </FormGroup>
-                    </Form>
+    render() {
+        return (
+            <FlexboxGrid colspan={20} justify="center">
+                <FlexboxGrid.Item>
+                    <Col>
+                        <h1 align="center">Profile</h1>
+                        <Form>
+                            <FormGroup>
+                                <ControlLabel>User ID</ControlLabel>
 
-                    <FlexboxGrid.Item>
-                        <Row>
-                            <div className="buttons"></div>
-                            <Button appearance="primary">Update</Button>
-                            {" "}
-                        </Row>
-                    </FlexboxGrid.Item>
-                </Col>
-            </FlexboxGrid.Item>
-        </FlexboxGrid>
-    )
-};
+                                <ControlLabel>Major</ControlLabel>
+
+                                <ControlLabel>Classes</ControlLabel>
+
+                                <ControlLabel>Pronouns</ControlLabel>
+
+                            </FormGroup>
+                        </Form>
+
+                        <FlexboxGrid.Item>
+                            <Row>
+                                <div className="buttons"></div>
+                                <Button onClick= {this.handleEdit} appearance="primary">Edit</Button>
+                            </Row>
+                        </FlexboxGrid.Item>
+                    </Col>
+                </FlexboxGrid.Item>
+            </FlexboxGrid>
+        )
+    }
+}
 
 
 export default Profile;
