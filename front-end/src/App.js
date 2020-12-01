@@ -5,10 +5,6 @@ import { AuthProvider } from "./auth/Auth";
 
 import Login from './routes/Login.js';
 import Home from './routes/Home.js';
-import RequestCreation from './routes/RequestCreation';
-
-import { Button } from 'rsuite';
-
 
 function App() {
   const [ count, setCount ] = useState(0);
@@ -18,7 +14,6 @@ function App() {
             <div>
                 <PrivateRoute exact path= "/" component={Home} />
                 <Route exact path= "/login" component={Login} />
-                <Route exact path= "/requestCreation" component={RequestCreation} /> 
             </div>
         </Router>
       </AuthProvider>

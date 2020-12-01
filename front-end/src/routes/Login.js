@@ -1,13 +1,9 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock, Alert } from 'rsuite';
 import { Col } from 'rsuite';
-import { Button, IconButton, ButtonGroup, Icon} from 'rsuite';
-import { Tooltip, Whisper } from 'rsuite';
+import { Button } from 'rsuite';
 import db from "../base"
 import logo from '../images/where2study.png';
-import EditRequestModal from './EditRequestModal'
-import CreateRequestModal from './CreateRequestModal'
-
 
 class Login extends React.Component {
     constructor(props) {
@@ -17,8 +13,6 @@ class Login extends React.Component {
                 email: '',
                 password: ''
             },
-            showEditModal: false,       // State Variable used to decide to conditionally render the edit modal 
-            showCreateModal: false      // State Variable used to decide to conditionally render the create modal
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
@@ -61,16 +55,6 @@ class Login extends React.Component {
     }
 
     render() {
-          const createTip = (
-            <Tooltip>
-              Create a Study Request
-            </Tooltip>
-          );
-          const editTip = (
-            <Tooltip>
-              Edit Study Request
-            </Tooltip>
-          );
         return (
             <div className="show-login">
                 <FlexboxGrid colSpan={100} justify="center">
@@ -78,13 +62,7 @@ class Login extends React.Component {
                         <Col>
                             <h1 align="center">Login</h1>
                             <img src={logo} height={300} width={300} />
-                            
-                            {/**
-                             * Conditionally renders the edit/create request modal component 
-                             */}
-                            { this.state.showEditModal && <EditRequestModal shouldShow={this.state.showEditModal} parentCallBack ={ ()=>{this.setState({ showEditModal: false})} } />  }
-                            { this.state.showCreateModal && <CreateRequestModal shouldShow={this.state.showCreateModal} parentCallBack ={ ()=>{this.setState({ showCreateModal: false})} } /> }
-
+                   
                             <Form onChange={this.handleChange} formValue={this.state.formValue}>
                                 <FormGroup>
                                     <ControlLabel>Email</ControlLabel>
@@ -103,16 +81,6 @@ class Login extends React.Component {
                                     </ButtonToolbar>
                                 </FormGroup>
                             </Form>
-                        </Col>
-
-                        <Col>
-                            <Whisper placement="top" trigger="hover" speaker={createTip}>
-                                <IconButton icon={<Icon icon="plus-circle" />} onClick={ ()=>{this.setState({showCreateModal: true})} } size="lg" color="yellow" circle />
-                            </Whisper>
-                            <Whisper placement="top" trigger="hover" speaker={editTip}>
-                                <IconButton icon={<Icon icon="edit" />} onClick={ ()=>{this.setState({showEditModal: true})} }  size="lg" color="yellow" circle />
-                            </Whisper>
-
                         </Col>
                         
                     </FlexboxGrid.Item>
