@@ -3,11 +3,8 @@ import {BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from "./auth/PrivateRoute";
 import { AuthProvider } from "./auth/Auth";
 
-import Login from './routes/Login.js';
+import Login from './routes/Login';
 import Home from './routes/Home/index.js';
-
-
-import { Button } from 'rsuite';
 
 
 function App() {

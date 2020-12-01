@@ -5,6 +5,7 @@ import { Form, FormGroup, FormControl, ControlLabel, Panel, ButtonToolbar, Butto
 import logo from "../../images/where2study.png"
 import SearchBar from "./SearchBar";
 import StudyRequests from "./StudyRequests";
+import RequestButton from "./RequestButton";
 
 // Note will need to implement Unit 4 in order to adjust to changes in DB
 const styles = {
@@ -63,6 +64,9 @@ class Home extends Component {
             <Content>
               <SearchBar />
               <StudyRequests />
+              {/* <CreateStudyRequest />*/}
+               {/* <EditStudyRequest />*/}
+               <RequestButton />
             </Content>
           </div>
         )

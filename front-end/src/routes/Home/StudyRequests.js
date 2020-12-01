@@ -70,7 +70,7 @@ class StudyRequests extends Component{
           </FlexboxGrid.Item>   
           <FlexboxGrid.Item colspan={6}>
             <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-                <img src={geiselLibrary} height="240" />
+                <img src={atkinsonHall} height="240" />
                 <Message
                     
                     style={{backgroundColor: 'white'}}
@@ -88,7 +88,6 @@ class StudyRequests extends Component{
                 </Col>
             </Panel>
           </FlexboxGrid.Item> 
-                      
         </FlexboxGrid>
         )
     }

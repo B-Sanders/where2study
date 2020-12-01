@@ -29,7 +29,7 @@ class Header2 extends React.Component {
       const { expanded } = this.state;
       return (
             <Sidebar
-              style={{ display: 'flex', flexDirection: 'column'}}
+              style={{ height: '100%', display: 'flex', flexDirection: 'column'}}
               collapsible
               style={{background: '#006A96'}}
             >

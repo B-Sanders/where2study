@@ -7,7 +7,7 @@ import Header from "../../Header2";
 class HomePage extends Component{
     render(){
         return(
-            <div className="show-fake-browser sidebar-page">
+            <div className="show-fake-browser sidebar-page" style={{height: '100%'}}>
                 <Container>
                     <Header />
                     <Container>

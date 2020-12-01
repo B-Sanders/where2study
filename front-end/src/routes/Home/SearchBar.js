@@ -1,5 +1,5 @@
 import React from "react";
-import {FlexboxGrid, SelectPicker, Rate, Input} from 'rsuite';
+import {FlexboxGrid, SelectPicker, Rate, Input, Button, Icon, InputPicker, DatePicker} from 'rsuite';
 
 const locationData = [
    {
@@ -26,6 +26,30 @@ const classData = [
   }
 ]
 
+const noiseData = [
+    {
+        "label": <Rate readOnly defaultValue={1} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} />,
+        "value": <Rate readOnly defaultValue={1} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
+    },
+    {
+        "label": <Rate readOnly defaultValue={2} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} />,
+        "value": <Rate readOnly defaultValue={2} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
+    },
+    {
+        "label": <Rate readOnly defaultValue={3} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} />,
+        "value": <Rate readOnly defaultValue={3} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
+    },
+    {
+        "label": <Rate readOnly defaultValue={4} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} />,
+        "value": <Rate readOnly defaultValue={4} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
+    },
+    {
+        "label": <Rate readOnly defaultValue={5} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} />,
+        "value": <Rate readOnly defaultValue={5} size="x-sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
+    }
+
+]
+
 class SearchBar extends React.Component{
     render(){
         return(
@@ -46,13 +70,18 @@ class SearchBar extends React.Component{
                   style={inputStyles}
                   />
                 </FlexboxGrid.Item>
-                <FlexboxGrid.Item>
-                  <Rate defaultValue={0} allowHalf />
+                 <FlexboxGrid.Item>
+                  <InputPicker
+                  size="lg"
+                  placeholder="Search by Noise Level"
+                  data={noiseData}
+                  style={inputStyles}
+                  />
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item>
-                  <Input style={{ width: 300 }} placeholder="Filter by end time" />;
+                   <DatePicker size="lg" placeholder="Search by Estimated End Time" format="HH:mm" ranges={[]} />
                 </FlexboxGrid.Item>
-              </FlexboxGrid>
+            </FlexboxGrid>
         )
     }
 }
