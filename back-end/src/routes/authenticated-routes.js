@@ -29,7 +29,7 @@ authenticatedRoute.get('/all-locations', (req, res) => {
 });
 
 // GET: obtain all Study Requests
-authenticatedRoute.get('/studyRequests', (req, res) => {
+authenticatedRoute.get('/study-requests', (req, res) => {
     try {
         const requests = db.database().ref('RequestsList');
 
