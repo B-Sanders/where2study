@@ -1,6 +1,7 @@
 import {
   UPDATE_LOCATIONS_COLLECTION,
   UPDATE_STUDY_REQUESTS_COLLECTION,
+  UPDATE_USER,
 } from './actions';
 
 export const dataReducer = (state, action) => {
@@ -14,6 +15,11 @@ export const dataReducer = (state, action) => {
             return {
                 ...state,
                 requests: action.payload.requests,
+            }
+        case UPDATE_USER:
+            return {
+                ...state,
+                user: action.payload.user,
             }
       default:
         return state;

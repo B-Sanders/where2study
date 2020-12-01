@@ -17,8 +17,8 @@ import { DataContext } from '../state/context';
 // };
 
 function Home() {
-    const data = useContext(DataContext);
-    console.log(data);
+    const { state, dispatch } = useContext(DataContext);
+    console.log(state);
     return (
         <h1>Home page</h1>
     );

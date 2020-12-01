@@ -1,5 +1,7 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
+import { DataContext } from '../state/context';
+import { UPDATE_LOCATIONS_COLLECTION, UPDATE_STUDY_REQUESTS_COLLECTION, UPDATE_USER } from '../state/actions'
 import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock, Alert } from 'rsuite';
 import { Col } from 'rsuite';
 import { Button } from 'rsuite';
@@ -30,8 +32,35 @@ class Login extends React.Component {
                 db.auth().signInWithEmailAndPassword(email, password)
                     .then((user) => {
                         if (user) {
+                            this.context.dispatch({
+                                type: UPDATE_USER,
+                                payload: {
+                                    user: {
+                                    displayName: user.user.displayName,
+                                    email: user.user.email,
+                                    uid: user.user.uid,
+                                }}
+                            });
+                            const locations = db.database().ref('Locations');
+                            locations.on('value', dataSnapshot => {
+                                    this.context.dispatch({
+                                        type: UPDATE_LOCATIONS_COLLECTION,
+                                        payload: {
+                                            locations: dataSnapshot.val()
+                                        }
+                                    })
+                                })
+                            };
+                            const requests = db.database().ref('RequestsList');
+                            requests.on('value', dataSnapshot => {
+                                this.context.dispatch({
+                                    type: UPDATE_STUDY_REQUESTS_COLLECTION,
+                                    payload: {
+                                        requests: dataSnapshot.val()
+                                    }
+                                })
+                            })
                             this.props.history.push("/");
-                        }
                     })
                     .catch(function(error) {
                         var errorCode = error.code;
@@ -39,7 +68,7 @@ class Login extends React.Component {
                         if (errorCode === 'auth/wrong-password') {
                             Alert.error("The username and password did not match",4000);
                           } else {
-                            alert(errorCode + errorMessage,4000);
+                                alert(errorCode + errorMessage,4000);
                         }
                     });
             } catch(error){
@@ -56,6 +85,8 @@ class Login extends React.Component {
     }
 
     render() {
+        const { state, dispatch } = this.context;
+        console.log(state);
         return (
             <div className="show-login">
                 <FlexboxGrid colSpan={20} justify="center">
@@ -89,4 +120,5 @@ class Login extends React.Component {
     }
 }
 
+Login.contextType = DataContext;
 export default Login;
