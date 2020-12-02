@@ -14,10 +14,6 @@ import { Col } from "rsuite";
 import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
-import PrivateRoute from "../auth/PrivateRoute";
-import { AuthProvider } from "../auth/Auth";
-import Home from './Home.js';
-import { Route, Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -45,7 +41,7 @@ class Login extends React.Component {
           .then((user) => {
             if (user) {
             // <PrivateRoute exact path= "/" component={Home} />
-            // this.props.history.push('/');
+            this.props.history.push('/');
             // <Route exact path="/">
             //   {loggedIn ? <Redirect to="/" /> : '/login'}
             // </Route>
