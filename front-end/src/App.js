@@ -8,30 +8,13 @@ import { DataContext } from './state/context'
 
 import Login from './routes/Login.js';
 import Home from './routes/Home.js';
-<<<<<<< HEAD
-import Signup from './routes/Signup.js';
-
-
-import { Button } from 'rsuite';
-
-=======
 import ProfileEdit from './routes/ProfileEdit.js';
 import Profile from './routes/Profile.js';
->>>>>>> 7fc92f7333d6701d8ff074387c60db62507afd8e
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
       <AuthProvider>
-<<<<<<< HEAD
-        <Router>
-            <div>
-                <PrivateRoute exact path= "/" component={Home} />
-                <Route exact path= "/login" component={Login} />
-                <Route exact path ="/signup" component={Signup}/>
-            </div>
-        </Router>
-=======
         <DataContext.Provider value={{ state, dispatch }}>
           <Router>
               <div>
@@ -42,7 +25,6 @@ function App() {
               </div>
           </Router>
         </ DataContext.Provider>
->>>>>>> 7fc92f7333d6701d8ff074387c60db62507afd8e
       </AuthProvider>
   );
 }
