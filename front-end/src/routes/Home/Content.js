@@ -6,6 +6,7 @@ import logo from "../../images/where2study.png"
 import SearchBar from "./SearchBar";
 import StudyRequests from "./StudyRequests";
 import RequestButton from "./RequestButton";
+import { DataContext } from '../../state/context';
 
 // Note will need to implement Unit 4 in order to adjust to changes in DB
 const styles = {
@@ -49,8 +50,9 @@ const circleStyle = {
 class Home extends Component {
     constructor(props) {
         super(props);
+
     }
-    
+
     render() {
         return (
           <div>
@@ -72,5 +74,5 @@ class Home extends Component {
         )
     }
 };
-
+Home.contextType = DataContext
 export default Home;

@@ -51,7 +51,7 @@ class Header2 extends React.Component {
                         <Nav.Item eventKey="2" icon={<Icon icon="book" />}>
                             Study Requests
                         </Nav.Item>
-                        <Nav.Item eventKey="3" icon={<Icon icon="gear-circle"/>}>
+                        <Nav.Item href="/profile" eventKey="3" icon={<Icon icon="gear-circle"/>}>
                             Account
                         </Nav.Item>
                       </Nav>

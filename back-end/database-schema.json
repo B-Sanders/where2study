@@ -1,0 +1,145 @@
+{
+    "Locations": {
+        "GeiselF1": {
+            "locationName": "Geisel First Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF2": {
+            "locationName": "Geisel Second Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF3": {
+            "locationName": "Geisel Third Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF4": {
+            "locationName": "Geisel Fourth Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF5": {
+            "locationName": "Geisel Fifth Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF6": {
+            "locationName": "Geisel Sixth Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF7": {
+            "locationName": "Geisel Seventh Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF8": {
+            "locationName": "Geisel Eighth Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GeiselF9": {
+            "locationName": "Geisel Ninth Floor",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "PriceCenterEast": {
+            "locationName": "Price Center East",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "PriceCenterWest": {
+            "locationName": "Price Center West",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "VillageEcoFlats": {
+            "locationName": "Village EcoFlats",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "Zoom": {
+            "locationName": "Zoom Call",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "GalbraithHall": {
+            "locationName": "Galbraith Hall",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "VillageNorthBreakStudyLounge": {
+            "locationName": "VillageNorthBreakStudyLounge",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "AtkinsonHall": {
+            "locationName": "Atkinson Hall",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "TheLoft": {
+            "locationName": "The Loft",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "CSEBuilding": {
+            "locationName": "CSE Building",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        },
+        "OtherLocation": {
+            "locationName": "Other Location",
+            "noiseLevel": 0,
+            "trafficLevel": 0,
+            "activeRequests": { "0" : "dummy request"}
+        }
+    },
+    "Requests" : {
+        "userId" : {
+          "class" : "CSE130",
+          "collab_level" : "Medium",
+          "description" : "We sitting by the tables @Audrey's.",
+          "location" : "Geiself 2E",
+          "noise_level" : 9,
+          "study_partners" : "4"
+        },
+        "userId2" : {
+          "class" : "CSE 110",
+          "collab_level" : "High",
+          "description" : "I'm by the water fountains !",
+          "location" : "CS Dungeon",
+          "noise_level" : 4,
+          "study_end" : "Fri, 20 Nov 2020 18:55:04 GMT",
+          "study_length" : 60,
+          "study_partners" : "1",
+          "study_start" : "Fri, 20 Nov 2020 17:55:04 GMT"
+        }
+      },
+      "RequestsList" : {
+        "Request1" : {
+          "USERID" : "userId1"
+        }
+      }
+}
+

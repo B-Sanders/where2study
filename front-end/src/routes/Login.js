@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, FlexboxGrid, ButtonToolbar, HelpBlock, Alert } from 'rsuite';
 import { Col } from 'rsuite';
+import { DataContext } from '../state/context';
 import { Button, IconButton, ButtonGroup, Icon} from 'rsuite';
 import { Tooltip, Whisper } from 'rsuite';
 import db from "../base"
@@ -21,7 +22,6 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
-
 
     handleLogin() {
         const { email, password } = this.state.formValue;
@@ -102,4 +102,5 @@ class Login extends React.Component {
     }
 }
 
+Login.contextType = DataContext;
 export default Login;
