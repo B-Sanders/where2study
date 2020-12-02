@@ -76,6 +76,7 @@ class Signup extends React.Component {
                   pronouns
                 }
                 db.database().ref('Users/' + uniqueId).set(userData);
+                
               }
             })
             .catch(function (error) {
