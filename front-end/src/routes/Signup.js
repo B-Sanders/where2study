@@ -1,15 +1,6 @@
 import React from "react";
 // import { Redirect } from 'react-router-dom';
-import {
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  FlexboxGrid,
-  ButtonToolbar,
-  HelpBlock,
-  Alert,
-} from "rsuite";
+import { Form,FormGroup,FormControl,ControlLabel,FlexboxGrid,ButtonToolbar,HelpBlock,Alert} from "rsuite";
 import { Radio, RadioGroup } from "rsuite";
 import { Col } from "rsuite";
 import { Button } from "rsuite";
@@ -19,6 +10,8 @@ import { TagPicker } from "rsuite";
 import { InputPicker } from "rsuite";
 import major from "./majors.json";
 import courses from "./courses.json";
+// const functions = require('firebase-functions');
+
 
 class Signup extends React.Component {
   constructor(props) {
@@ -29,8 +22,8 @@ class Signup extends React.Component {
         password: "",
         display_name: "",
         major: "",
-        courses: "",
-        gender: "",
+        classes: "",
+        pronouns: "",
       },
     };
 
@@ -40,9 +33,12 @@ class Signup extends React.Component {
   }
 
   handleSignUp() {
-    // const { email, password, display_name, major, gender} = this.state.formValue;
-    const { email, password } = this.state.formValue;
-
+    const { email, password , display_name, major, classes, pronouns} = this.state.formValue;
+    /**
+     * undefinedReference.child failed: First argument was an invalid path = 
+     * "Users/[object Object]". Paths must be non-empty strings and can't 
+     * contain ".", "#", "$", "[", or "]"
+     */
     if (email.trim() === "" || password.trim() === "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
     } else if (!email.includes("@")) {
@@ -60,17 +56,26 @@ class Signup extends React.Component {
             "You need a valid UCSD email to create an account.",
             4000
           );
-        } else if (password.value.length < 6) {
-          Alert.warning("Password needs to be at least 6 characters long");
+        } else if (password.length < 6) {
+          Alert.warning("Password needs to be at least 6 characters long.");
         } else {
           db.auth()
-            .createUserWithEmailAndPassword(email.value, password.value)
+            .createUserWithEmailAndPassword(email, password)
             .then((user) => {
               if (user) {
                 // TODO: Redirect user to the login page
                 // TODO: Figure out JSON / user id for profile creation
                 // TODO: Pass the user information to the database
-                this.props.history.push("/");
+                var uniqueId = email.substr(0, email.indexOf('@'));
+                const userData = {
+                  uniqueId,
+                  email, 
+                  display_name, 
+                  major, 
+                  classes, 
+                  pronouns
+                }
+                db.database().ref('Users/' + uniqueId).set(userData);
               }
             })
             .catch(function (error) {
@@ -84,7 +89,7 @@ class Signup extends React.Component {
             });
         }
       } catch (error) {
-        alert(error);
+        Alert.error(error);
       }
     }
   }
@@ -93,6 +98,7 @@ class Signup extends React.Component {
     this.setState({
       formValue: value,
     });
+    // console.log(value)
   }
 
   redirectLogin() {
@@ -150,7 +156,7 @@ class Signup extends React.Component {
                 <FormGroup>
                   <ControlLabel>Courses</ControlLabel>
                   <FormControl
-                    name="courses"
+                    name="classes"
                     accepter={TagPicker}
                     data={courses}
                     style={{ width: 300 }}
@@ -158,7 +164,7 @@ class Signup extends React.Component {
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>Pronouns</ControlLabel>
-                  <FormControl name="radio" accepter={RadioGroup}>
+                  <FormControl name="pronouns" accepter={RadioGroup}>
                     <Radio value="He">He/Him</Radio>
                     <Radio value="She">She/Her</Radio>
                     <Radio value="They">They/Them</Radio>

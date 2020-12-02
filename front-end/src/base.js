@@ -13,4 +13,5 @@ const db = firebase.initializeApp( {
 
 
 // Had trouble with initializing DB more than once... here was that fix
-export default !firebase.apps.length ? firebase.initializeApp(db) : firebase.app();
+// export default !firebase.apps.length ? firebase.initializeApp(db) : firebase.app();
+export default db;
