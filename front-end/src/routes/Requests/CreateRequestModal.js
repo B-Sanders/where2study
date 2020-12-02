@@ -68,8 +68,8 @@ class Home extends React.Component {
     }
 
     componentDidMount(){
-       this.getCurrentLocations();
-            /*.then( locationsSnapshot=>{ 
+       /*this.getCurrentLocations();
+            .then( locationsSnapshot=>{ 
                 locationsSnapshot.forEach(function(childSnapshot) {
                     // Push each location into an array which the SelectPicker will use
                     locations.push( 
