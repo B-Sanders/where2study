@@ -8,6 +8,8 @@ import { DataContext } from './state/context'
 
 import Login from './routes/Login.js';
 import Home from './routes/Home.js';
+import ProfileEdit from './routes/ProfileEdit.js';
+import Profile from './routes/Profile.js';
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
@@ -18,9 +20,11 @@ function App() {
               <div>
                   <PrivateRoute exact path= "/" component={Home} />
                   <Route exact path= "/login" component={Login} />
+                  <Route exact path= "/profileEdit" component={ProfileEdit} />
+                  <Route exact path= "/profile" component={Profile} />
               </div>
           </Router>
-        </DataContext.Provider>
+        </ DataContext.Provider>
       </AuthProvider>
   );
 }
