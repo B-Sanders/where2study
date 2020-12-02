@@ -67,16 +67,18 @@ class Signup extends React.Component {
                 // TODO: Figure out JSON / user id for profile creation
                 // TODO: Pass the user information to the database
                 var uniqueId = email.substr(0, email.indexOf('@'));
+                const activePost = false;
                 const userData = {
                   uniqueId,
                   email, 
                   display_name, 
                   major, 
                   classes, 
-                  pronouns
+                  pronouns,
+                  activePost
                 }
                 db.database().ref('Users/' + uniqueId).set(userData);
-                
+
               }
             })
             .catch(function (error) {
