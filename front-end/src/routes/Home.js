@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+/* import React, { useContext } from 'react';
 import { DataContext } from '../state/context';
 
 function Home() {
@@ -9,4 +9,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Home; */
