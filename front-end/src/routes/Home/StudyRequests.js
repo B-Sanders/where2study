@@ -1,117 +1,80 @@
 import React, { Component } from 'react';
-import {Col, Rate, Icon, FlexboxGrid, Panel, Message} from "rsuite";
+import {Col, Rate, Icon, FlexboxGrid, Panel, Message, Button} from "rsuite";
 import cseBuilding from "../../images/cse-building.jpeg"
 import priceCenter from "../../images/price-center.jpg"
 import geiselLibrary from "../../images/geisel-libary.jpg"
 import atkinsonHall from "../../images/atkinson-hall.jpg"
 import galbraithHall from "../../images/galbraith-hall.jpg"
 
+import StudyPanel from "./StudyPanel.js"
+import { DataContext } from "../../state/context.js"
+
+function renderPanel(sreq) {
+    var sreqTitle = sreq['reqTitle'];
+    var sreqClas = sreq['clas'];
+    var sreqLoc = sreq['loc'];
+    var sreqLocImage = sreq['locImage'];
+    var sreqNoiseRating = sreq['noiseRating']
+    React.createElement(
+        "StudyPanel", 
+        {reqTitle:{sreqTitle},clas:{sreqClas}, loc:{sreqLoc}, locImage:{sreqLocImage}, noiseRating:{sreqNoiseRating}},
+      );
+}
+
+function renderAllPanels(reqList) {
+    reqList.forEach(renderPanel);
+}
+
+var studyReq1= {
+    reqTitle: "Studying for CSE110 Midterm",
+    clas: "CSE110",
+    loc: "GalbraithHall",
+    locImage: galbraithHall,
+    noiseRating: 3      
+};
+
+var studyReq2= {
+        reqTitle: "Studying for CSE101 Exam 3",
+        clas: "CSE101",
+        loc: "Price Center",
+        locImage: priceCenter,
+        noiseRating: 5      
+};
+
+var studyReq3= {
+        reqTitle: "Studying for CSE15l Midterm",
+        clas: "CSE15l",
+        loc: "CSE Building",
+        locImage: cseBuilding,
+        noiseRating: 2       
+};
+
+var studyReqs= [studyReq1, studyReq2, studyReq3];
+
+
+
 class StudyRequests extends Component{
+    
     render(){
+        console.log(this.context.state);
+        var requestsList = [];
+        Object.keys(this.context.state.requests).forEach((key) => requestsList.push(this.context.state.requests[key]));
+        console.log(requestsList);
         return(
+        <div>
         <FlexboxGrid justify="center">
-          <FlexboxGrid.Item colspan={6}>
-            <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-                <img src={cseBuilding} height="240" />
-                <Message
-                    style={{backgroundColor:'white'}}
-                    title="Studying for Final"
-                    description={
-                        <p>
-                            CSE 12
-                            <br />
-                            CSE Building
-                        </p>
-                    }
-                />
-                <Col xs={24}> 
-                    <Rate readOnly defaultValue={3} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
-                </Col>
-            </Panel>
-          </FlexboxGrid.Item> 
-          <FlexboxGrid.Item colspan={6}>
-            <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-                <img src={priceCenter} height="240" />
-                <Message
-                    
-                    style={{backgroundColor: 'white'}}
-                    title="Studying for Midterm"
-                    description={
-                        <p>
-                            CSE 110
-                            <br />
-                            Price Center
-                        </p>
-                    }
-                />
-                <Col xs={24}> 
-                    <Rate readOnly defaultValue={4} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
-                </Col>
-            </Panel>
-          </FlexboxGrid.Item>     
-           <FlexboxGrid.Item colspan={6}>
-            <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-                <img src={geiselLibrary} height="240" />
-                <Message
-                    
-                    style={{backgroundColor: 'white'}}
-                    title="Reviewing Lecture"
-                    description={
-                        <p>
-                            CSE 12
-                            <br />
-                            Geisel Library
-                        </p>
-                    }
-                />
-                <Col xs={24}> 
-                    <Rate readOnly defaultValue={3} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
-                </Col>
-            </Panel>
-          </FlexboxGrid.Item>   
-          <FlexboxGrid.Item colspan={6}>
-            <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-                <img src={atkinsonHall} height="240" />
-                <Message
-                    
-                    style={{backgroundColor: 'white'}}
-                    title="Go over Review Quiz 2"
-                    description={
-                        <p>
-                            CSE 12
-                            <br />
-                            Atkinson Hall
-                        </p>
-                    }
-                />
-                <Col xs={24}> 
-                    <Rate readOnly defaultValue={2} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
-                </Col>
-            </Panel>
-          </FlexboxGrid.Item> 
-          <FlexboxGrid.Item colspan={6}>
-            <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-                <img src={galbraithHall} height="240" />
-                <Message
-                    
-                    style={{backgroundColor: 'white'}}
-                    title="Go over Project"
-                    description={
-                        <p>
-                            COGS 108
-                            <br />
-                            Galbraith Hall
-                        </p>
-                    }
-                />
-                <Col xs={24}> 
-                    <Rate readOnly defaultValue={2} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
-                </Col>
-            </Panel>
-          </FlexboxGrid.Item> 
+            <FlexboxGrid justify="space-around">
+                {requestsList.map((studyReq) => {
+                    console.log(studyReq)
+                    return <Button><StudyPanel reqTitle={studyReq.request_title} clas={studyReq.class} loc={studyReq.location} locImage={galbraithHall} noiseRating={studyReq.noise_rating}></StudyPanel></Button>
+                })}
+            </FlexboxGrid>
         </FlexboxGrid>
+        </div>
         )
     }
 }
+
+StudyRequests.contextType = DataContext;
 
 export default StudyRequests;

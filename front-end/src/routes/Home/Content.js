@@ -55,7 +55,7 @@ class Home extends Component {
 
     render() {
         return (
-          <div>
+          <div style={{width:'90%'}}>
             <Header>
               <FlexboxGrid justify="center">
                 <FlexboxGrid.Item>
