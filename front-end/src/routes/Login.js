@@ -50,16 +50,33 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
-              this.context.dispatch({
-                type: UPDATE_USER,
-                payload: {
-                  user: {
-                    displayName: user.user.displayName,
-                    email: user.user.email,
-                    uid: user.user.uid,
-                  },
-                },
+              const userData = db.database().ref('Users');
+              userData.orderByChild('uniqueId').equalTo(user.user.uid).on('value', (dataSnapshot) => {
+                const {
+                    activePost,
+                    classes,
+                    display_name,
+                    email,
+                    major,
+                    pronouns,
+                    uniqueId 
+                } = dataSnapshot.val()[user.user.uid];
+                this.context.dispatch({
+                    type: UPDATE_USER,
+                    payload: {
+                      user: {
+                        activePost,
+                        classes,
+                        display_name,
+                        email,
+                        major,
+                        pronouns,
+                        uniqueId,
+                      },
+                    },
+                  });
               });
+              
               const locations = db.database().ref("Locations");
               locations.on("value", (dataSnapshot) => {
                 this.context.dispatch({
