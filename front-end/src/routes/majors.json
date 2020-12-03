@@ -1,0 +1,247 @@
+[
+    {
+        "label": "Undeclared",
+        "value": "undeclared",
+        "role": "Master"
+    },
+    {
+        "label": "Anthropology",
+        "value": "anthropology",
+        "role": "Master"
+    },
+    {
+        "label": "Bioengineering (BE)",
+        "value": "bioengineering",
+        "role": "Master"
+    },
+    {
+        "label": "Biological Sciences",
+        "value": "biological_sciences",
+        "role": "Master"
+    },
+    {
+        "label": "Chemistry and Biochemistry",
+        "value": "chemistry_biochemistry",
+        "role": "Master"
+    },
+    {
+        "label": "Chinese Studies",
+        "value": "chinese_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Classical Studies",
+        "value": "classical_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Cognitive Science (B.A./B.S.)",
+        "value": "cognitive_science",
+        "role": "Master"
+    },
+    {
+        "label": "Communication",
+        "value": "communication",
+        "role": "Master"
+    },
+    {
+        "label": "Computer Science and Engineering (CSE)",
+        "value": "cse",
+        "role": "Master"
+    },
+    {
+        "label": "Critical Gender Studies",
+        "value": "critical_gender_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Dance",
+        "value": "dance",
+        "role": "Master"
+    },
+    {
+        "label": "Data Science",
+        "value": "data_science",
+        "role": "Master"
+    },
+    {
+        "label": "Earth Sciences",
+        "value": "earth_sciences",
+        "role": "Master"
+    },
+    {
+        "label": "Economics",
+        "value": "economics",
+        "role": "Master"
+    },
+    {
+        "label": "Education Studies",
+        "value": "education_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Electrical and Computer Engineering (ECE)",
+        "value": "ece",
+        "role": "Master"
+    },
+    {
+        "label": "Engineering",
+        "value": "engineering",
+        "role": "Master"
+    },
+    {
+        "label": "English",
+        "value": "english",
+        "role": "Master"
+    },
+    {
+        "label": "Environmental Systems Program",
+        "value": "environmental_systems_program",
+        "role": "Master"
+    },
+    {
+        "label": "Ethnic Studies",
+        "value": "ethnic_studies",
+        "role": "Master"
+    },
+    {
+        "label": "German Studies",
+        "value": "german_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Global Health",
+        "value": "global_health",
+        "role": "Master"
+    },
+    {
+        "label": "Global South Studies",
+        "value": "global_south_studies",
+        "role": "Master"
+    },
+    {
+        "label": "History",
+        "value": "history",
+        "role": "Master"
+    },
+    {
+        "label": "Human Developmental Sciences",
+        "value": "human_developmental_sciences",
+        "role": "Master"
+    },
+    {
+        "label": "International Studies (B.A.)",
+        "value": "international_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Italian Studies",
+        "value": "italian_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Japanese Studies",
+        "value": "japanese_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Jewish Studies",
+        "value": "jewish_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Latin American Studies",
+        "value": "latin_american_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Linguistics",
+        "value": "linguistics",
+        "role": "Master"
+    },
+    {
+        "label": "Literature",
+        "value": "literature",
+        "role": "Master"
+    },
+    {
+        "label": "Marine Biology",
+        "value": "marine_biology",
+        "role": "Master"
+    },
+    {
+        "label": "Mathematics",
+        "value": "mathematics",
+        "role": "Master"
+    },
+    {
+        "label": "Mechanical and Aerospace Engineering (MAE)",
+        "value": "mae",
+        "role": "Master"
+    },
+    {
+        "label": "Nano Engineering",
+        "value": "nano_engineering",
+        "role": "Master"
+    },
+    {
+        "label": "Oceanic and Atmospheric Sciences",
+        "value": "oas",
+        "role": "Master"
+    },
+    {
+        "label": "Philosophy",
+        "value": "philosophy",
+        "role": "Master"
+    },
+    {
+        "label": "Physics",
+        "value": "physics",
+        "role": "Master"
+    },
+    {
+        "label": "Political Science",
+        "value": "political_science",
+        "role": "Master"
+    },
+    {
+        "label": "Psychology",
+        "value": "psychology",
+        "role": "Master"
+    },
+    {
+        "label": "Public Health (B.S.)",
+        "value": "public_health",
+        "role": "Master"
+    },
+    {
+        "label": "Religion",
+        "value": "religion",
+        "role": "Master"
+    },
+    {
+        "label": "Russian Studies",
+        "value": "russian_studies",
+        "role": "Master"
+    },
+    {
+        "label": "Sociology",
+        "value": "sociology",
+        "role": "Master"
+    },
+    {
+        "label": "Theatre",
+        "value": "theatre",
+        "role": "Master"
+    },
+    {
+        "label": "Urban Studies and Planning",
+        "value": "usp",
+        "role": "Master"
+    },
+    {
+        "label": "Visual Arts",
+        "value": "visual_arts",
+        "role": "Master"
+    }
+]

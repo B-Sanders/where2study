@@ -2,8 +2,7 @@ import  React, { Component } from 'react';
 import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
     ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema } from 'rsuite';
 import db from '../../base';
-// import courses from "./courses.json";    // Replace with this eventually
-var courses = []
+import courses from "../courses.json";    // Replace with this eventually
 const max_chars = 100;
 const alert_time = 1250;
 var locations = [];
@@ -184,7 +183,7 @@ class Home extends React.Component {
                                                 accepter={SelectPicker}
                                                 name="class"
                                                 type="class"
-                                                data={this.classes}
+                                                data={courses}
                                                 style={{ width: 224 }}
                                                 preventOverflow
                                             />
