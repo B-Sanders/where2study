@@ -2,10 +2,11 @@ import  React, { Component } from 'react';
 import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
     ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema } from 'rsuite';
 import db from '../../base';
+// import courses from "./courses.json";    // Replace with this eventually
+var courses = []
 const max_chars = 100;
 const alert_time = 1250;
 var locations = [];
-var classes = [];
 
 
 /**
@@ -48,21 +49,13 @@ class Home extends React.Component {
         this.open = this.open.bind(this);
  
         this.user = db.auth().currentUser;             // Reference to Current User from Authentication Database
-        this.uid = this.user.uid;                     // Current User's Identifier
+        this.uid = this.user.uid;                      // Current User's Identifier
     }
 
     /**
      * READ     locations from Database
      */
     getCurrentLocations = () =>{
-        // TODO return a snapshot
-        return null;
-    }
-
-    /**
-     * READ     classes from Database
-     */
-    getCurrentClasses = () =>{
         // TODO return a snapshot
         return null;
     }
@@ -80,17 +73,6 @@ class Home extends React.Component {
             });
         });*/
 
-        /*this.getCurrentClasses()
-        .then( classesSnapshot=>{ 
-            classesSnapshot.forEach(function(childSnapshot) {
-                // Push each class into an array which the SelectPicker will use
-                classes.push( 
-                    { "label": childSnapshot.key.toString(), 
-                      "value": childSnapshot.key.toString(), 
-                      "role": "Master" 
-                }); 
-            });
-        }); */
     }
   
     /**
