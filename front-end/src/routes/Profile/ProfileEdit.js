@@ -11,7 +11,7 @@ import {
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
-import db from "../base";
+import db from "../../base";
 
 const options = [
   { value: "cse8a", department: "CSE", label: "CSE 8A" },
