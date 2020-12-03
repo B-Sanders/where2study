@@ -1,6 +1,15 @@
 import React from "react";
 // import { Redirect } from 'react-router-dom';
-import { Form,FormGroup,FormControl,ControlLabel,FlexboxGrid,ButtonToolbar,HelpBlock,Alert} from "rsuite";
+import {
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  FlexboxGrid,
+  ButtonToolbar,
+  HelpBlock,
+  Alert,
+} from "rsuite";
 import { Radio, RadioGroup } from "rsuite";
 import { Col } from "rsuite";
 import { Button } from "rsuite";
@@ -11,7 +20,6 @@ import { InputPicker } from "rsuite";
 import major from "./majors.json";
 import courses from "./courses.json";
 // const functions = require('firebase-functions');
-
 
 class Signup extends React.Component {
   constructor(props) {
@@ -33,10 +41,17 @@ class Signup extends React.Component {
   }
 
   handleSignUp() {
-    const { email, password , display_name, major, classes, pronouns} = this.state.formValue;
+    const {
+      email,
+      password,
+      display_name,
+      major,
+      classes,
+      pronouns,
+    } = this.state.formValue;
     /**
-     * undefinedReference.child failed: First argument was an invalid path = 
-     * "Users/[object Object]". Paths must be non-empty strings and can't 
+     * undefinedReference.child failed: First argument was an invalid path =
+     * "Users/[object Object]". Paths must be non-empty strings and can't
      * contain ".", "#", "$", "[", or "]"
      */
     if (email.trim() === "" || password.trim() === "") {
@@ -63,22 +78,21 @@ class Signup extends React.Component {
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
               if (user) {
-                // TODO: Redirect user to the login page
-                // TODO: Figure out JSON / user id for profile creation
-                // TODO: Pass the user information to the database
-                var uniqueId = email.substr(0, email.indexOf('@'));
+                var uniqueId = user.user.uid;
                 const activePost = false;
                 const userData = {
                   uniqueId,
-                  email, 
-                  display_name, 
-                  major, 
-                  classes, 
+                  email,
+                  display_name,
+                  major,
+                  classes,
                   pronouns,
-                  activePost
-                }
-                db.database().ref('Users/' + uniqueId).set(userData);
-
+                  activePost,
+                };
+                db.database()
+                  .ref("Users/" + uniqueId)
+                  .set(userData);
+                this.props.history.push("/login");
               }
             })
             .catch(function (error) {
@@ -101,7 +115,6 @@ class Signup extends React.Component {
     this.setState({
       formValue: value,
     });
-    // console.log(value)
   }
 
   redirectLogin() {
