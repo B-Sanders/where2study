@@ -2,11 +2,10 @@ import  React, { Component } from 'react';
 import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
     ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema } from 'rsuite';
 import db from '../../base';
-import courses from "../courses.json";    // Replace with this eventually
+import courses from "../courses.json";   
 const max_chars = 100;
 const alert_time = 1250;
 var locations = [];
-
 
 /**
  * Define Request Schema for use in validating a Users request 

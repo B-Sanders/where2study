@@ -3,6 +3,7 @@ import { DataContext } from '../state/context';
 import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
 import { Col, FlexboxGrid} from 'rsuite';
 import RequestButton from './Home/RequestButton';
+
 //import Col from 'rsuite/lib/Carousel';
 function Home() {
     const { state, dispatch } = useContext(DataContext);
@@ -29,4 +30,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Home; 
