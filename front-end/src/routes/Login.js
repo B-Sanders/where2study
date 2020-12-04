@@ -56,6 +56,7 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
+              window.localStorage.setItem('loginToken', user.user.uid);
               this.context.dispatch({
                 type: UPDATE_USER,
                 payload: {
@@ -75,7 +76,6 @@ class Login extends React.Component {
                   },
                 });
               });
-            }
             const requests = db.database().ref("RequestsList");
             requests.on("value", (dataSnapshot) => {
               this.context.dispatch({
@@ -86,6 +86,7 @@ class Login extends React.Component {
               });
             });
             this.props.history.push("/");
+          }
           })
           .catch(function (error) {
             var errorCode = error.code;
