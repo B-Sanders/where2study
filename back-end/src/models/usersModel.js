@@ -4,7 +4,7 @@ import db from '../database/base';
 export function createUser({activePost, userClasses, displayName, userEmail, userMajor, userPronouns, userID}) {
 
     // Create a new user with index of userId
-    return db.database().database().ref('Users' + userId).set({
+    return db.database().ref('Users/' + userID).set({
         active_post: activePost,
         classes: userClasses,
         display_name: displayName,
@@ -15,6 +15,15 @@ export function createUser({activePost, userClasses, displayName, userEmail, use
     }).then (() => (
         "Successful creation"
     ));
+}
+
+
+export function obtainUser(userID) {
+
+    // Send snapshot of the specific user
+    return db.database().ref('Users/' + userID).once('value')
+    .then(snapshot => snapshot.val())
+    .catch(error => console.log(error));
 }
 
 

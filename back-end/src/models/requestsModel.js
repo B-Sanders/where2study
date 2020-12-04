@@ -80,7 +80,7 @@ export function editRequest({
 export function deleteRequest(userId) {
 
     // Remove child via userID
-    return db.database().ref('Users').child(userId).remove().then(() => {
+    return db.database().ref('RequestsList').child(userId).remove().then(() => {
         "Successful deletion"
     });
 }
