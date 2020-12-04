@@ -9,25 +9,27 @@ import { DataContext } from "./state/context";
 import Login from "./routes/Login.js";
 import Home from "./routes/Home.js";
 import Signup from "./routes/Signup";
-import ProfileEdit from "./routes/ProfileEdit.js";
-import Profile from "./routes/Profile.js";
+import ProfileEdit from "./routes/Profile/ProfileEdit.js";
+import Profile from "./routes/Profile/Profile.js";
+import HomePage from "./routes/Home/index.js";
+
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
+   <>
     <AuthProvider>
       <DataContext.Provider value={{ state, dispatch }}>
         <Router>
-          <div>
-            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/" component={HomePage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/profileEdit" component={ProfileEdit} />
-            <Route exact path="/profile" component={Profile} />
-          </div>
+            <PrivateRoute exact path="/profileEdit" component={ProfileEdit} />
+            <PrivateRoute exact path="/profile" component={Profile} />
         </Router>
       </DataContext.Provider>
     </AuthProvider>
+  </>
   );
 }
 

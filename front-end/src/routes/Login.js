@@ -20,6 +20,12 @@ import { Col } from "rsuite";
 import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
+import styled from 'styled-components';
+
+const LoginContainer = styled.div`
+    height: 100%;
+    width: 100%;
+`;
 
 class Login extends React.Component {
   constructor(props) {
@@ -50,6 +56,7 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
+              window.localStorage.setItem('loginToken', user.user.uid);
               const userData = db.database().ref('Users');
               userData.orderByChild('uniqueId').equalTo(user.user.uid).on('value', (dataSnapshot) => {
                 const {
@@ -76,7 +83,6 @@ class Login extends React.Component {
                     },
                   });
               });
-              
               const locations = db.database().ref("Locations");
               locations.on("value", (dataSnapshot) => {
                 this.context.dispatch({
@@ -86,7 +92,6 @@ class Login extends React.Component {
                   },
                 });
               });
-            }
             const requests = db.database().ref("RequestsList");
             requests.on("value", (dataSnapshot) => {
               this.context.dispatch({
@@ -97,6 +102,7 @@ class Login extends React.Component {
               });
             });
             this.props.history.push("/");
+          }
           })
           .catch(function (error) {
             var errorCode = error.code;
@@ -125,7 +131,7 @@ class Login extends React.Component {
     const { state, dispatch } = this.context;
     console.log(state);
     return (
-      <div className="show-login">
+    <LoginContainer>
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
@@ -167,7 +173,7 @@ class Login extends React.Component {
             </Col>
           </FlexboxGrid.Item>
         </FlexboxGrid>
-      </div>
+      </LoginContainer>
     );
   }
 }
