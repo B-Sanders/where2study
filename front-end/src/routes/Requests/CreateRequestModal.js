@@ -55,13 +55,19 @@ class Home extends React.Component {
      * READ     locations from Database
      */
     getCurrentLocations = () =>{
-        // TODO return a snapshot
-        return null;
+        let config = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          };
+
+          return fetch('http://localhost:3000/all-locations', config)
+          .then(response => { response.json().then( (data)=>{ console.log(data) } ) })
+          .catch(error => console.log(error))
     }
 
     componentDidMount(){
-       /*this.getCurrentLocations();
-            .then( locationsSnapshot=>{ 
+       this.getCurrentLocations();
+            /*.then( locationsSnapshot=>{ 
                 locationsSnapshot.forEach(function(childSnapshot) {
                     // Push each location into an array which the SelectPicker will use
                     locations.push( 
