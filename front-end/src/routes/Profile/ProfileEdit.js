@@ -6,12 +6,14 @@ import {
   FormControl,
   ControlLabel,
   FlexboxGrid,
-  Alert,
+  Alert, RadioGroup, Radio,
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
 import db from "../../base";
+//import major from "./majors.json";
+//import courses from "./courses.json";
 
 const options = [
   { value: "cse8a", department: "CSE", label: "CSE 8A" },
@@ -61,13 +63,12 @@ const options = [
 ];
 
 const database = db.database();
-
-var uid;
-var user = db.auth().currentUser;
+var uniqueId;
+const user = db.auth().currentUser;
 
 if (user) {
   // User is signed in.
-  uid = user.uid;
+  uniqueId = user.uid;
 } else {
   // No user is signed in.
   // Alert.warning("No user is signed in.",4000);
@@ -108,7 +109,7 @@ class ProfileEdit extends React.Component {
             <Form>
               <FormGroup>
                 <ControlLabel>User ID</ControlLabel>
-                <FormControl name="user_id" type="text" maxlength="15" />
+                <FormControl name="display_name" type="text" maxlength="15" />
 
                 <ControlLabel>Major</ControlLabel>
                 <div onChange={this.onChangeMajor}>
@@ -203,16 +204,12 @@ class ProfileEdit extends React.Component {
 
                 <ControlLabel>Pronouns</ControlLabel>
                 <div>
-                  <input type="radio" value="He" name="gender" /> He/Him <br />
-                  <input type="radio" value="She" name="gender" /> She/Her{" "}
-                  <br />
-                  <input
-                    type="radio"
-                    value="They"
-                    name="gender"
-                  /> They/Them <br />
-                  <input type="radio" value="Other" name="gender" /> Other{" "}
-                  <br />
+                  <FormControl name="pronouns" accepter={RadioGroup}>
+                    <Radio value="He/Him">He/Him</Radio>
+                    <Radio value="She/Her">She/Her</Radio>
+                    <Radio value="They/Them">They/Them</Radio>
+                    <Radio value="Other">Other</Radio>
+                  </FormControl>
                 </div>
 
                 <ControlLabel>Requests</ControlLabel>
