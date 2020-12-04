@@ -2,6 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import unauthenticatedRoutes from '../routes/unauthenticated-routes';
 import authenticatedRoutes from '../routes/authenticated-routes';
+import locationRouter from '../routes/locationsController';
+import requestRouter from '../routes/requestsController';
+import userRouter from '../routes/usersController';
 
 const server = express();
 
@@ -12,5 +15,14 @@ server.use('/authenticated', authenticatedRoutes);
 
 // Register unauthenticated routes
 server.use('/', unauthenticatedRoutes);
+
+// Register locations controller
+server.use('/locations', locationRouter);
+
+// Register study requests controller
+server.use('/requests', requestRouter);
+
+// Register users controller
+server.use('/user', userRouter);
 
 export default server;
