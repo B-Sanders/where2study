@@ -57,15 +57,31 @@ class Login extends React.Component {
           .then((user) => {
             if (user) {
               window.localStorage.setItem('loginToken', user.user.uid);
-              this.context.dispatch({
-                type: UPDATE_USER,
-                payload: {
-                  user: {
-                    displayName: user.user.display_name,
-                    email: user.user.email,
-                    uid: user.user.uid,
-                  },
-                },
+              const userData = db.database().ref('Users');
+              userData.orderByChild('uniqueId').equalTo(user.user.uid).on('value', (dataSnapshot) => {
+                const {
+                    activePost,
+                    classes,
+                    display_name,
+                    email,
+                    major,
+                    pronouns,
+                    uniqueId,
+                } = dataSnapshot.val()[user.user.uid];
+                this.context.dispatch({
+                    type: UPDATE_USER,
+                    payload: {
+                      user: {
+                        activePost,
+                        classes,
+                        display_name,
+                        email,
+                        major,
+                        pronouns,
+                        uniqueId,
+                      },
+                    },
+                  });
               });
               const locations = db.database().ref("Locations");
               locations.on("value", (dataSnapshot) => {
@@ -115,7 +131,6 @@ class Login extends React.Component {
     const { state, dispatch } = this.context;
     console.log(state);
     return (
-    //   <div className="show-login">
     <LoginContainer>
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
@@ -158,7 +173,6 @@ class Login extends React.Component {
             </Col>
           </FlexboxGrid.Item>
         </FlexboxGrid>
-      {/* </div> */}
       </LoginContainer>
     );
   }
