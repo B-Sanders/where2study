@@ -78,6 +78,7 @@ class Signup extends React.Component {
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
               if (user) {
+                /** TODO: MVC this */
                 var uniqueId = user.user.uid;
                 const activePost = false;
                 const userData = {
