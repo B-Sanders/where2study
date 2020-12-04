@@ -10,27 +10,49 @@ export function getAllRequests() {
 }
 
 
-export function createRequest({userId, reqClass, desc, location, maxPartners, noiseRating, studyEnd}) {
-
+export function createRequest({ 
+    userId,
+    displayName,
+    reqClass,
+    desc,
+    location,
+    maxPartners,
+    noiseRating,
+    title,
+    studyStart,
+    studyEnd 
+}) {
     // Create new request with index of userId
-    return db.database().ref('RequestsList' + userId).set({
+    return db.database().ref('RequestsList/' + userId).set({
         user_id: userId,
         class: reqClass,
         description: desc,
         location: location,
         max_partners: maxPartners,
         noise_rating: noiseRating,
+        request_title: title,
+        study_partners: {
+            1: displayName,
+        },
+        study_start: studyStart,
         study_end: studyEnd
-    }.then(() => (
-        "Successful creation"
-    ))
-    );
+    }).then(() => (
+        console.log('success')
+    ));
 }
 
 
-export function editRequest({userId, reqClass, desc, location, maxPartners, noiseRating, studyEnd}) {
+export function editRequest({
+    userId,
+    title,
+    reqClass,
+    desc,
+    location,
+    maxPartners,
+    noiseRating,
+    studyEnd
+}) {
     var updates = {};
-
     // Create new object for overwrite
     var edit = {
         user_id: userId,
@@ -39,12 +61,17 @@ export function editRequest({userId, reqClass, desc, location, maxPartners, nois
         location: location,
         max_partners: maxPartners,
         noise_rating: noiseRating,
-        study_end: studyEnd
+        study_end: studyEnd,
+        request_title: title,
     }
 
     // Overwrite request, identified by userID
-    updates['/RequestsList/' + userID] = edit;
-
+    Object.keys(edit).forEach((key) => {
+        if (edit[key] !== null && edit[key] !== '')
+            { 
+                updates[`RequestsList/${userId}/${key}`] = edit[key]
+            }
+    })
     // Return updated request
     return db.database().ref().update(updates);
 }
