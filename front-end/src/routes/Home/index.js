@@ -3,6 +3,8 @@ import Content from "./Content";
 //import Header from "../../Header";
 import Header from "../../Header2";
 import styled from 'styled-components';
+import db from "../../base";
+
 
 const HomeContainer = styled.div`
     height: 100%;

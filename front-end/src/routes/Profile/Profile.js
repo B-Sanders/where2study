@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import {
+
   Form,
   FormGroup,
   FormControl,
@@ -9,14 +10,24 @@ import {
   Alert,
   HelpBlock,
   ButtonToolbar,
+  Sidebar,
+  Content,
+  Header
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
 import db from "../../base";
+import SideBar from "../../Header2";
+import styled from 'styled-components';
 
 const database = db.database();
-
+const HomeContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+`;
 var uid;
 const user = db.auth().currentUser;
 
@@ -40,6 +51,8 @@ class Profile extends React.Component {
 
   render() {
     return (
+      <HomeContainer>
+      <SideBar />
       <FlexboxGrid colspan={20} justify="center">
         <FlexboxGrid.Item>
           <Col>
@@ -67,6 +80,7 @@ class Profile extends React.Component {
           </Col>
         </FlexboxGrid.Item>
       </FlexboxGrid>
+      </HomeContainer>
     );
   }
 }

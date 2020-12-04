@@ -1,30 +1,11 @@
 import React from "react";
 import {FlexboxGrid, SelectPicker, Rate, Input, Button, Icon, InputPicker, DatePicker, Divider} from 'rsuite';
-
-const locationData = [
-   {
-    "label": "Geisel",
-    "value": "Geisel"
-  },
-  {
-    "label": "Price Center",
-    "value": "Price Center"
-  }
-]
+import locationData from "../locations.json";
+import classData from "../courses.json";
 const inputStyles = { 
   width: 224, display: 'block', marginBottom: 10 
 };
 
-const classData = [
-  {
-    "label": "CSE 12",
-    "value": "CSE 12"
-  },
-  {
-    "label": "CSE 110",
-    "value": "CSE 110"
-  }
-]
 
 const noiseData = [
     {
@@ -54,7 +35,7 @@ class SearchBar extends React.Component{
     render(){
         return(
           <Divider>
-            <FlexboxGrid justify="center">
+            <FlexboxGrid justify="center" >
                 <FlexboxGrid.Item>
                   <SelectPicker
                   size="lg"
