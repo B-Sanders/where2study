@@ -20,6 +20,12 @@ import { Col } from "rsuite";
 import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
+import styled from 'styled-components';
+
+const LoginContainer = styled.div`
+    height: 100%;
+    width: 100%;
+`;
 
 class Login extends React.Component {
   constructor(props) {
@@ -108,7 +114,8 @@ class Login extends React.Component {
     const { state, dispatch } = this.context;
     console.log(state);
     return (
-      <div className="show-login">
+    //   <div className="show-login">
+    <LoginContainer>
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
@@ -150,7 +157,8 @@ class Login extends React.Component {
             </Col>
           </FlexboxGrid.Item>
         </FlexboxGrid>
-      </div>
+      {/* </div> */}
+      </LoginContainer>
     );
   }
 }

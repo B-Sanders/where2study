@@ -13,6 +13,7 @@ import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
 import HomePage from "./routes/Home/index.js";
 
+<<<<<<< HEAD
 import { createGlobalStyle } from "styled-components"
 import { isStyledComponent } from "styled-components";
 
@@ -25,10 +26,13 @@ const GlobalStyles = createGlobalStyle`
     height:100%
   }
 `;
+=======
+>>>>>>> 131cd21abe7cfa1e33c4eef4fa7b2983df2bd674
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
+<<<<<<< HEAD
     <div>
       <GlobalStyles />
         <AuthProvider>
@@ -45,6 +49,21 @@ function App() {
           </DataContext.Provider>
         </AuthProvider>
     </div>
+=======
+   <>
+    <AuthProvider>
+      <DataContext.Provider value={{ state, dispatch }}>
+        <Router>
+            <PrivateRoute exact path="/" component={HomePage} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/profileEdit" component={ProfileEdit} />
+            <Route exact path="/profile" component={Profile} />
+        </Router>
+      </DataContext.Provider>
+    </AuthProvider>
+  </>
+>>>>>>> 131cd21abe7cfa1e33c4eef4fa7b2983df2bd674
   );
 }
 
