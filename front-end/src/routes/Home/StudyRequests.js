@@ -9,6 +9,8 @@ import galbraithHall from "../../images/galbraith-hall.jpg"
 import StudyPanel from "./StudyPanel.js"
 import { DataContext } from "../../state/context.js"
 
+import ViewRequestModal from "../Requests/ViewRequestModal.js"
+
 function renderPanel(sreq) {
     var sreqTitle = sreq['reqTitle'];
     var sreqClas = sreq['clas'];
@@ -25,51 +27,43 @@ function renderAllPanels(reqList) {
     reqList.forEach(renderPanel);
 }
 
-var studyReq1= {
-    reqTitle: "Studying for CSE110 Midterm",
-    clas: "CSE110",
-    loc: "GalbraithHall",
-    locImage: galbraithHall,
-    noiseRating: 3      
-};
-
-var studyReq2= {
-        reqTitle: "Studying for CSE101 Exam 3",
-        clas: "CSE101",
-        loc: "Price Center",
-        locImage: priceCenter,
-        noiseRating: 5      
-};
-
-var studyReq3= {
-        reqTitle: "Studying for CSE15l Midterm",
-        clas: "CSE15l",
-        loc: "CSE Building",
-        locImage: cseBuilding,
-        noiseRating: 2       
-};
-
-var studyReqs= [studyReq1, studyReq2, studyReq3];
-
+let images = new Map();
+images.set("Atkinson_Hall", atkinsonHall);
+images.set("CSE_Building", cseBuilding);
+images.set("Galbraith_Hall", galbraithHall);
+images.set("GeiselF2", geiselLibrary);
+images.set("Price_Center", priceCenter);
 
 
 class StudyRequests extends Component{
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            showViewModal: false,       // State Variable used to decide to conditionally render the view modal.
+            viewedRequest: 0
+        };
+
+    }
+
     render(){
-        console.log(this.context.state);
         var requestsList = [];
         Object.keys(this.context.state.requests).forEach((key) => requestsList.push(this.context.state.requests[key]));
-        console.log(requestsList);
         return(
         <div>
-        <FlexboxGrid justify="center">
-            <FlexboxGrid justify="space-around">
-                {requestsList.map((studyReq) => {
-                    console.log(studyReq)
-                    return <Button><StudyPanel reqTitle={studyReq.request_title} clas={studyReq.class} loc={studyReq.location} locImage={galbraithHall} noiseRating={studyReq.noise_rating}></StudyPanel></Button>
-                })}
+            { this.state.showViewModal && <ViewRequestModal shouldShow={this.state.showViewModal} studyRequest={this.state.viewedRequest} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }
+            <FlexboxGrid justify="center">
+                <FlexboxGrid justify="space-around">
+                    {requestsList.map((studyReq) => {
+                        return ( 
+                            <Button onClick={ ()=>{this.setState({showViewModal: true, viewedRequest: studyReq})}}>
+                                <StudyPanel reqTitle={studyReq.request_title} clas={studyReq.class} 
+                                loc={studyReq.location} locImage={images.get(studyReq.location)} noiseRating={studyReq.noise_rating}>
+                                </StudyPanel>
+                            </Button>
+                        )
+                    })}
+                </FlexboxGrid>
             </FlexboxGrid>
-        </FlexboxGrid>
         </div>
         )
     }

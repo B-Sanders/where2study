@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Col, Rate, Icon, FlexboxGrid, Panel, Message} from "rsuite";
 
 function StudyPanel ({ reqTitle, clas, loc, locImage, noiseRating}) {
-    console.log(reqTitle, clas, loc, locImage, noiseRating);
     return(
         <FlexboxGrid.Item xs={24} sm={12} md={6} lg={3}>
             <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>

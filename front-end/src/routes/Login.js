@@ -60,7 +60,7 @@ class Login extends React.Component {
                 type: UPDATE_USER,
                 payload: {
                   user: {
-                    displayName: user.user.displayName,
+                    displayName: user.user.display_name,
                     email: user.user.email,
                     uid: user.user.uid,
                   },
