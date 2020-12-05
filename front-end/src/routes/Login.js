@@ -20,6 +20,12 @@ import { Col } from "rsuite";
 import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
+import styled from 'styled-components';
+
+const LoginContainer = styled.div`
+    height: 100%;
+    width: 100%;
+`;
 
 class Login extends React.Component {
   constructor(props) {
@@ -50,15 +56,32 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
-              this.context.dispatch({
-                type: UPDATE_USER,
-                payload: {
-                  user: {
-                    displayName: user.user.displayName,
-                    email: user.user.email,
-                    uid: user.user.uid,
-                  },
-                },
+              window.localStorage.setItem('loginToken', user.user.uid);
+              const userData = db.database().ref('Users');
+              userData.orderByChild('uuid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
+                const {
+                    active_post,
+                    classes,
+                    display_name,
+                    email,
+                    major,
+                    pronouns,
+                    uuid,
+                } = dataSnapshot.val()[user.user.uid];
+                this.context.dispatch({
+                    type: UPDATE_USER,
+                    payload: {
+                      user: {
+                        active_post,
+                        classes,
+                        display_name,
+                        email,
+                        major,
+                        pronouns,
+                        uuid,
+                      },
+                    },
+                  });
               });
               const locations = db.database().ref("Locations");
               locations.on("value", (dataSnapshot) => {
@@ -69,17 +92,9 @@ class Login extends React.Component {
                   },
                 });
               });
-            }
-            const requests = db.database().ref("RequestsList");
-            requests.on("value", (dataSnapshot) => {
-              this.context.dispatch({
-                type: UPDATE_STUDY_REQUESTS_COLLECTION,
-                payload: {
-                  requests: dataSnapshot.val(),
-                },
-              });
-            });
+            
             this.props.history.push("/");
+          }
           })
           .catch(function (error) {
             var errorCode = error.code;
@@ -108,7 +123,7 @@ class Login extends React.Component {
     const { state, dispatch } = this.context;
     console.log(state);
     return (
-      <div className="show-login">
+    <LoginContainer>
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
@@ -129,6 +144,11 @@ class Login extends React.Component {
                     name="password"
                     type="password"
                     placeholder="Password"
+                    onKeyDown={(key) => {
+                      if (key.code === 'Enter') {
+                        this.handleLogin();
+                      }
+                    }}
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
                 </FormGroup>
@@ -150,7 +170,7 @@ class Login extends React.Component {
             </Col>
           </FlexboxGrid.Item>
         </FlexboxGrid>
-      </div>
+      </LoginContainer>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {FlexboxGrid, SelectPicker, Rate, Input, Button, Icon, InputPicker, DatePicker} from 'rsuite';
+import {FlexboxGrid, SelectPicker, Rate, Input, Button, Icon, InputPicker, DatePicker, Divider} from 'rsuite';
 
 const locationData = [
    {
@@ -53,6 +53,7 @@ const noiseData = [
 class SearchBar extends React.Component{
     render(){
         return(
+          <Divider>
             <FlexboxGrid justify="center">
                 <FlexboxGrid.Item>
                   <SelectPicker
@@ -82,6 +83,7 @@ class SearchBar extends React.Component{
                    <DatePicker size="lg" placeholder="Search by Estimated End Time" format="HH:mm" ranges={[]} />
                 </FlexboxGrid.Item>
             </FlexboxGrid>
+          </Divider>
         )
     }
 }

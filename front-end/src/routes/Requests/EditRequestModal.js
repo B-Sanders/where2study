@@ -5,10 +5,10 @@ import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
 import FlexboxGrid from "rsuite";
 import styled from 'styled-components'
 
+
 import ConfirmDeleteModal from './ConfirmDeleteModal'
 
 const ButtonContainer = styled.div`display: flex; justify-content: space-between;`;
-
 
 class Home extends React.Component {
     constructor(props) {
