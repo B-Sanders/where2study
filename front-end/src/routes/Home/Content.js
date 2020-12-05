@@ -50,12 +50,22 @@ const circleStyle = {
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.handleFilterChange = this.handleFilterChange.bind(this);
+        this.state = {
+            filters: [null, null, null, null]
+        };
+    }
 
+    handleFilterChange(value){
+        console.log("Filter changed " + value[3]);
+        this.setState({
+            filters: value
+        });
     }
 
     render() {
         return (
-          <div>
+          <div style={{width:'90%'}}>
             <Header>
               <FlexboxGrid justify="center">
                 <FlexboxGrid.Item>
@@ -64,8 +74,8 @@ class Home extends Component {
               </FlexboxGrid>
             </Header>
             <Content>
-              <SearchBar />
-              <StudyRequests />
+              <SearchBar handleFilterChange={this.handleFilterChange} />
+              <StudyRequests filters={this.state.filters} />
               {/* <CreateStudyRequest />*/}
                {/* <EditStudyRequest />*/}
                <RequestButton />

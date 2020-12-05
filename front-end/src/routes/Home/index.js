@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import {Container, Sidebar, Footer} from "rsuite";
 import Content from "./Content";
 //import Header from "../../Header";
 import Header from "../../Header2";
+import styled from 'styled-components';
+
+const HomeContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+`;
 
 class HomePage extends Component{
     render(){
         return(
-            <div className="show-fake-browser sidebar-page" style={{height: '100%'}}>
-                <Container>
-                    <Header />
-                    <Container>
-                        <Content />
-                    </Container>
-                </Container>
-            </div>
+            <HomeContainer>
+                <Header />
+                <Content />
+            </HomeContainer>
         )
     };
 }

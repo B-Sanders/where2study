@@ -13,7 +13,8 @@ import {
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
-import db from "../base";
+
+import db from "../../base";
 
 const database = db.database();
 
