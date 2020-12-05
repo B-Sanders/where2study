@@ -2,12 +2,17 @@ import  React, { Component } from 'react';
 import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
     ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema } from 'rsuite';
 import db from '../../base';
+
+/**
+ * Fill SelectPickers
+ */
 import courses from "../courses.json";  
+import locations from "../locations.json";
+
 import { DataContext } from "../../state/context.js"; 
 const max_chars = 100;
 const alert_time = 1250;
 
-var locations = [];
 
 /**
  * Define Request Schema for use in validating a Users request 
@@ -35,6 +40,8 @@ class Home extends React.Component {
                 noise_level: 1,
                 end_time: new Date(),
                 description: '',
+                max_partners: '',           //TODO
+                study_start: new Date()     //TODO
             },
             formError: {},
             chars_left: max_chars,
@@ -52,35 +59,6 @@ class Home extends React.Component {
         this.uid = this.user.uid;                      // Current User's Identifier
     }
 
-    /**
-     * READ     locations from Database
-     */
-    getCurrentLocations = () =>{
-        let config = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-          };
-
-          return fetch('/all-locations', config)
-          .then( (response)=>{ console.log( response ) })
-          .catch(error => console.log(error)) 
-          
-    }
-
-    componentDidMount(){
-       this.getCurrentLocations();
-            /*.then( locationsSnapshot=>{ 
-                locationsSnapshot.forEach(function(childSnapshot) {
-                    // Push each location into an array which the SelectPicker will use
-                    locations.push( 
-                        { "label": childSnapshot.key.toString(), 
-                          "value": childSnapshot.key.toString(), 
-                          "role": "Master" 
-                }); 
-            });
-        });*/
-
-    }
   
     /**
      * Once the user has submitted the form validate it against the
@@ -101,27 +79,35 @@ class Home extends React.Component {
      *          Realtime Database 
      */
     createNewRequest = () =>{
-       
-        /**
-         * Create new request Object for POST call making sure to convert
-         * 'end_time' Date datatype to 
-         * appropriate string data type for storage
-         */
-        const newRequest = {
-            USERID: this.uid,
-            title: this.state.formValue.title,
-            class: this.state.formValue.class,
-            end_time: this.state.formValue.end_time.toUTCString(),
-            location: this.state.formValue.location,
-            noise_level: this.state.formValue.noise_level,
-            description: this.state.formValue.description
+
+        let config = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_id: this.uid,
+                class: this.state.formValue.class,
+                description: this.state.formValue.description,
+                location: this.state.formValue.location,
+                max_partners: 0,    /** TODO:: */
+                noise_rating: this.state.formValue.noise_level,
+                request_title: this.state.formValue.title,
+                study_partners: {
+                    1: this.user.displayName,
+                },
+                study_start: '',
+                study_end: this.state.formValue.end_time.getHours()
+            })
         }
+            
+        // TODO: POST CALL 
+        fetch('http://localhost:1337/requests/create-request', config)
+            .then( response =>{ 
+                 
+            })
+            .catch(error => console.log(error)); 
 
-        // TODO: POST CALL passing in newRequest
-
-
-        // Assuming No error close the Modal
-        this.close()
+          // Assuming No error close the Modal
+          //this.close()
     }
 
      /**
