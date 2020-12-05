@@ -67,14 +67,13 @@ class Profile extends React.Component {
         userId: "",
       },
     };
-
     this.loadUser.bind(this);
     this.loadUser();
 
     this.handleEdit.bind(this);
   }
 
-  loadUser () {
+  loadUser() {
     var uniqueId = window.localStorage.getItem('loginToken');
     var data;
     var major = undefined;
@@ -118,7 +117,6 @@ class Profile extends React.Component {
     } = this.state.formValue;
      */
 
-
     this.props.history.push("/profileEdit");
   };
 
@@ -146,10 +144,11 @@ class Profile extends React.Component {
 
             <FlexboxGrid.Item>
               <Row>
-                <div className="buttons"></div>
-                <Button onClick={this.handleEdit} appearance="primary">
-                  Edit
-                </Button>
+                <div className="buttons">
+                  <Button onClick={this.handleEdit} appearance="primary">
+                    Edit
+                  </Button>
+                </div>
               </Row>
             </FlexboxGrid.Item>
           </Col>
