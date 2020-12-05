@@ -4,16 +4,14 @@ import logo from "./images/where2study.png"
 import db from "./base"
 
 const headerStyles = {
-    padding: 18,
     fontSize: 16,
-    height: 200,
     justified: true,
     background:  '#006A96',
     color: 'white',
-    whiteSpace: 'nowrap',
-    //overflow: 'hidden'
+    height: '100%',
+    overflow: 'auto',
+    position: 'fixed'
   };
-  //const email = db.auth().currentUser.email.split('@')[0]
 
   
 class Header2 extends React.Component {
@@ -21,21 +19,33 @@ class Header2 extends React.Component {
       super(props);
       this.state = {
         expanded: true,
+        display_name: ""
       };
+       this.loadUser.bind(this);
+       this.loadUser();
     }
+    
+  loadUser() {
+    var uniqueId = window.localStorage.getItem('loginToken');
+    var data;
+    /** Load the user data */
+    db.database().ref("Users/" + uniqueId).once('value').then( snapshot => {
+       data =  snapshot.val();
+       this.state.display_name = "Welcome " + data.display_name
+    })
+  }
 
     render() {
       const { expanded } = this.state;
-      console.log(db.auth().currentUser.email)
+      console.log(window.localStorage.getItem('loginToken'))
       return (
-            <Sidebar
-             
-              collapsible
-              style={{background: '#006A96'}}
+            <Sidebar style={headerStyles}
             >
-                <div style={headerStyles} >
-                  <img src={logo} style={{marginLeft: 55}} height="100" width="125" href="/"/>
-                  <h4><span style={{marginLeft: 0}}>Welcome </span></h4>
+                <div style={{background:  '#006A96'}}>
+                  <a href="/">
+                    <img src={logo} style={{marginLeft: 55}} height="100" width="125"/>
+                  </a>
+                  <h4><span style={{marginLeft: 15, color: 'white'}}>{this.state.display_name}</span></h4>
                 </div>
                 <Sidenav
                   expanded={expanded}
@@ -55,10 +65,10 @@ class Header2 extends React.Component {
                         <br />
                         <span style={{color:'white',marginLeft: 45}}><strong>Account</strong></span>
                         </Nav.Item>
+                        <Button size="lg" onClick={() => db.auth().signOut()} style={{marginLeft: 90}} color="red" appearance="primary">Logout</Button>
                       </Nav>
                     </Sidenav.Body>
                 </Sidenav>
-                <Button onClick={() => db.auth().signOut()} style={{marginLeft: 100}} appearance="white">Logout</Button>
             </Sidebar>
       );
     }

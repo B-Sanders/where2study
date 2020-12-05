@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Col, Rate, Icon, FlexboxGrid, Panel, Message, Button} from "rsuite";
+import {FlexboxGrid, Button} from "rsuite";
 import cseBuilding from "../../images/cse-building.jpeg"
 import priceCenter from "../../images/price-center.jpg"
 import geiselLibrary from "../../images/geisel-libary.jpg"
@@ -49,7 +49,7 @@ class StudyRequests extends Component{
         var requestsList = [];
         Object.keys(this.context.state.requests).forEach((key) => requestsList.push(this.context.state.requests[key]));
         return(
-        <div>
+        <div style={{overflow: 'visible'}}>
             { this.state.showViewModal && <ViewRequestModal shouldShow={this.state.showViewModal} studyRequest={this.state.viewedRequest} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }
             <FlexboxGrid justify="center">
                 <FlexboxGrid justify="space-around">
