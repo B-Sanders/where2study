@@ -51,13 +51,13 @@ class ProfileEdit extends React.Component {
   }
 
   updateProfile = () => {
-    const {
+    let {
       display_name,
       major,
       classes,
       pronouns,
     } = this.state;
-
+    major = major.join();
     const userData = {
       display_name,
       major,
@@ -99,6 +99,7 @@ class ProfileEdit extends React.Component {
             },
           },
         });
+        console.log(this.context.state.user.major);
         this.setState({
           display_name: this.context.state.user.display_name,
           major: this.context.state.user.major.split(','),
