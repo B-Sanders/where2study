@@ -16,7 +16,6 @@ function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
    <>
->>>>>>> 430a0793b5a96cced9ec202a12caa36de3d1a8f0
     <AuthProvider>
       <DataContext.Provider value={{ state, dispatch }}>
         <Router>
