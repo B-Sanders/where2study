@@ -1,4 +1,4 @@
-import classes from '*.module.css';
+//import classes from '*.module.css';
 import React, {Component} from 'react';
 import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
     Content, Footer, Sidebar, Divider, List, Tooltip, Whisper, Alert, Progress, Form, FormGroup, FormControl,
@@ -6,7 +6,7 @@ import ButtonToolbar, { Button, Modal, Grid, Row, Col, Rate, Container, Header,
 import FlexboxGrid from "rsuite";
 import styled from 'styled-components'
 import ConfirmDeleteModal from './ConfirmDeleteModal'
-import db from '../../base';
+import firebase from '../../base';
 const max_chars = 100;
 const alert_time = 1250
 var locations = [];
@@ -44,7 +44,7 @@ class Home extends React.Component {
                 description: '',
               },
               formError: {},
-              char_left = max_chars
+              char_left: max_chars
 
 
         };
@@ -56,7 +56,7 @@ class Home extends React.Component {
         
 
        
-        this.user = db.auth().currentUser; // Reference to Current User From Auth Database
+        this.user = firebase.auth().currentUser; // Reference to Current User From Auth Database
         this.uid = this.user.uid;  // Current User's Identifier
     }
 
@@ -80,7 +80,7 @@ class Home extends React.Component {
     }
 
     getPreviousInformation = () =>{
-        var ref = firebase.database().ref("RequestsList/" + uid);
+        var ref = firebase.database().ref("RequestsList/" + this.uid);
        ref.once("value")
          .then(function(snapshot) {
            return snapshot
@@ -88,7 +88,7 @@ class Home extends React.Component {
     }
 
     componentDidMount(){
-        this.getCurrentLocation().then(locationsSnapshot=>{
+        /*this.getCurrentLocation().then(locationsSnapshot=>{
             locationsSnapshot.forEach(function(childSnapshot){
                 locations.push({
                     "label" : childSnapshot.key.toString(),
@@ -124,7 +124,7 @@ class Home extends React.Component {
             
            
         })
-
+        */
         
     }
     

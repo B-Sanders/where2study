@@ -2,9 +2,11 @@ import  React, { Component } from 'react';
 import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
     ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema } from 'rsuite';
 import db from '../../base';
-import courses from "../courses.json";   
+import courses from "../courses.json";  
+import { DataContext } from "../../state/context.js"; 
 const max_chars = 100;
 const alert_time = 1250;
+
 var locations = [];
 
 /**
@@ -59,9 +61,10 @@ class Home extends React.Component {
             headers: { 'Content-Type': 'application/json' }
           };
 
-          return fetch('http://localhost:3000/all-locations', config)
-          .then(response => { response.json().then( (data)=>{ console.log(data) } ) })
-          .catch(error => console.log(error))
+          return fetch('/all-locations', config)
+          .then( (response)=>{ console.log( response ) })
+          .catch(error => console.log(error)) 
+          
     }
 
     componentDidMount(){
@@ -288,5 +291,5 @@ class Home extends React.Component {
         )
     }
 };
-
+Home.contextType = DataContext;
 export default Home;
