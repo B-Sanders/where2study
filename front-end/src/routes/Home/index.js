@@ -19,6 +19,9 @@ const HomeContainer = styled.div`
 `;
 
 class HomePage extends Component{
+    constructor(props) {
+        super(props);
+    };
 
     componentDidMount() { 
         db.database().ref("RequestsList").on("value", (dataSnapshot) => {
@@ -32,9 +35,10 @@ class HomePage extends Component{
     }
 
     render(){
+        console.log(this.context.state);
         return(
             <HomeContainer>
-                <Header />
+                <Header history={this.props.history}/>
                 <Content />
             </HomeContainer>
         )
@@ -42,6 +46,5 @@ class HomePage extends Component{
 }
 
 HomePage.contextType = DataContext;
-
 export default HomePage;
 

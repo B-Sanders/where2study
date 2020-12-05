@@ -58,7 +58,7 @@ class Login extends React.Component {
             if (user) {
               window.localStorage.setItem('loginToken', user.user.uid);
               const userData = db.database().ref('Users');
-              userData.orderByChild('uid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
+              userData.orderByChild('uuid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
                 const {
                     active_post,
                     classes,
@@ -66,7 +66,7 @@ class Login extends React.Component {
                     email,
                     major,
                     pronouns,
-                    uid,
+                    uuid,
                 } = dataSnapshot.val()[user.user.uid];
                 this.context.dispatch({
                     type: UPDATE_USER,
@@ -78,7 +78,7 @@ class Login extends React.Component {
                         email,
                         major,
                         pronouns,
-                        uid,
+                        uuid,
                       },
                     },
                   });
@@ -144,6 +144,11 @@ class Login extends React.Component {
                     name="password"
                     type="password"
                     placeholder="Password"
+                    onKeyDown={(key) => {
+                      if (key.code === 'Enter') {
+                        this.handleLogin();
+                      }
+                    }}
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
                 </FormGroup>

@@ -17,7 +17,6 @@ userRouter.get('/profile', (req, res) => {
 
 // Create a user after a user registers
 userRouter.post('/signup', (req, res) => {
-    
     // Create a user from passed object
     createUser(req.body).then(doc => res.send(doc))
     .catch((err) => {
