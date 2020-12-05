@@ -3,6 +3,7 @@ import Content from "./Content";
 //import Header from "../../Header";
 import Header from "../../Header2";
 import styled from 'styled-components';
+import { DataContext } from '../../state/context';
 
 const HomeContainer = styled.div`
     height: 100%;
@@ -13,6 +14,7 @@ const HomeContainer = styled.div`
 
 class HomePage extends Component{
     render(){
+        console.log(this.context.state);
         return(
             <HomeContainer>
                 <Header />
@@ -22,5 +24,6 @@ class HomePage extends Component{
     };
 }
 
+HomePage.contextType = DataContext;
 export default HomePage;
 

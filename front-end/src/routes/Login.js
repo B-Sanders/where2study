@@ -66,7 +66,7 @@ class Login extends React.Component {
                     email,
                     major,
                     pronouns,
-                    uid,
+                    uuid,
                 } = dataSnapshot.val()[user.user.uid];
                 this.context.dispatch({
                     type: UPDATE_USER,
@@ -78,7 +78,7 @@ class Login extends React.Component {
                         email,
                         major,
                         pronouns,
-                        uid,
+                        uuid,
                       },
                     },
                   });
