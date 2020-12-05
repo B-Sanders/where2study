@@ -49,6 +49,11 @@ class Signup extends React.Component {
       classes,
       pronouns,
     } = this.state.formValue;
+
+    var is_valid_email = true;
+    const isUCSDEmail =
+      email.includes("@") &&
+      email.substr(email.lastIndexOf("@") + 1).split(" ")[0];
     /**
      * undefinedReference.child failed: First argument was an invalid path =
      * "Users/[object Object]". Paths must be non-empty strings and can't
@@ -56,61 +61,50 @@ class Signup extends React.Component {
      */
     if (email.trim() === "" || password.trim() === "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
-    } else if (!email.includes("@")) {
+      is_valid_email = false;
+    }
+
+    if (!email.includes("@")) {
       // TODO:  Possibly add other checks here that would help
       //        prevent against SQL injection
       Alert.warning("This is not a valid email format.", 4000);
-    } else {
-      try {
-        const isUCSDEmail =
-          email.includes("@") &&
-          email.substr(email.lastIndexOf("@") + 1).split(" ")[0];
+      is_valid_email = false;
+    }
 
-        if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
-          Alert.warning(
-            "You need a valid UCSD email to create an account.",
-            4000
-          );
-        } else if (password.length < 6) {
-          Alert.warning("Password needs to be at least 6 characters long.");
-        } else {
-          db.auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((user) => {
-              if (user) {
-                /** TODO: MVC this */
-                var uuid = user.user.uid;
-                const activePost = false;
-                let config = {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    activePost,
-                    userEmail: email,
-                    displayName: display_name,
-                    userMajor: major,
-                    userClasses: classes,
-                    userPronouns:pronouns,
-                    userID:uuid
-                  })
-                };
-                fetch('http://localhost:1337/user/signup', config).catch(error => console.log(error));
-                this.props.history.push("/login");
-              }
-            })
-            .catch(function (error) {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              if (errorCode === "auth/weak-password") {
-                Alert.error("The password is too weak.", 4000);
-              } else {
-                alert(errorCode + errorMessage, 4000);
-              }
-            });
-        }
-      } catch (error) {
-        Alert.error(error);
-      }
+    if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
+      Alert.warning("You need a valid UCSD email to create an account.", 4000);
+      is_valid_email = false;
+    }
+
+    if (password.length < 6) {
+      Alert.warning("Password needs to be at least 6 characters long.");
+      is_valid_email = false;
+    }
+
+    if (is_valid_email) {
+      // var uuid = user.user.uid;
+      // const activePost = false;
+      let config = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          activePost: false,
+          userClasses: classes,
+          displayName: display_name,
+          userEmail: email,
+          userPassword: password,
+          userMajor: major,
+          userPronouns: pronouns,
+        }),
+      };
+
+      fetch("http://localhost:1337/user/signup", config)
+        .then((res) => {
+          if (res.status === 200) {
+            this.props.history.push("/login");
+          }
+        })
+        .catch((error) => console.log(error));
     }
   }
 
@@ -122,10 +116,6 @@ class Signup extends React.Component {
 
   redirectLogin() {
     this.props.history.push("/login");
-  }
-
-  onChangeGender(event) {
-    console.log(event.target.value);
   }
 
   render() {
@@ -164,7 +154,9 @@ class Signup extends React.Component {
                     minLength="1"
                     maxLength="15"
                   />
-                  <HelpBlock tooltip>Must be at least 1 character long</HelpBlock>
+                  <HelpBlock tooltip>
+                    Must be at least 1 character long
+                  </HelpBlock>
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>Major</ControlLabel>
