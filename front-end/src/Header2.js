@@ -1,6 +1,8 @@
 import { Navbar, Nav, Button, Icon, Dropdown, Header, Container, Sidebar, Sidenav, Content, Toggle} from 'rsuite';
 import React, { Component } from 'react';
 import logo from "./images/where2study.png"
+import { DataContext } from './state/context';
+
 const headerStyles = {
     padding: 18,
     fontSize: 16,
@@ -24,6 +26,11 @@ class Header2 extends React.Component {
       this.state = {
         expanded: true,
       };
+      this.handleLogout = this.handleLogout.bind(this);
+    }
+    handleLogout() {
+      window.localStorage.removeItem('loginToken');
+      this.props.history.push('/login')
     }
     render() {
       const { expanded } = this.state;
@@ -35,7 +42,7 @@ class Header2 extends React.Component {
             >
                 <div style={headerStyles} >
                   <img src={logo} height="100" width="125" href="/"/>
-                  <h2>Username</h2>
+                  <h2>{this.context.state.user.display_name}</h2>
                 </div>
                 <Sidenav
                   expanded={expanded}
@@ -46,20 +53,21 @@ class Header2 extends React.Component {
                     <Sidenav.Body style={{ background: '#006A96',color: 'white'}}>
                       <Nav >
                         <Nav.Item style={{color: 'white'}} eventKey="1" icon={<Icon icon="location-arrow" />}>
-                          Locations
+                          <p style={{color: 'yellow'}}> Locations </p>
                         </Nav.Item>
                         <Nav.Item eventKey="2" icon={<Icon icon="book" />}>
-                            Study Requests
+                          <p style={{color: 'yellow'}}> Study Requests </p>
                         </Nav.Item>
                         <Nav.Item href="/profile" eventKey="3" icon={<Icon icon="gear-circle"/>}>
-                            Account
+                            <p style={{color: 'yellow'}}> Account </p>
                         </Nav.Item>
                       </Nav>
                     </Sidenav.Body>
                 </Sidenav>
-                <Button appearance="primary" block>Logout</Button>
+                <Button appearance="primary" block onClick={this.handleLogout}>Logout</Button>
             </Sidebar>
       );
     }
 }
+Header2.contextType = DataContext;
 export default Header2;

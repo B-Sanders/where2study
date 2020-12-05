@@ -58,27 +58,27 @@ class Login extends React.Component {
             if (user) {
               window.localStorage.setItem('loginToken', user.user.uid);
               const userData = db.database().ref('Users');
-              userData.orderByChild('uniqueId').equalTo(user.user.uid).on('value', (dataSnapshot) => {
+              userData.orderByChild('uuid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
                 const {
-                    activePost,
+                    active_post,
                     classes,
                     display_name,
                     email,
                     major,
                     pronouns,
-                    uniqueId,
+                    uuid,
                 } = dataSnapshot.val()[user.user.uid];
                 this.context.dispatch({
                     type: UPDATE_USER,
                     payload: {
                       user: {
-                        activePost,
+                        active_post,
                         classes,
                         display_name,
                         email,
                         major,
                         pronouns,
-                        uniqueId,
+                        uuid,
                       },
                     },
                   });
@@ -92,15 +92,7 @@ class Login extends React.Component {
                   },
                 });
               });
-            const requests = db.database().ref("RequestsList");
-            requests.on("value", (dataSnapshot) => {
-              this.context.dispatch({
-                type: UPDATE_STUDY_REQUESTS_COLLECTION,
-                payload: {
-                  requests: dataSnapshot.val(),
-                },
-              });
-            });
+            
             this.props.history.push("/");
           }
           })
@@ -152,6 +144,11 @@ class Login extends React.Component {
                     name="password"
                     type="password"
                     placeholder="Password"
+                    onKeyDown={(key) => {
+                      if (key.code === 'Enter') {
+                        this.handleLogin();
+                      }
+                    }}
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
                 </FormGroup>

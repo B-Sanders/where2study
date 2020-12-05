@@ -7,12 +7,10 @@ import { AuthProvider } from "./auth/Auth";
 import { DataContext } from "./state/context";
 
 import Login from "./routes/Login.js";
-import Home from "./routes/Home.js";
 import Signup from "./routes/Signup";
 import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
 import HomePage from "./routes/Home/index.js";
-
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
