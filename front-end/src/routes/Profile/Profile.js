@@ -36,7 +36,6 @@ class Profile extends React.Component {
     };
 
     this.loadUser.bind(this);
-    this.loadUser();
 
     this.handleEdit.bind(this);
   }
@@ -45,20 +44,7 @@ class Profile extends React.Component {
   componentDidMount() {
     const userData = db.database().ref('Users');
     userData.orderByChild('uuid').equalTo(window.localStorage.getItem('loginToken')).on('value', (dataSnapshot) => {
-      const {
-          active_post,
-          classes,
-          display_name,
-          email,
-          major,
-          pronouns,
-          uuid,
-      } = dataSnapshot.val()[window.localStorage.getItem('loginToken')];
-
-      this.context.dispatch({
-        type: UPDATE_USER,
-        payload: {
-          user: {
+        const {
             active_post,
             classes,
             display_name,
@@ -66,61 +52,41 @@ class Profile extends React.Component {
             major,
             pronouns,
             uuid,
+        } = dataSnapshot.val()[window.localStorage.getItem('loginToken')];
+  
+        this.context.dispatch({
+          type: UPDATE_USER,
+          payload: {
+            user: {
+              active_post,
+              classes,
+              display_name,
+              email,
+              major,
+              pronouns,
+              uuid,
+            },
           },
-        },
+        });
+        this.loadUser();
       });
-    });
   }
 
   loadUser () {
-    var uniqueId = window.localStorage.getItem('loginToken');
-    var data;
-    var major = undefined;
-    var display_name = undefined;
-    var classes = undefined;
-    var pronouns = undefined;
-
-    /** Load the user data */
-    db.database().ref("Users/" + uniqueId).once('value').then( snapshot => {
-      data =  snapshot.val();
-      major =  data.major;
-      display_name =  data.display_name;
-      classes =  data.classes;
-      pronouns =  data.pronouns;
-
-      /** For convenience I stored this in a JSON format and
-       *  set the state below which should initialize the user
-       *  data to the formValue var in the constructor
-       */
-      const userData = {
-        display_name,
-        major,
-        classes,
-        pronouns
-      }
-
       /** Initialize the formValue */
-      this.setState({formValue: userData});
-    }).catch(error => {
-      console.log('error at promise');
-    });
+      this.setState({formValue: {
+        display_name: this.context.state.user.display_name,
+        major: this.context.state.user.major,
+        classes: this.context.state.user.classes,
+        pronouns: this.context.state.user.pronouns,
+      }});
   }
 
   handleEdit = () => {
-    /*
-    const {
-      display_name,
-      major,
-      classes,
-      pronouns,
-    } = this.state.formValue;
-     */
-
     this.props.history.push("/profileEdit");
   };
 
   render() {
-    console.log('this.context.state', this.context.state);
     return (
       <HomeContainer>
       <SideBar />
