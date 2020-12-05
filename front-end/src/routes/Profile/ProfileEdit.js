@@ -15,11 +15,8 @@ import { TagPicker } from "rsuite";
 import db from "../../base";
 import major from "../majors.json";
 import courses from "../courses.json";
-//import major from "./majors.json";
-//import courses from "./courses.json";
 
 
-const database = db.database();
 var uniqueId;
 const user = db.auth().currentUser;
 
