@@ -18,10 +18,10 @@ export function createUser({activePost, userClasses, displayName, userEmail, use
 }
 
 
-export function obtainUser(userID) {
+export function obtainUser(reqHeaders) {
 
     // Send snapshot of the specific user
-    return db.database().ref('Users/' + userID).once('value')
+    return db.database().ref('Users/' + reqHeaders['userid']).once('value')
     .then(snapshot => snapshot.val())
     .catch(error => console.log(error));
 }
