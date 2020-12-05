@@ -17,12 +17,10 @@ import { DataContext } from "../../state/context";
 import SideBar from "../../Header";
 import { UPDATE_USER } from "../../state/actions";
 
-
 const HomeContainer = styled.div`
     height: 100%;
     width: 100%;
 `;
-
 
 class Profile extends React.Component {
   constructor(props) {
@@ -36,11 +34,13 @@ class Profile extends React.Component {
         userId: "",
       },
     };
+
     this.loadUser.bind(this);
     this.loadUser();
 
     this.handleEdit.bind(this);
   }
+
 
   componentDidMount() {
     const userData = db.database().ref('Users');
@@ -72,7 +72,7 @@ class Profile extends React.Component {
     });
   }
 
-  loadUser() {
+  loadUser () {
     var uniqueId = window.localStorage.getItem('loginToken');
     var data;
     var major = undefined;
@@ -88,8 +88,8 @@ class Profile extends React.Component {
       classes =  data.classes;
       pronouns =  data.pronouns;
 
-      /** For convenience I stored this in a JSON format and 
-       *  set the state below which should initialize the user 
+      /** For convenience I stored this in a JSON format and
+       *  set the state below which should initialize the user
        *  data to the formValue var in the constructor
        */
       const userData = {
@@ -157,6 +157,37 @@ class Profile extends React.Component {
         </FlexboxGrid.Item>
       </FlexboxGrid>
       </HomeContainer>
+        <FlexboxGrid colspan={20} justify="center">
+          <FlexboxGrid.Item>
+            <Col>
+              <h1 align="center">Profile</h1>
+              <Form formValue={this.state.formValue} >
+                <FormGroup>
+                  <ControlLabel>User ID</ControlLabel>
+                  <FormControl name="display_name" type="text" readOnly={true} />
+
+                  <ControlLabel>Major</ControlLabel>
+                  <FormControl name="major" type="text" readOnly={true} />
+
+                  <ControlLabel>Classes</ControlLabel>
+                  <FormControl name="classes" type="text" readOnly={true} />
+
+                  <ControlLabel>Pronouns</ControlLabel>
+                  <FormControl name="pronouns" type="text" readOnly={true}  />
+                </FormGroup>
+              </Form>
+
+              <FlexboxGrid.Item>
+                <Row>
+                  <div className="buttons"></div>
+                  <Button onClick={this.handleEdit} appearance="primary">
+                    Edit
+                  </Button>
+                </Row>
+              </FlexboxGrid.Item>
+            </Col>
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
     );
   }
 }

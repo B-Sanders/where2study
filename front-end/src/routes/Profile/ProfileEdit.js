@@ -6,7 +6,8 @@ import {
   FormControl,
   ControlLabel,
   FlexboxGrid,
-  Alert, RadioGroup, Radio,
+  ButtonToolbar,
+  Alert, RadioGroup, Radio, InputPicker,
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
@@ -18,33 +19,76 @@ import SideBar from "../../Header"
 import styled from 'styled-components';
 import { DataContext } from "../../state/context";
 
-
 const ProfileEditContainer = styled.div`
   width: 100%;
   height: 100%;
-`;
+`
+import major from "../majors.json";
+import courses from "../courses.json";
+
+
+var uniqueId;
+const user = db.auth().currentUser;
+
+if (user) {
+  // User is signed in.
+  uniqueId = user.uid;
+} else {
+  // No user is signed in.
+  // Alert.warning("No user is signed in.",4000);
+}
 
 class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "React",
+      formValue: {
+        display_name: "",
+        major: "",
+        classes: "",
+        pronouns: "",
+       // userId: user.uid,
+      },
     };
 
     this.updateProfile.bind(this);
-    this.onChangeGender = this.onChangeGender.bind(this);
-    this.onChangeMajor = this.onChangeMajor.bind(this);
+    this.handleChange.bind(this);
+    this.backToProfile.bind(this);
+    //this.onChangeGender = this.onChangeGender.bind(this);
+    //this.onChangeMajor = this.onChangeMajor.bind(this);
     //     this.onChangeClass = this.onChangeClass.bind(this);
   }
+
   updateProfile = () => {
+    const {
+      display_name,
+      major,
+      classes,
+      pronouns,
+    } = this.state.formValue;
+
+    const userData = {
+     // uniqueId,
+      display_name,
+      major,
+      classes,
+      pronouns,
+    };
+    db.database().ref("Users/" + uniqueId).update(userData);
+
+    //console.log(userData);
     this.props.history.push("/profile");
   };
 
-  onChangeGender(event) {
-    console.log(event.target.value);
+  backToProfile = () => {
+    this.props.history.push("/profile");
   }
-  onChangeMajor(event) {
-    console.log(event.target.value);
+
+  handleChange(value) {
+    this.setState({
+      formValue: value,
+    });
+    console.log(value);
   }
 
   render() {
