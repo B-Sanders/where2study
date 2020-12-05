@@ -22,9 +22,7 @@ import { DataContext } from "../../state/context";
 const ProfileEditContainer = styled.div`
   width: 100%;
   height: 100%;
-`
-import major from "../majors.json";
-import courses from "../courses.json";
+`;
 
 
 var uniqueId;
