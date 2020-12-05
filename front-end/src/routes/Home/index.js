@@ -13,11 +13,14 @@ const HomeContainer = styled.div`
 `;
 
 class HomePage extends Component{
+    constructor(props) {
+        super(props);
+    };
     render(){
         console.log(this.context.state);
         return(
             <HomeContainer>
-                <Header />
+                <Header history={this.props.history}/>
                 <Content />
             </HomeContainer>
         )

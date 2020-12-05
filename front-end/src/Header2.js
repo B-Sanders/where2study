@@ -26,6 +26,11 @@ class Header2 extends React.Component {
       this.state = {
         expanded: true,
       };
+      this.handleLogout = this.handleLogout.bind(this);
+    }
+    handleLogout() {
+      window.localStorage.removeItem('loginToken');
+      this.props.history.push('/login')
     }
     render() {
       const { expanded } = this.state;
@@ -59,7 +64,7 @@ class Header2 extends React.Component {
                       </Nav>
                     </Sidenav.Body>
                 </Sidenav>
-                <Button appearance="primary" block>Logout</Button>
+                <Button appearance="primary" block onClick={this.handleLogout}>Logout</Button>
             </Sidebar>
       );
     }
