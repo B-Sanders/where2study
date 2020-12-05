@@ -1,15 +1,14 @@
 import  React, { Component } from 'react';
 import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
-    ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema } from 'rsuite';
-import db from '../../base';
+    ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema, InputNumber } from 'rsuite';
 
 /**
  * Fill SelectPickers
  */
 import courses from "../courses.json";  
 import locations from "../locations.json";
-
 import { DataContext } from "../../state/context.js"; 
+
 const max_chars = 100;
 const alert_time = 1250;
 
@@ -24,6 +23,7 @@ const model = Schema.Model({
     location: StringType().isRequired('This field is required'),
     noise_level: NumberType().isRequired('This field is required'),
     end_time: DateType().isRequired('This field is required'),
+    max_partners: NumberType().isRequired('This field is required'),
     description: StringType()
         .maxLength(max_chars, '100 Characters Max' )
         .isRequired('This field is required')
@@ -40,8 +40,8 @@ class Home extends React.Component {
                 noise_level: 1,
                 end_time: new Date(),
                 description: '',
-                max_partners: '',           //TODO
-                study_start: new Date()     //TODO
+                max_partners: 1,           
+                study_start: new Date()     
             },
             formError: {},
             chars_left: max_chars,
@@ -55,8 +55,7 @@ class Home extends React.Component {
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
  
-        this.user = db.auth().currentUser;             // Reference to Current User from Authentication Database
-        this.uid = this.user.uid;                      // Current User's Identifier
+        
     }
 
   
@@ -79,36 +78,40 @@ class Home extends React.Component {
      *          Realtime Database 
      */
     createNewRequest = () =>{
+        // Convert Dates to correct format for storage
+        let newStudyStart = this.state.formValue.study_start;
+        newStudyStart = new String( newStudyStart.toString().substring(16,18) + ':' + newStudyStart.toString().substring(19,21) ) ;
+        
+        // Convert Dates to correct format for storage
+        let newStudyEnd = this.state.formValue.end_time;
+        newStudyEnd =  new String( newStudyEnd.toString().substring(16,18) + ':' + newStudyEnd.toString().substring(19,21) )  ;
 
         let config = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                user_id: this.uid,
-                class: this.state.formValue.class,
-                description: this.state.formValue.description,
+                userId: this.context.state.user.uuid,
+                displayName: this.context.state.user.display_name,
+                reqClass: this.state.formValue.class,
+                desc: this.state.formValue.description,
                 location: this.state.formValue.location,
-                max_partners: 0,    /** TODO:: */
-                noise_rating: this.state.formValue.noise_level,
-                request_title: this.state.formValue.title,
-                study_partners: {
-                    1: this.user.displayName,
-                },
-                study_start: '',
-                study_end: this.state.formValue.end_time.getHours()
+                maxPartners: this.state.formValue.max_partners,
+                noiseRating: this.state.formValue.noise_level,
+                title: this.state.formValue.title,
+                studyStart: newStudyStart,
+                studyEnd: newStudyEnd
             })
         }
             
         // TODO: POST CALL 
         fetch('http://localhost:1337/requests/create-request', config)
-            .then( response =>{ 
-                 
-            })
+            .then( 
+                 this.close()
+            )
             .catch(error => console.log(error)); 
-
-          // Assuming No error close the Modal
-          //this.close()
     }
+
+
 
      /**
      * Set the state of the modal to stop showing and call parent component
@@ -120,6 +123,7 @@ class Home extends React.Component {
          * CALLS the parent component to tell it to stop rendering me
          */
         this.props.parentCallBack();
+
     }
 
     /**
@@ -131,6 +135,7 @@ class Home extends React.Component {
 
     render(){
         const { formValue } = this.state;
+        console.log( this.context )
         return (
             <>
                 <div className="centered">
@@ -180,6 +185,21 @@ class Home extends React.Component {
                                                 data={courses}
                                                 style={{ width: 224 }}
                                                 preventOverflow
+                                            />
+                                    </FormGroup>
+                                </Row> 
+
+                                <Row><Divider></Divider></Row> 
+
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Number of Partners:</h5>
+                                            <FormControl 
+                                                accepter={InputNumber}
+                                                min={1}
+                                                name="max_partners"
+                                                label="max_partners"
+                                                style={{ width: 224 }}
                                             />
                                     </FormGroup>
                                 </Row> 
