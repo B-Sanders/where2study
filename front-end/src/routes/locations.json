@@ -1,35 +1,80 @@
 [
-    {
-        "label": "Geisel",
-        "value": "Geisel"
-      },
-      {
-        "label": "Price Center",
-        "value": "Price Center"
-      },
-      {
-        "label": "Galbriath Hall",
-        "value": "Galbriath Hall"
-      },
-      {
-        "label": "Atkinson Hall",
-        "value": "Atkinson Hall"
-      },
-      {
-        "label": "CSE Building",
-        "value": "CSE Building"
-      },
-      {
-        "label": "The Loft",
-        "value": "The Loft"
-      },
-      {
-        "label": "RIMAC Annex",
-        "value": "RIMAC Annex"
-      },
-      {
-        "label": "ZOOM Call",
-        "value": "ZOOM Call"
-      }
-   
+
+  {
+    "label": "Atkinson Hall",
+    "value": "Atkinson_Hall"
+  },
+  {
+    "label": "CSE Building",
+    "value": "CSE_Building"
+  },
+  {
+    "label": "Galbraith Hall",
+    "value": "Galbraith_Hall"
+  },
+  {
+    "label": "Geisel F1",
+    "value": "GeiselF1"
+  },
+  {
+    "label": "Geisel F2",
+    "value": "GeiselF2"
+  },
+  {
+    "label": "Geisel F3",
+    "value": "GeiselF3"
+  },
+  {
+    "label": "Geisel F4",
+    "value": "GeiselF4"
+  },
+  {
+    "label": "Geisel F5",
+    "value": "GeiselF5"
+  },
+  {
+    "label": "Geisel F6",
+    "value": "GeiselF6"
+  },
+  {
+    "label": "Geisel F7",
+    "value": "GeiselF7"
+  },
+  {
+    "label": "Geisel F8",
+    "value": "GeiselF8"
+  },
+  {
+    "label": "Geisel F9",
+    "value": "GeiselF9"
+  },
+  {
+    "label": "Other Location",
+    "value": "Other_Location"
+  },
+  {
+    "label": "Price Center East",
+    "value": "Price_Center_East"
+  },
+  {
+    "label": "Price Center West",
+    "value": "Price_Center_West"
+  },
+  {
+    "label": "The Loft",
+    "value": "The_Loft"
+  },
+  {
+    "label": "Village Eco Flats",
+    "value": "Village_Eco_Flats"
+  },
+  {
+    "label": "Village North Break Study Lounge",
+    "value": "Village_North_Break_Study_Lounge"
+  },
+  {
+    "label": "Zoom",
+    "value": "Zoom"
+  }
+
 ]

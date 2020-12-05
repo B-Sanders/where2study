@@ -12,7 +12,17 @@ import { DataContext } from '../../state/context';
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.handleFilterChange = this.handleFilterChange.bind(this);
+        this.state = {
+            filters: [null, null, null, null]
+        };
+    }
 
+    handleFilterChange(value){
+        console.log("Filter changed " + value[3]);
+        this.setState({
+            filters: value
+        });
     }
 
     render() {
