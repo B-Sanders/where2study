@@ -67,7 +67,6 @@ export function editRequest({
     studyEnd
 }) {
     var updates = {};
-
     // Create new object for overwrite
     var edit = {
         user_id: userId,

@@ -1,14 +1,6 @@
 [
-  {
-    "value": "cse8a",
-    "department": "CSE",
-    "label": "CSE 8A"
-  },
-  {
-    "value": "cse8b",
-    "department": "CSE",
-    "label": "CSE 8B"
-  },
+  {"value": "cse8a","department": "CSE","label": "CSE 8A"},
+  {"value": "cse8b","department": "CSE","label": "CSE 8B"},
   { "value": "cse11", "department": "CSE", "label": "CSE 11" },
   { "value": "cse12", "department": "CSE", "label": "CSE 12" },
   { "value": "cse15l", "department": "CSE", "label": "CSE 15L" },
@@ -48,7 +40,5 @@
   { "value": "cse151b", "department": "CSE", "label": "CSE 151B" },
   { "value": "cse152a", "department": "CSE", "label": "CSE 152A" },
   { "value": "cse152b", "department": "CSE", "label": "CSE 152B" },
-  { "value": "cse190", "department": "CSE", "label": "CSE 190" },
-
-  { "value": "vanilla", "department": "flavor town", "label": "Vanilla" }
+  { "value": "cse190", "department": "CSE", "label": "CSE 190" }
 ]

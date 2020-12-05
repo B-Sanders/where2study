@@ -78,20 +78,23 @@ class Signup extends React.Component {
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
               if (user) {
-                var uniqueId = user.user.uid;
+                /** TODO: MVC this */
+                var uuid = user.user.uid;
                 const activePost = false;
-                const userData = {
-                  uniqueId,
-                  email,
-                  display_name,
-                  major,
-                  classes,
-                  pronouns,
-                  activePost,
+                let config = {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    activePost,
+                    userEmail: email,
+                    displayName: display_name,
+                    userMajor: major,
+                    userClasses: classes,
+                    userPronouns:pronouns,
+                    userID:uuid
+                  })
                 };
-                db.database()
-                  .ref("Users/" + uniqueId)
-                  .set(userData);
+                fetch('http://localhost:1337/user/signup', config).catch(error => console.log(error));
                 this.props.history.push("/login");
               }
             })
@@ -128,11 +131,10 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="show-signup">
-        <FlexboxGrid colSpan={20} justify="center">
-          <FlexboxGrid.Item>
+        <FlexboxGrid colSpan={24} justify="center">
+          <FlexboxGrid.Item componentClass={Col} colspan={24} md={6}>
             <Col>
-              <h1 align="center">SignUp</h1>
-              <img src={logo} alt="Logo" height={300} width={300} />
+              <img src={logo} alt="Logo" height={250} width={300} />
               <Form
                 formValue={this.state.formValue}
                 onChange={(formValue) => this.handleChange(formValue)}
@@ -158,8 +160,10 @@ class Signup extends React.Component {
                     name="display_name"
                     type="text"
                     placeholder="Display Name"
+                    minLength="1"
                     maxLength="15"
                   />
+                  <HelpBlock tooltip>Must be at least 1 character long</HelpBlock>
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>Major</ControlLabel>
@@ -181,9 +185,9 @@ class Signup extends React.Component {
                 <FormGroup>
                   <ControlLabel>Pronouns</ControlLabel>
                   <FormControl name="pronouns" accepter={RadioGroup}>
-                    <Radio value="He">He/Him</Radio>
-                    <Radio value="She">She/Her</Radio>
-                    <Radio value="They">They/Them</Radio>
+                    <Radio value="He/Him">He/Him</Radio>
+                    <Radio value="She/Her">She/Her</Radio>
+                    <Radio value="They/Them">They/Them</Radio>
                     <Radio value="Other">Other</Radio>
                   </FormControl>
                 </FormGroup>

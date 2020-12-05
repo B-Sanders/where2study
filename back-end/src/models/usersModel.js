@@ -13,7 +13,7 @@ export function createUser({activePost, userClasses, displayName, userEmail, use
         pronouns: userPronouns,
         uuid: userID
     }).then (() => (
-        "Successful creation"
+        console.log("Successful creation")
     ));
 }
 
