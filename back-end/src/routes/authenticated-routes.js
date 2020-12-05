@@ -19,7 +19,7 @@ authenticatedRoute.get('/all-locations', (req, res) => {
         const locations = db.database().ref('Locations');
 
         // Return snapshot of the current requests in "Locations" collection
-        locations.on('value', dataSnapshot => {
+        locations.on('child_added', dataSnapshot => {
             res.send(dataSnapshot);
         });
 
@@ -28,16 +28,11 @@ authenticatedRoute.get('/all-locations', (req, res) => {
     }
 });
 
+
 // GET: obtain all Study Requests
 authenticatedRoute.get('/study-requests', (req, res) => {
     try {
         const requests = db.database().ref('RequestsList');
-
-        // MAY NOT NEED, BECAUSE OF child_added...
-        // // Return snapshot of the current requests in "Requests" collection
-        // requests.on('value', dataSnapshot => {
-        //     res.send(dataSnapshot);
-        // });
 
         // Return snapshot of the current requests in "Requests" collection when request is added
         requests.on('child_added', dataSnapshot => {
