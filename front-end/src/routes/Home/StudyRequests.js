@@ -56,6 +56,7 @@ class StudyRequests extends Component{
     }
 
     filterCheck(studyReq) {
+        console.log('this.props.filters', this.props.filters);
         return ((this.props.filters[2] !== null && studyReq.noise_rating !== this.props.filters[2])
             ||
             ((this.props.filters[1] !== null && studyReq.class.toLowerCase() !== this.props.filters[1]))

@@ -6,28 +6,23 @@ import {
   FormControl,
   ControlLabel,
   FlexboxGrid,
-  Alert,
+  Alert, RadioGroup, Radio,
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
 import db from "../../base";
-import majorData from "../majors.json"
-import classData from "../courses.json"
+import majorData from "../majors.json";
+import classData from "../courses.json";
+import SideBar from "../../Header"
+import styled from 'styled-components';
+import { DataContext } from "../../state/context";
 
 
-const database = db.database();
-
-var uid;
-var user = db.auth().currentUser;
-
-if (user) {
-  // User is signed in.
-  uid = user.uid;
-} else {
-  // No user is signed in.
-  // Alert.warning("No user is signed in.",4000);
-}
+const ProfileEditContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 class ProfileEdit extends React.Component {
   constructor(props) {
@@ -51,72 +46,69 @@ class ProfileEdit extends React.Component {
   onChangeMajor(event) {
     console.log(event.target.value);
   }
-  //   onChangeClass(event) {
-  //       console.log(event.target.value);
-  //   }
 
   render() {
     return (
-      <FlexboxGrid colspan={20} justify="center">
-        <FlexboxGrid.Item>
-          <Col>
-            <h1 align="center">Profile</h1>
-            <Form>
-              <FormGroup>
-                <ControlLabel>User ID</ControlLabel>
-                <FormControl name="user_id" type="text" maxlength="15" />
+      <ProfileEditContainer>
+        <SideBar />
+        <FlexboxGrid colspan={20} justify="center">
+          <FlexboxGrid.Item>
+            <Col>
+              <h1 align="center">Profile</h1>
+              <Form>
+                <FormGroup>
+                  <ControlLabel>User ID</ControlLabel>
+                  <FormControl name="display_name" type="text" maxlength="15" />
 
-                <ControlLabel>Major</ControlLabel>
-                <div onChange={this.onChangeMajor}>
-                  <TagPicker
-                    data={majorData}
-                    groupBy="department"
-                    defaultValue={majorData}
-                    style={{ width: 300 }}
-                  />
-                </div>
+                  <ControlLabel>Major</ControlLabel>
+                  <div onChange={this.onChangeMajor}>
+                    <TagPicker
+                      data={majorData}
+                      groupBy="department"
+                      defaultValue={majorData}
+                      style={{ width: 300 }}
+                    />
+                  </div>
 
-                <ControlLabel>Classes</ControlLabel>
-                <div onChange={this.onChangeClass}>
-                  <TagPicker
-                    data={classData}
-                    groupBy="department"
-                    defaultValue={classData}
-                    style={{ width: 300 }}
-                  />
-                </div>
+                  <ControlLabel>Classes</ControlLabel>
+                  <div onChange={this.onChangeClass}>
+                    <TagPicker
+                      data={classData}
+                      groupBy="department"
+                      defaultValue={classData}
+                      style={{ width: 300 }}
+                    />
+                  </div>
 
-                <ControlLabel>Pronouns</ControlLabel>
-                <div>
-                  <input type="radio" value="He" name="gender" /> He/Him <br />
-                  <input type="radio" value="She" name="gender" /> She/Her{" "}
-                  <br />
-                  <input
-                    type="radio"
-                    value="They"
-                    name="gender"
-                  /> They/Them <br />
-                  <input type="radio" value="Other" name="gender" /> Other{" "}
-                  <br />
-                </div>
+                  <ControlLabel>Pronouns</ControlLabel>
+                  <div>
+                    <FormControl name="pronouns" accepter={RadioGroup}>
+                      <Radio value="He/Him">He/Him</Radio>
+                      <Radio value="She/Her">She/Her</Radio>
+                      <Radio value="They/Them">They/Them</Radio>
+                      <Radio value="Other">Other</Radio>
+                    </FormControl>
+                  </div>
 
-                <ControlLabel>Requests</ControlLabel>
-              </FormGroup>
-            </Form>
+                  <ControlLabel>Requests</ControlLabel>
+                </FormGroup>
+              </Form>
 
-            <FlexboxGrid.Item>
-              <Row>
-                <div className="buttons"></div>
-                <Button onClick={this.updateProfile} appearance="primary">
-                  Update
-                </Button>
-              </Row>
-            </FlexboxGrid.Item>
-          </Col>
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
+              <FlexboxGrid.Item>
+                <Row>
+                  <div className="buttons"></div>
+                  <Button onClick={this.updateProfile} appearance="primary">
+                    Update
+                  </Button>
+                </Row>
+              </FlexboxGrid.Item>
+            </Col>
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
+      </ProfileEditContainer>
     );
   }
 }
 
+ProfileEdit.contextType = DataContext;
 export default ProfileEdit;

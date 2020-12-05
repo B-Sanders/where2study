@@ -14,52 +14,15 @@ import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
 import db from "../../base";
 import { DataContext } from "../../state/context";
-import SideBar from "../../Header"
+import SideBar from "../../Header";
+import { UPDATE_USER } from "../../state/actions";
 
-//const database = db.database();
-//const user = db.auth().currentUser;
-// var uniqueId = window.localStorage.getItem('loginToken');
-// var data;
-// var major = 'cse';
-// var userId = 'my id';
-// var classes = ['cse 110', 'cse 101'];
-// var pro = 'he/him';
-
-
-
-//var userRef = db.database().ref("Users/" + uniqueId);
-
-// db.database().ref("Users/" + uniqueId).once('value').then( snapshot => {
-//   data =  snapshot.val();
-//   major =  data.major;
-//   userId =  data.display_name;
-//   classes =  data.classes;
-//   pro =  data.pronouns;
-//   console.log(data);
-//   console.log(userId);
-//   console.log(major);
-//   console.log(classes);
-//   console.log(pro);
-// }).catch(error => {
-//   console.log('error at promise');
-// });
-
-//  if (uniqueId != null) {
-//   // User is signed in.
-//   console.log(uniqueId);
-//   console.log('b');
-//   console.log(major);
-//  } else {
-//   console.log('no udi found');
-//   // No user is signed in.
-// }
 
 const HomeContainer = styled.div`
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: row;
 `;
+
 
 class Profile extends React.Component {
   constructor(props) {
@@ -77,6 +40,36 @@ class Profile extends React.Component {
     this.loadUser();
 
     this.handleEdit.bind(this);
+  }
+
+  componentDidMount() {
+    const userData = db.database().ref('Users');
+    userData.orderByChild('uuid').equalTo(window.localStorage.getItem('loginToken')).on('value', (dataSnapshot) => {
+      const {
+          active_post,
+          classes,
+          display_name,
+          email,
+          major,
+          pronouns,
+          uuid,
+      } = dataSnapshot.val()[window.localStorage.getItem('loginToken')];
+
+      this.context.dispatch({
+        type: UPDATE_USER,
+        payload: {
+          user: {
+            active_post,
+            classes,
+            display_name,
+            email,
+            major,
+            pronouns,
+            uuid,
+          },
+        },
+      });
+    });
   }
 
   loadUser() {
@@ -127,6 +120,7 @@ class Profile extends React.Component {
   };
 
   render() {
+    console.log('this.context.state', this.context.state);
     return (
       <HomeContainer>
       <SideBar />
@@ -137,16 +131,16 @@ class Profile extends React.Component {
             <Form formValue={this.state.formValue} >
               <FormGroup>
                 <ControlLabel>User ID</ControlLabel>
-                <FormControl name="display_name" type="text" readOnly={true} />
+                <FormControl name="display_name" readOnly={true} type="text" placeholder={'display_name'} />
 
                 <ControlLabel>Major</ControlLabel>
-                <FormControl name="major" type="text" readOnly={true} />
+                <FormControl name="major" readOnly={true} type="text" placeholder={'major'}/>
 
                 <ControlLabel>Classes</ControlLabel>
-                <FormControl name="classes" type="text" readOnly={true} />
+                <FormControl name="classes" readOnly={true} type="text" placeholder={'classes'} />
 
                 <ControlLabel>Pronouns</ControlLabel>
-                <FormControl name="pronouns" type="text" readOnly={true}  />
+                <FormControl name="pronouns" readOnly={true} type="text" placeholder={'pro'} />
               </FormGroup>
             </Form>
 

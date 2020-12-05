@@ -60,7 +60,7 @@ class SearchBar extends React.Component{
                   <SelectPicker
                   size="lg"
                   placeholder="Search by Location"
-                  data={locations}
+                  data={locationData}
                   style={inputStyles}
                   onChange={(e) => this.changeFilter(e, 0)}
                   />
@@ -69,7 +69,7 @@ class SearchBar extends React.Component{
                   <SelectPicker
                   size="lg"
                   placeholder="Search by Class"
-                  data={classes}
+                  data={classData}
                   style={inputStyles}
                   onChange={(e) => this.changeFilter(e, 1)}
                   />

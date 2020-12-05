@@ -36,8 +36,8 @@ class Home extends Component {
               </FlexboxGrid>
             </Header>
             <Content>
-              <SearchBar />
-              <StudyRequests />
+              <SearchBar handleFilterChange={this.handleFilterChange} />
+              <StudyRequests filters={this.state.filters} />
               <RequestButton />
             </Content>
               </Container>
