@@ -92,7 +92,6 @@ class Login extends React.Component {
                   },
                 });
               });
-            
             this.props.history.push("/");
           }
           })

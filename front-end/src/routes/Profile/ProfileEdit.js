@@ -112,7 +112,7 @@ class ProfileEdit extends React.Component {
   render() {
     return (
       <ProfileEditContainer>
-        <SideBar />
+        <SideBar history={this.props.history}/>
         <FlexboxGrid colspan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>

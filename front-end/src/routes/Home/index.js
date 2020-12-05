@@ -42,7 +42,7 @@ class HomePage extends Component{
         console.log(this.context.state);
         return(
             <HomeContainer>
-                <Sidebar>
+                <Sidebar history={this.props.history}>
                     <Header history={this.props.history}/>
                 </Sidebar>
                 <Content />
