@@ -127,8 +127,7 @@ class Login extends React.Component {
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
-              <h1 align="center">Login</h1>
-              <img src={logo} height={300} width={300} />
+              <img src={logo} height={250} width={300} />
               <Form
                 onChange={this.handleChange}
                 formValue={this.state.formValue}

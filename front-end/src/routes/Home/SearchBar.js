@@ -1,7 +1,7 @@
 import React from "react";
 import {FlexboxGrid, SelectPicker, Rate, Input, Button, Icon, InputPicker, DatePicker, Divider} from 'rsuite';
-import classes from "../courses.json"
-import locations from "../locations"
+import locationData from "../locations.json";
+import classData from "../courses.json";
 
 const inputStyles = { 
   width: 224, display: 'block', marginBottom: 10 
@@ -55,12 +55,12 @@ class SearchBar extends React.Component{
     render(){
         return(
           <Divider>
-            <FlexboxGrid justify="center">
+            <FlexboxGrid justify="center" >
                 <FlexboxGrid.Item>
                   <SelectPicker
                   size="lg"
                   placeholder="Search by Location"
-                  data={locations}
+                  data={locationData}
                   style={inputStyles}
                   onChange={(e) => this.changeFilter(e, 0)}
                   />
@@ -69,7 +69,7 @@ class SearchBar extends React.Component{
                   <SelectPicker
                   size="lg"
                   placeholder="Search by Class"
-                  data={classes}
+                  data={classData}
                   style={inputStyles}
                   onChange={(e) => this.changeFilter(e, 1)}
                   />
