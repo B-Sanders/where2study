@@ -22,6 +22,20 @@ export function createRequest({
     studyStart,
     studyEnd 
 }) {
+
+    var userUpdate = {};
+    userUpdate[`Users/${userId}/active_post`] = true;
+
+    // Add child to active_requests -->  "userId": userId
+    db.database().ref(`Locations/${location}/active_requests/`).update({
+        [userId]:userId
+    }).then(() => (
+        console.log('Location updated')
+    ));
+
+    // Update user active_post to true once request is created
+    db.database().ref().update(userUpdate);
+
     // Create new request with index of userId
     return db.database().ref('RequestsList/' + userId).set({
         user_id: userId,
@@ -37,7 +51,7 @@ export function createRequest({
         study_start: studyStart,
         study_end: studyEnd
     }).then(() => (
-        console.log('success')
+        console.log('Success')
     ));
 }
 
@@ -77,7 +91,16 @@ export function editRequest({
 }
 
 
-export function deleteRequest(userId) {
+export function deleteRequest({userId, location}) {
+
+    var updates = {};
+    updates[`Users/${userId}/active_post`] = false;
+
+    // Update user active_post to false once request is deleted
+    db.database().ref().update(updates);
+
+    // Remove request from location active_requests
+    db.database().ref(`Locations/${location}/active_requests`).child(userId).remove();
 
     // Remove child via userID
     return db.database().ref('RequestsList').child(userId).remove().then(() => {
