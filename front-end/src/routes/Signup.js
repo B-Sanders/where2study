@@ -186,9 +186,9 @@ class Signup extends React.Component {
                 <FormGroup>
                   <ControlLabel>Pronouns</ControlLabel>
                   <FormControl name="pronouns" accepter={RadioGroup}>
-                    <Radio value="He">He/Him</Radio>
-                    <Radio value="She">She/Her</Radio>
-                    <Radio value="They">They/Them</Radio>
+                    <Radio value="He/Him">He/Him</Radio>
+                    <Radio value="She/Her">She/Her</Radio>
+                    <Radio value="They/Them">They/Them</Radio>
                     <Radio value="Other">Other</Radio>
                   </FormControl>
                 </FormGroup>
