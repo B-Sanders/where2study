@@ -1,7 +1,6 @@
 import { Navbar, Nav, Button, Icon, Dropdown, Header, Container, Sidebar, Sidenav, Content, Toggle} from 'rsuite';
 import React, { Component } from 'react';
 import logo from "./images/where2study.png"
-import { DataContext } from './state/context';
 const headerStyles = {
     padding: 18,
     fontSize: 16,
@@ -36,7 +35,7 @@ class Header2 extends React.Component {
             >
                 <div style={headerStyles} >
                   <img src={logo} height="100" width="125" href="/"/>
-                  <h2>{this.context.state.user.display_name}</h2>
+                  <h2>Username</h2>
                 </div>
                 <Sidenav
                   expanded={expanded}
@@ -63,5 +62,4 @@ class Header2 extends React.Component {
       );
     }
 }
-Header2.contextType = DataContext;
 export default Header2;
