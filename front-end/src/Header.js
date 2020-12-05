@@ -39,7 +39,9 @@ class Header2 extends React.Component {
       const { expanded } = this.state;
       console.log(window.localStorage.getItem('loginToken'))
       return (
-            <Sidebar style={headerStyles}
+            <Sidebar
+            history={this.props.history}
+            style={headerStyles}
             >
                 <div style={{background:  '#006A96'}}>
                   <a href="/">

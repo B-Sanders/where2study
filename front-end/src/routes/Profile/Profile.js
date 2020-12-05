@@ -89,7 +89,7 @@ class Profile extends React.Component {
   render() {
     return (
       <HomeContainer>
-      <SideBar />
+      <SideBar history={this.props.history}/>
       <FlexboxGrid colspan={20} justify="center">
         <FlexboxGrid.Item>
           <Col>
