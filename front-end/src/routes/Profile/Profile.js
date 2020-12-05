@@ -157,37 +157,6 @@ class Profile extends React.Component {
         </FlexboxGrid.Item>
       </FlexboxGrid>
       </HomeContainer>
-        <FlexboxGrid colspan={20} justify="center">
-          <FlexboxGrid.Item>
-            <Col>
-              <h1 align="center">Profile</h1>
-              <Form formValue={this.state.formValue} >
-                <FormGroup>
-                  <ControlLabel>User ID</ControlLabel>
-                  <FormControl name="display_name" type="text" readOnly={true} />
-
-                  <ControlLabel>Major</ControlLabel>
-                  <FormControl name="major" type="text" readOnly={true} />
-
-                  <ControlLabel>Classes</ControlLabel>
-                  <FormControl name="classes" type="text" readOnly={true} />
-
-                  <ControlLabel>Pronouns</ControlLabel>
-                  <FormControl name="pronouns" type="text" readOnly={true}  />
-                </FormGroup>
-              </Form>
-
-              <FlexboxGrid.Item>
-                <Row>
-                  <div className="buttons"></div>
-                  <Button onClick={this.handleEdit} appearance="primary">
-                    Edit
-                  </Button>
-                </Row>
-              </FlexboxGrid.Item>
-            </Col>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
     );
   }
 }

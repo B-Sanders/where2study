@@ -65,7 +65,10 @@ class Header2 extends React.Component {
                         <br />
                         <span style={{color:'white',marginLeft: 45}}><strong>Account</strong></span>
                         </Nav.Item>
-                        <Button size="lg" onClick={() => db.auth().signOut()} style={{marginLeft: 90}} color="red" appearance="primary">Logout</Button>
+                        <Button size="lg" onClick={() => {
+                          window.localStorage.removeItem('loginToken');
+                          this.props.history.push('/login');
+                        }} style={{marginLeft: 90}} color="red" appearance="primary">Logout</Button>
                       </Nav>
                     </Sidenav.Body>
                 </Sidenav>
