@@ -31,13 +31,13 @@ import { DataContext } from "../../state/context.js";
 const max_chars = 100;
 const alert_time = 1250;
 
-const cancelButton = styled(Button)`
+/*const cancelButton = styled(Button)`
   .rs-btn-primary.rs-btn-yellow {
     color: #fff;
     background-color: #ffca28;
     border: 5px solid #e8e8e8;
   }
-`;
+`;*/
 
 /**
  * Define Request Schema for use in validating a Users request 
@@ -314,7 +314,7 @@ class EditRequest extends React.Component {
                                 <Whisper 
                                     placement="top" 
                                     trigger="hover" 
-                                    speaker={<Tooltip>Do you want to join this study group?</Tooltip>}>
+                                    speaker={<Tooltip>Do you want to edit this request?</Tooltip>}>
                                     <Button onClick={this.handleSubmit} appearance="primary">
                                         EDIT REQUEST
                                     </Button>
