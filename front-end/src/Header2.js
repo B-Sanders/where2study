@@ -53,13 +53,13 @@ class Header2 extends React.Component {
                     <Sidenav.Body style={{ background: '#006A96',color: 'white'}}>
                       <Nav >
                         <Nav.Item style={{color: 'white'}} eventKey="1" icon={<Icon icon="location-arrow" />}>
-                          Locations
+                          <p style={{color: 'yellow'}}> Locations </p>
                         </Nav.Item>
                         <Nav.Item eventKey="2" icon={<Icon icon="book" />}>
-                            Study Requests
+                          <p style={{color: 'yellow'}}> Study Requests </p>
                         </Nav.Item>
                         <Nav.Item href="/profile" eventKey="3" icon={<Icon icon="gear-circle"/>}>
-                            Account
+                            <p style={{color: 'yellow'}}> Account </p>
                         </Nav.Item>
                       </Nav>
                     </Sidenav.Body>

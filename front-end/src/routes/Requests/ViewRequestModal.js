@@ -51,7 +51,7 @@ class Home extends React.Component {
                     <Modal show={this.open} onHide={this.close}>
                         <Modal.Header>
                             <Modal.Title> <h2>{sReq.request_title}</h2></Modal.Title>
-                            <h6>Request from {sReq.study_partners}</h6>
+                            <h6>Request from {sReq.study_partners[1]}</h6>
                         </Modal.Header>
                         <Modal.Body>
                             <Grid fluid>
@@ -64,7 +64,7 @@ class Home extends React.Component {
                                     <Col xs={10}> <h5>Studying Times</h5> </Col>
                                 </Row>
                                 <Row className="show-grid">
-                                    <Col xs={10}> <Rate defaultValue={sReq.noise_rating} max={5} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> </Col>
+                                    <Col xs={10}> <Rate readOnly defaultValue={sReq.noise_rating} max={5} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> </Col>
                                     <Col xs={4}> </Col>
                                     <Col xs={10}> {sReq.study_start} - {sReq.study_end} </Col>
                                 </Row>
