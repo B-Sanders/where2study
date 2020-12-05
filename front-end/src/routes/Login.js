@@ -92,15 +92,7 @@ class Login extends React.Component {
                   },
                 });
               });
-            const requests = db.database().ref("RequestsList");
-            requests.on("value", (dataSnapshot) => {
-              this.context.dispatch({
-                type: UPDATE_STUDY_REQUESTS_COLLECTION,
-                payload: {
-                  requests: dataSnapshot.val(),
-                },
-              });
-            });
+            
             this.props.history.push("/");
           }
           })
@@ -152,6 +144,11 @@ class Login extends React.Component {
                     name="password"
                     type="password"
                     placeholder="Password"
+                    onKeyDown={(key) => {
+                      if (key.code === 'Enter') {
+                        this.handleLogin();
+                      }
+                    }}
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
                 </FormGroup>

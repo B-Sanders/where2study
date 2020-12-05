@@ -1,6 +1,25 @@
 import  React, { Component } from 'react';
-import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
-    ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema, InputNumber } from 'rsuite';
+import {
+    Button, 
+    Modal, 
+    Grid, 
+    Row, 
+    Rate, 
+    Divider, 
+    Tooltip, 
+    Whisper, 
+    Alert, 
+    Form, 
+    FormGroup, 
+    FormControl,
+    ControlLabel, 
+    Input, 
+    DatePicker, 
+    SelectPicker, 
+    Icon, 
+    Schema, 
+    InputNumber } 
+from 'rsuite';
 
 /**
  * Fill SelectPickers
@@ -12,6 +31,13 @@ import { DataContext } from "../../state/context.js";
 const max_chars = 100;
 const alert_time = 1250;
 
+const cancelButton = styled(Button)`
+  .rs-btn-primary.rs-btn-yellow {
+    color: #fff;
+    background-color: #ffca28;
+    border: 5px solid #e8e8e8;
+  }
+`;
 
 /**
  * Define Request Schema for use in validating a Users request 
@@ -136,7 +162,7 @@ class EditRequest extends React.Component {
     }
 
     /**
-     * Set the state of the modal to start showing
+     * CALLS the parent component to tell it to stop rendering me
      */
     open() {
         this.setState({show: this.props.shouldShow});   // Setting it to the prop passed in by tha parent component

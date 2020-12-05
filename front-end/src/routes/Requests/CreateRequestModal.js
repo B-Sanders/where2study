@@ -1,6 +1,25 @@
 import  React, { Component } from 'react';
-import {Button, Modal, Grid, Row, Rate, Divider, Tooltip, Whisper, Alert, Form, FormGroup, FormControl,
-    ControlLabel, Input, DatePicker, SelectPicker, Icon, Schema, InputNumber } from 'rsuite';
+import {
+    Button, 
+    Modal, 
+    Grid, 
+    Row, 
+    Rate, 
+    Divider, 
+    Tooltip, 
+    Whisper, 
+    Alert, 
+    Form, 
+    FormGroup, 
+    FormControl,
+    ControlLabel, 
+    Input, 
+    DatePicker, 
+    SelectPicker, 
+    Icon, 
+    Schema, 
+    InputNumber } 
+from 'rsuite';
 
 /**
  * Fill SelectPickers
@@ -127,7 +146,7 @@ class Home extends React.Component {
     }
 
     /**
-     * Set the state of the modal to start showing
+     * CALLS the parent component to tell it to stop rendering me
      */
     open() {
         this.setState({show: this.props.shouldShow});   // Setting it to the prop passed in by tha parent component
