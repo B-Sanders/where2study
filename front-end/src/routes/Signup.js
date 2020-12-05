@@ -82,8 +82,6 @@ class Signup extends React.Component {
     }
 
     if (is_valid_email) {
-      // var uuid = user.user.uid;
-      // const activePost = false;
       let config = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
