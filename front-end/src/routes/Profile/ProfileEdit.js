@@ -6,12 +6,14 @@ import {
   FormControl,
   ControlLabel,
   FlexboxGrid,
-  Alert, RadioGroup, Radio,
+  Alert, RadioGroup, Radio, InputPicker,
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
 import db from "../../base";
+import major from "../majors.json";
+import courses from "../courses.json";
 //import major from "./majors.json";
 //import courses from "./courses.json";
 
@@ -78,24 +80,57 @@ class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "React",
+      formValue: {
+        display_name: "",
+        major: "",
+        classes: "",
+        pronouns: "",
+       // userId: user.uid,
+      },
     };
 
     this.updateProfile.bind(this);
-    this.onChangeGender = this.onChangeGender.bind(this);
-    this.onChangeMajor = this.onChangeMajor.bind(this);
+    this.handleChange.bind(this);
+    //this.onChangeGender = this.onChangeGender.bind(this);
+    //this.onChangeMajor = this.onChangeMajor.bind(this);
     //     this.onChangeClass = this.onChangeClass.bind(this);
   }
+
   updateProfile = () => {
+    const {
+      display_name,
+      major,
+      classes,
+      pronouns,
+    } = this.state.formValue;
+
+    const userData = {
+     // uniqueId,
+      display_name,
+      major,
+      classes,
+      pronouns,
+    };
+    db.database().ref("Users/" + uniqueId).update(userData);
+
+    //console.log(userData);
     this.props.history.push("/profile");
   };
 
+  handleChange(value) {
+    this.setState({
+      formValue: value,
+    });
+    console.log(value);
+  }
+/*
   onChangeGender(event) {
     console.log(event.target.value);
   }
   onChangeMajor(event) {
     console.log(event.target.value);
   }
+ */
   //   onChangeClass(event) {
   //       console.log(event.target.value);
   //   }
@@ -106,100 +141,33 @@ class ProfileEdit extends React.Component {
         <FlexboxGrid.Item>
           <Col>
             <h1 align="center">Profile</h1>
-            <Form>
+            <Form formValue={this.state.formValue}
+                  onChange={(formValue) => this.handleChange(formValue)}>
               <FormGroup>
                 <ControlLabel>User ID</ControlLabel>
                 <FormControl name="display_name" type="text" maxlength="15" />
 
-                <ControlLabel>Major</ControlLabel>
-                <div onChange={this.onChangeMajor}>
-                  <select id="major" name="major">
-                    <option value="undeclared">Undeclared</option>
-                    <option value="anthropology">Anthropology</option>
-                    <option value="bioengineering">Bioengineering (BE)</option>
-                    <option value="biological_sciences">
-                      Biological Sciences
-                    </option>
-                    <option value="chemistry_biochemistry">
-                      Chemistry and Biochemistry
-                    </option>
-                    <option value="chinese_studies">Chinese Studies</option>
-                    <option value="classical_studies">Classical Studies</option>
-                    <option value="cognitive_science">
-                      Cognitive Science (B.A./B.S.)
-                    </option>
-                    <option value="communication">Communication</option>
-                    <option value="cse">
-                      Computer Science and Engineering (CSE)
-                    </option>
-                    <option value="critical_gender_studies">
-                      Critical Gender Studies
-                    </option>
-                    <option value="dance">Dance</option>
-                    <option value="data_science">Data Science</option>
-                    <option value="earth_sciences">Earth Sciences</option>
-                    <option value="economics">Economics</option>
-                    <option value="education_studies">Education Studies</option>
-                    <option value="ece">
-                      Electrical and Computer Engineering (ECE)
-                    </option>
-                    <option value="engineering">Engineering</option>
-                    <option value="english">English</option>
-                    <option value="environmental_systems_program">
-                      Environmental Systems Program
-                    </option>
-                    <option value="ethnic_studies">Ethnic Studies</option>
-                    <option value="german_studies">German Studies</option>
-                    <option value="global_health">Global Health</option>
-                    <option value="global_south_studies">
-                      Global South Studies
-                    </option>
-                    <option value="history">History</option>
-                    <option value="human_developmental_sciences">
-                      Human Developmental Sciences
-                    </option>
-                    <option value="international_studies">
-                      International Studies (B.A.)
-                    </option>
-                    <option value="italian_studies">Italian Studies</option>
-                    <option value="japanese_studies">Japanese Studies</option>
-                    <option value="jewish_studies">Jewish Studies</option>
-                    <option value="latin_american_studies">
-                      Latin American Studies
-                    </option>
-                    <option value="linguistics">Linguistics</option>
-                    <option value="literature">Literature</option>
-                    <option value="marine_biology">Marine Biology</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="mae">
-                      Mechanical and Aerospace Engineering (MAE)
-                    </option>
-                    <option value="nano_engineering">Nano Engineering</option>
-                    <option value="oas">
-                      Oceanic and Atmospheric Sciences
-                    </option>
-                    <option value="philosophy">Philosophy</option>
-                    <option value="physics">Physics</option>
-                    <option value="political_science">Political Science</option>
-                    <option value="psychology">Psychology</option>
-                    <option value="public_health">Public Health (B.S.)</option>
-                    <option value="religion">Religion</option>
-                    <option value="russian_studies">Russian Studies</option>
-                    <option value="sociology">Sociology</option>
-                    <option value="theatre">Theatre</option>
-                    <option value="usp">Urban Studies and Planning</option>
-                    <option value="visual_arts">Visual Arts</option>
-                  </select>
+                <div>
+                  <FormGroup>
+                    <ControlLabel>Major</ControlLabel>
+                    <FormControl
+                        name="major"
+                        accepter={InputPicker}
+                        data={major}
+                    ></FormControl>
+                  </FormGroup>
                 </div>
 
-                <ControlLabel>Classes</ControlLabel>
-                <div onChange={this.onChangeClass}>
-                  <TagPicker
-                    data={options}
-                    groupBy="department"
-                    defaultValue={options}
-                    style={{ width: 300 }}
-                  />
+                <div>
+                  <FormGroup>
+                    <ControlLabel>Courses</ControlLabel>
+                    <FormControl
+                        name="classes"
+                        accepter={TagPicker}
+                        data={courses}
+                        style={{ width: 300 }}
+                    />
+                  </FormGroup>
                 </div>
 
                 <ControlLabel>Pronouns</ControlLabel>
