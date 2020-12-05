@@ -6,6 +6,7 @@ import {
   FormControl,
   ControlLabel,
   FlexboxGrid,
+  ButtonToolbar,
   Alert, RadioGroup, Radio, InputPicker,
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
@@ -17,52 +18,6 @@ import courses from "../courses.json";
 //import major from "./majors.json";
 //import courses from "./courses.json";
 
-const options = [
-  { value: "cse8a", department: "CSE", label: "CSE 8A" },
-  { value: "cse8b", department: "CSE", label: "CSE 8B" },
-  { value: "cse11", department: "CSE", label: "CSE 11" },
-  { value: "cse12", department: "CSE", label: "CSE 12" },
-  { value: "cse15l", department: "CSE", label: "CSE 15L" },
-  { value: "cse20", department: "CSE", label: "CSE 20" },
-  { value: "cse21", department: "CSE", label: "CSE 21" },
-  { value: "cse30", department: "CSE", label: "CSE 30" },
-  { value: "cse100", department: "CSE", label: "CSE 100" },
-  { value: "cse101", department: "CSE", label: "CSE 101" },
-  { value: "cse105", department: "CSE", label: "CSE 105" },
-  { value: "cse107", department: "CSE", label: "CSE 107" },
-  { value: "cse110", department: "CSE", label: "CSE 110" },
-  { value: "cse112", department: "CSE", label: "CSE 112" },
-  { value: "cse118", department: "CSE", label: "CSE 118" },
-  { value: "cse120", department: "CSE", label: "CSE 120" },
-  { value: "cse123", department: "CSE", label: "CSE 123" },
-  { value: "cse124", department: "CSE", label: "CSE 124" },
-  { value: "cse125", department: "CSE", label: "CSE 125" },
-  { value: "cse127", department: "CSE", label: "CSE 127" },
-  { value: "cse130", department: "CSE", label: "CSE 131" },
-  { value: "cse131", department: "CSE", label: "CSE 131" },
-  { value: "cse132a", department: "CSE", label: "CSE 132A" },
-  { value: "cse132b", department: "CSE", label: "CSE 132B" },
-  { value: "cse132c", department: "CSE", label: "CSE 132C" },
-  { value: "cse134b", department: "CSE", label: "CSE 134B" },
-  { value: "cse135", department: "CSE", label: "CSE 135" },
-  { value: "cse136", department: "CSE", label: "CSE 136" },
-  { value: "cse140", department: "CSE", label: "CSE 140" },
-  { value: "cse140l", department: "CSE", label: "CSE 140L" },
-  { value: "cse141", department: "CSE", label: "CSE 141" },
-  { value: "cse141l", department: "CSE", label: "CSE 141L" },
-  { value: "cse143", department: "CSE", label: "CSE 143" },
-  { value: "cse145", department: "CSE", label: "CSE 145" },
-  { value: "cse148", department: "CSE", label: "CSE 148" },
-  { value: "cse150a", department: "CSE", label: "CSE 150A" },
-  { value: "cse150b", department: "CSE", label: "CSE 150B" },
-  { value: "cse151a", department: "CSE", label: "CSE 151A" },
-  { value: "cse151b", department: "CSE", label: "CSE 151B" },
-  { value: "cse152a", department: "CSE", label: "CSE 152A" },
-  { value: "cse152b", department: "CSE", label: "CSE 152B" },
-  { value: "cse190", department: "CSE", label: "CSE 190" },
-
-  { value: "vanilla", department: "flavor town", label: "Vanilla" },
-];
 
 const database = db.database();
 var uniqueId;
@@ -91,6 +46,7 @@ class ProfileEdit extends React.Component {
 
     this.updateProfile.bind(this);
     this.handleChange.bind(this);
+    this.backToProfile.bind(this);
     //this.onChangeGender = this.onChangeGender.bind(this);
     //this.onChangeMajor = this.onChangeMajor.bind(this);
     //     this.onChangeClass = this.onChangeClass.bind(this);
@@ -117,23 +73,16 @@ class ProfileEdit extends React.Component {
     this.props.history.push("/profile");
   };
 
+  backToProfile = () => {
+    this.props.history.push("/profile");
+  }
+
   handleChange(value) {
     this.setState({
       formValue: value,
     });
     console.log(value);
   }
-/*
-  onChangeGender(event) {
-    console.log(event.target.value);
-  }
-  onChangeMajor(event) {
-    console.log(event.target.value);
-  }
- */
-  //   onChangeClass(event) {
-  //       console.log(event.target.value);
-  //   }
 
   render() {
     return (
@@ -145,7 +94,7 @@ class ProfileEdit extends React.Component {
                   onChange={(formValue) => this.handleChange(formValue)}>
               <FormGroup>
                 <ControlLabel>User ID</ControlLabel>
-                <FormControl name="display_name" type="text" maxlength="15" />
+                <FormControl name="display_name" type="text" maxlength="15" minLength="1" />
 
                 <div>
                   <FormGroup>
@@ -180,17 +129,16 @@ class ProfileEdit extends React.Component {
                   </FormControl>
                 </div>
 
-                <ControlLabel>Requests</ControlLabel>
               </FormGroup>
             </Form>
 
             <FlexboxGrid.Item>
-              <Row>
-                <div className="buttons"></div>
-                <Button onClick={this.updateProfile} appearance="primary">
-                  Update
-                </Button>
-              </Row>
+              <FormGroup>
+                <ButtonToolbar>
+                  <Button onClick={this.updateProfile} appearance="primary">Update</Button>
+                  <Button onClick={this.backToProfile} appearance="primary" color="red">Cancel</Button>
+                </ButtonToolbar>
+              </FormGroup>
             </FlexboxGrid.Item>
           </Col>
         </FlexboxGrid.Item>
