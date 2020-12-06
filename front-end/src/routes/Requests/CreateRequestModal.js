@@ -98,12 +98,26 @@ class Home extends React.Component {
      */
     createNewRequest = () =>{
         // Convert Dates to correct format for storage
-        let newStudyStart = this.state.formValue.study_start;
-        newStudyStart = new String( newStudyStart.toString().substring(16,18) + ':' + newStudyStart.toString().substring(19,21) ) ;
+        let startMinutes = String(this.state.formValue.study_start.getMinutes());
+        if (startMinutes.length === 1) {
+            startMinutes = '0' + startMinutes;
+        }
+        let startHours = String(this.state.formValue.study_start.getHours());
+        if (startHours.length === 1) {
+            startHours = '0' + startHours;
+        }
+        const newStudyStart = `${startHours}:${startMinutes}`;
         
         // Convert Dates to correct format for storage
-        let newStudyEnd = this.state.formValue.end_time;
-        newStudyEnd =  new String( newStudyEnd.toString().substring(16,18) + ':' + newStudyEnd.toString().substring(19,21) )  ;
+        let endMinutes = String(this.state.formValue.end_time.getMinutes());
+        if (endMinutes.length === 1) {
+            endMinutes = '0' + endMinutes;
+        }
+        let endHours = String(this.state.formValue.end_time.getHours());
+        if (endHours.length === 1) {
+            endHours = '0' + endHours;
+        }
+        const newStudyEnd = `${endHours}:${endMinutes}`;
 
         let config = {
             method: 'POST',
@@ -154,7 +168,7 @@ class Home extends React.Component {
 
     render(){
         const { formValue } = this.state;
-        console.log( this.context )
+        console.log( formValue );
         return (
             <>
                 <div className="centered">
