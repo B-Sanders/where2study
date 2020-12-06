@@ -20,6 +20,15 @@ import { UPDATE_USER } from "../../state/actions";
 const HomeContainer = styled.div`
     height: 100%;
     width: 100%;
+    display: flex;
+    /* justify-content: center; */
+`;
+
+const ProfileContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 class Profile extends React.Component {
@@ -88,6 +97,7 @@ class Profile extends React.Component {
     return (
       <HomeContainer>
       <SideBar history={this.props.history}/>
+      <ProfileContainer>
       <FlexboxGrid colspan={20} justify="center">
         <FlexboxGrid.Item>
           <Col>
@@ -120,6 +130,7 @@ class Profile extends React.Component {
           </Col>
         </FlexboxGrid.Item>
       </FlexboxGrid>
+      </ProfileContainer>
       </HomeContainer>
     );
   }
