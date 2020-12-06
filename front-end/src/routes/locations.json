@@ -2,15 +2,15 @@
 
   {
     "label": "Atkinson Hall",
-    "value": "Atkinson_Hall"
+    "value": "AtkinsonHall"
   },
   {
     "label": "CSE Building",
-    "value": "CSE_Building"
+    "value": "CSEBuilding"
   },
   {
     "label": "Galbraith Hall",
-    "value": "Galbraith_Hall"
+    "value": "GalbraithHall"
   },
   {
     "label": "Geisel F1",
@@ -50,27 +50,27 @@
   },
   {
     "label": "Other Location",
-    "value": "Other_Location"
+    "value": "OtherLocation"
   },
   {
     "label": "Price Center East",
-    "value": "Price_Center_East"
+    "value": "PriceCenterEast"
   },
   {
     "label": "Price Center West",
-    "value": "Price_Center_West"
+    "value": "PriceCenterWest"
   },
   {
     "label": "The Loft",
-    "value": "The_Loft"
+    "value": "TheLoft"
   },
   {
     "label": "Village Eco Flats",
-    "value": "Village_Eco_Flats"
+    "value": "VillageEcoFlats"
   },
   {
     "label": "Village North Break Study Lounge",
-    "value": "Village_North_Break_Study_Lounge"
+    "value": "VillageNorthBreakStudyLounge"
   },
   {
     "label": "Zoom",
