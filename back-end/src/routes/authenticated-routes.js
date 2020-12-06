@@ -28,6 +28,7 @@ authenticatedRoute.get('/all-locations', (req, res) => {
     }
 });
 
+
 // GET: obtain all Study Requests
 authenticatedRoute.get('/study-requests', (req, res) => {
     try {

@@ -28,11 +28,11 @@ function renderAllPanels(reqList) {
 }
 
 let images = new Map();
-images.set("Atkinson_Hall", atkinsonHall);
-images.set("CSE_Building", cseBuilding);
-images.set("Galbraith_Hall", galbraithHall);
+images.set("AtkinsonHall", atkinsonHall);
+images.set("CSEBuilding", cseBuilding);
+images.set("GalbraithHall", galbraithHall);
 images.set("GeiselF2", geiselLibrary);
-images.set("Price_Center", priceCenter);
+images.set("PriceCenter", priceCenter);
 
 
 class StudyRequests extends Component{
