@@ -90,7 +90,8 @@ class Home extends React.Component {
             show={this.open}
             onHide={this.close}
             style={{
-              paddingTop: "150px",
+              paddingLeft: "125px",
+              paddingTop: "100px",
             }}
           >
             <Modal.Header>
@@ -98,7 +99,7 @@ class Home extends React.Component {
                 {" "}
                 <h2>{sReq.request_title}</h2>
               </Modal.Title>
-              <h6>Request from {sReq.study_partners}</h6>
+              <h6>Request from {partnersList[0]}</h6>
             </Modal.Header>
             <Modal.Body>
               <Grid fluid>
@@ -194,6 +195,7 @@ class Home extends React.Component {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              paddingLeft: "125px",
             }}
           >
             <Modal.Body style={{ fontWeight: "bold" }}>
