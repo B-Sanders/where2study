@@ -91,6 +91,16 @@ export function editRequest({
 }
 
 
+export function addPartner({partnerId, posterId}) {
+
+        // Add study partner as child to request/study_partners
+        return db.database().ref(`RequestsList/${posterId}/study_partners/`).update({
+            [partnerId]:partnerId
+        }).then(() => (
+            console.log('Partner added')
+        ));
+}
+
 export function deleteRequest({userId, location}) {
 
     var updates = {};

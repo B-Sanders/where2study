@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllRequests, createRequest, editRequest, deleteRequest } from '../models/requestsModel';
+import { getAllRequests, createRequest, editRequest, deleteRequest, addPartner } from '../models/requestsModel';
 
 
 const requestRouter = express.Router();
@@ -30,6 +30,18 @@ requestRouter.post('/edit-request', (req, res) => {
     
     // Create a study request from passed object
     editRequest(req.body)
+        .then(() => res.sendStatus(200))
+        .catch((err) => {
+            res.send(300).json({"msg":"Something went wrong","error":err});
+        })
+});
+
+
+// Add a study partner to the request when a user accepts
+requestRouter.post('/add-partner', (req, res) => {
+    
+    // Create a study request from passed object
+    addPartner(req.body)
         .then(() => res.sendStatus(200))
         .catch((err) => {
             res.send(300).json({"msg":"Something went wrong","error":err});
