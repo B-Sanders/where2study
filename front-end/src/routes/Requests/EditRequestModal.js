@@ -61,16 +61,15 @@ class EditRequest extends React.Component {
         /**
          * TODO:: Avoid Hard Coding Values for requestkey ?  
          */
+        let requestKey = this.context.state.user.uuid;
 
         /**
-         * Reconvert from HH:MM format to Date Type for DatePicker
+         * Reconvert from HH:MM format to Date Type for DatePicker (Date Picker recognizes military time
+         *  and automatically convets to AM/PM ) 
          */
         let time = new String( this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2.study_end );
         let hour = time.substring(0,2);
         let minutes = time.substring(3,5);
-
-    
-        let requestKey = this.context.state.user.uuid;
 
         this.state = {
             formValue: {
@@ -92,7 +91,7 @@ class EditRequest extends React.Component {
 
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.createNewRequest = this.createNewRequest.bind(this);
+        this.editRequest = this.editRequest.bind(this);
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
  
@@ -109,7 +108,7 @@ class EditRequest extends React.Component {
 
         } else {
             // No error occurred handle accordingly
-            this.createNewRequest();
+            this.editRequest();
         }
     }
 
@@ -117,10 +116,17 @@ class EditRequest extends React.Component {
      * CREATE   Format the current state of the User's form request and POST to the 
      *          Realtime Database 
      */
-    createNewRequest = () =>{
+    editRequest = () =>{
         // Convert Dates to correct format for storage
-        let newStudyEnd = this.state.formValue.end_time;
-        newStudyEnd = new String(  newStudyEnd.toISOString().substring(11,16) );
+        let endMinutes = String(this.state.formValue.end_time.getMinutes());
+        if (endMinutes.length === 1) {
+            endMinutes = '0' + endMinutes;
+        }
+        let endHours = String(this.state.formValue.end_time.getHours());
+        if (endHours.length === 1) {
+            endHours = '0' + endHours;
+        }
+        const newStudyEnd = `${endHours}:${endMinutes}`;
 
 
         let config = {
@@ -170,7 +176,7 @@ class EditRequest extends React.Component {
 
     render(){
         const { formValue } = this.state;
-       
+        console.log( this.context)
         return (
             <>
                 <div className="centered">
