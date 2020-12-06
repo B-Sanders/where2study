@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlexboxGrid } from 'rsuite';
-import { Col } from 'rsuite'
+import { Col, Affix } from 'rsuite'
 import { IconButton, Icon} from 'rsuite';
 import { Tooltip, Whisper } from 'rsuite';
 
@@ -39,6 +39,7 @@ class RequestCreation extends React.Component{
         return(
             <>
             <div className="show-requestCreation">
+                <Affix top={50}>
                 <FlexboxGrid colSpan={20} justify="end">
                     <FlexboxGrid.Item>
 
@@ -68,6 +69,7 @@ class RequestCreation extends React.Component{
 
                     </FlexboxGrid.Item>
                 </FlexboxGrid>
+                </Affix>
             </div>
             </>
         );

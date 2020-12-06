@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Content from "./Content";
+import {Sidebar} from "rsuite"
 //import Header from "../../Header";
-import Header from "../../Header2";
+import Header from "../../Header";
 import styled from 'styled-components';
 import { DataContext } from "../../state/context";
 import {
@@ -16,6 +17,9 @@ const HomeContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
+    className: "show-fake-browser navbar-page";
+    overflow: auto;
+
 `;
 
 class HomePage extends Component{
@@ -38,7 +42,9 @@ class HomePage extends Component{
         console.log(this.context.state);
         return(
             <HomeContainer>
-                <Header history={this.props.history}/>
+                <Sidebar history={this.props.history}>
+                    <Header history={this.props.history}/>
+                </Sidebar>
                 <Content />
             </HomeContainer>
         )

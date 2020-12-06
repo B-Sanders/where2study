@@ -27,9 +27,10 @@ requestRouter.post('/create-request', (req, res) => {
 
 // Edit a study request, from study requests page
 requestRouter.post('/edit-request', (req, res) => {
+    
     // Create a study request from passed object
     editRequest(req.body)
-        .then(res.sendStatus(200))
+        .then(() => res.sendStatus(200))
         .catch((err) => {
             res.send(300).json({"msg":"Something went wrong","error":err});
         })
@@ -40,8 +41,8 @@ requestRouter.post('/edit-request', (req, res) => {
 requestRouter.post('/delete-request', (req, res) => {
 
     // Delete request identified by userId
-    deleteRequest(req.body.userId)
-        .then(res.sendStatus(200))
+    deleteRequest(req.body)
+        .then(() => res.sendStatus(200))
         .catch((err) => {
             res.send(300).json({"msg":"Something went wrong","error":err});
         })
