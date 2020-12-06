@@ -36,10 +36,8 @@ class Profile extends React.Component {
     };
 
     this.loadUser.bind(this);
-
     this.handleEdit.bind(this);
   }
-
 
   componentDidMount() {
     const userData = db.database().ref('Users');

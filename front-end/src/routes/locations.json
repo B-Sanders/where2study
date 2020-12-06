@@ -1,80 +1,21 @@
 [
-
-  {
-    "label": "Atkinson Hall",
-    "value": "Atkinson_Hall"
-  },
-  {
-    "label": "CSE Building",
-    "value": "CSE_Building"
-  },
-  {
-    "label": "Galbraith Hall",
-    "value": "Galbraith_Hall"
-  },
-  {
-    "label": "Geisel F1",
-    "value": "GeiselF1"
-  },
-  {
-    "label": "Geisel F2",
-    "value": "GeiselF2"
-  },
-  {
-    "label": "Geisel F3",
-    "value": "GeiselF3"
-  },
-  {
-    "label": "Geisel F4",
-    "value": "GeiselF4"
-  },
-  {
-    "label": "Geisel F5",
-    "value": "GeiselF5"
-  },
-  {
-    "label": "Geisel F6",
-    "value": "GeiselF6"
-  },
-  {
-    "label": "Geisel F7",
-    "value": "GeiselF7"
-  },
-  {
-    "label": "Geisel F8",
-    "value": "GeiselF8"
-  },
-  {
-    "label": "Geisel F9",
-    "value": "GeiselF9"
-  },
-  {
-    "label": "Other Location",
-    "value": "Other_Location"
-  },
-  {
-    "label": "Price Center East",
-    "value": "Price_Center_East"
-  },
-  {
-    "label": "Price Center West",
-    "value": "Price_Center_West"
-  },
-  {
-    "label": "The Loft",
-    "value": "The_Loft"
-  },
-  {
-    "label": "Village Eco Flats",
-    "value": "Village_Eco_Flats"
-  },
-  {
-    "label": "Village North Break Study Lounge",
-    "value": "Village_North_Break_Study_Lounge"
-  },
-  {
-    "label": "Zoom",
-    "value": "Zoom"
-  }
-
+    { "label": "AtkinsonHall", "value": "AtkinsonHall", "role": "Master" },
+    { "label": "CSEBuilding",  "value": "CSEBuilding" , "role": "Master" },
+    { "label": "GalbraithHall","value": "GalbraithHall", "role": "Master" },
+    { "label": "GeiselF1","value": "GeiselF1", "role": "Master" },
+    { "label": "GeiselF2","value": "GeiselF2","role": "Master" },
+    { "label": "GeiselF3","value": "GeiselF3" ,"role": "Master" },
+    { "label": "GeiselF4","value": "GeiselF4","role": "Master" },
+    { "label": "GeiselF5","value": "GeiselF5" ,"role": "Master" },
+    { "label": "GeiselF6","value": "GeiselF6", "role": "Master" },
+    { "label": "GeiselF7","value": "GeiselF7","role": "Master" },
+    { "label": "GeiselF8","value": "GeiselF8" ,"role": "Master" },
+    { "label": "GeiselF9","value": "GeiselF9", "role": "Master" },
+    { "label": "OtherLocation" ,"value": "OtherLocation","role": "Master" },
+    { "label": "PriceCenterEast","value": "PriceCenterEast" ,"role": "Master" },
+    { "label": "PriceCenterWest","value": "PriceCenterWest" ,"role": "Master" },
+    { "label": "TheLoft","value":"TheLoft" ,"role": "Master" },
+    { "label": "VillageEcoFlats","value": "VillageEcoFlats","role": "Master" },
+    { "label": "VillageNorthBreakStudyLounge","value": "VillageNorthBreakStudyLounge","role": "Master" },
+    { "label": "Zoom","value": "Zoom" ,"role": "Master" }
 ]
