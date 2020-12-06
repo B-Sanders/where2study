@@ -18,6 +18,7 @@ import classData from "../courses.json";
 import SideBar from "../../Header"
 import styled from 'styled-components';
 import { DataContext } from "../../state/context";
+import { UPDATE_USER } from "../../state/actions";
 
 const ProfileEditContainer = styled.div`
   width: 100%;
@@ -40,41 +41,30 @@ class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formValue: {
-        display_name: "",
-        major: "",
-        classes: "",
-        pronouns: "",
-       // userId: user.uid,
-      },
+      display_name: '',
+      major: [],
+      classes: [],
+      pronouns: '',
     };
-
     this.updateProfile.bind(this);
-    this.handleChange.bind(this);
     this.backToProfile.bind(this);
-    //this.onChangeGender = this.onChangeGender.bind(this);
-    //this.onChangeMajor = this.onChangeMajor.bind(this);
-    //     this.onChangeClass = this.onChangeClass.bind(this);
   }
 
   updateProfile = () => {
-    const {
+    let {
       display_name,
       major,
       classes,
       pronouns,
-    } = this.state.formValue;
-
+    } = this.state;
+    major = major.join();
     const userData = {
-     // uniqueId,
       display_name,
       major,
       classes,
       pronouns,
     };
-    db.database().ref("Users/" + uniqueId).update(userData);
-
-    //console.log(userData);
+    db.database().ref("Users/" + this.context.state.user.uuid).update(userData);
     this.props.history.push("/profile");
   };
 
@@ -82,17 +72,47 @@ class ProfileEdit extends React.Component {
     this.props.history.push("/profile");
   }
 
-  handleChange(value) {
-    this.setState({
-      formValue: value,
-    });
-    console.log(value);
-  }
+  componentDidMount() {
+    const userData = db.database().ref('Users');
+    userData.orderByChild('uuid').equalTo(window.localStorage.getItem('loginToken')).on('value', (dataSnapshot) => {
+        const {
+            active_post,
+            classes,
+            display_name,
+            email,
+            major,
+            pronouns,
+            uuid,
+        } = dataSnapshot.val()[window.localStorage.getItem('loginToken')];
+  
+        this.context.dispatch({
+          type: UPDATE_USER,
+          payload: {
+            user: {
+              active_post,
+              classes,
+              display_name,
+              email,
+              major,
+              pronouns,
+              uuid,
+            },
+          },
+        });
+        console.log(this.context.state.user.major);
+        this.setState({
+          display_name: this.context.state.user.display_name,
+          major: this.context.state.user.major.split(','),
+          classes: this.context.state.user.classes,
+          pronouns: this.context.state.user.pronouns,
+      });
+  });
+}
 
   render() {
     return (
       <ProfileEditContainer>
-        <SideBar />
+        <SideBar history={this.props.history}/>
         <FlexboxGrid colspan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
@@ -100,39 +120,46 @@ class ProfileEdit extends React.Component {
               <Form>
                 <FormGroup>
                   <ControlLabel>User ID</ControlLabel>
-                  <FormControl name="display_name" type="text" maxlength="15" />
+                  <FormControl
+                    name="display_name"
+                    type="text"
+                    maxlength="15"
+                    onChange={(newValue) => { this.setState({ display_name: newValue }); }}
+                    value={this.state.display_name}
+                  />
 
                   <ControlLabel>Major</ControlLabel>
-                  <div onChange={this.onChangeMajor}>
                     <TagPicker
                       data={majorData}
                       groupBy="department"
-                      defaultValue={majorData}
+                      defaultValue={this.state.major}
+                      value={this.state.major}
                       style={{ width: 300 }}
+                      onChange={(val) => { this.setState({ major: val })}}
                     />
-                  </div>
 
                   <ControlLabel>Classes</ControlLabel>
-                  <div onChange={this.onChangeClass}>
                     <TagPicker
                       data={classData}
                       groupBy="department"
-                      defaultValue={classData}
+                      defaultValue={this.state.classes}
+                      value={this.state.classes}
+                      onChange={(val) => { this.setState({ classes: val })}}
                       style={{ width: 300 }}
                     />
-                  </div>
 
                   <ControlLabel>Pronouns</ControlLabel>
-                  <div>
-                    <FormControl name="pronouns" accepter={RadioGroup}>
+                    <FormControl
+                      name="pronouns"
+                      accepter={RadioGroup}
+                      onChange={(val) => { this.setState({ pronouns: val })}}
+                    >
                       <Radio value="He/Him">He/Him</Radio>
                       <Radio value="She/Her">She/Her</Radio>
                       <Radio value="They/Them">They/Them</Radio>
                       <Radio value="Other">Other</Radio>
                     </FormControl>
-                  </div>
 
-                  <ControlLabel>Requests</ControlLabel>
                 </FormGroup>
               </Form>
 
