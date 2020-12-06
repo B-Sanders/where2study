@@ -1,0 +1,33 @@
+# dependencies
+back-end/node_modules
+front-end/node_modules
+
+front-end/.idea
+front-end/debug.log
+
+yarn-error.log
+yarn.lock
+
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+#ViualStudio
+.idea/*

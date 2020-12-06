@@ -1,0 +1,177 @@
+import React, { useContext } from "react";
+import { Redirect } from "react-router-dom";
+import { DataContext } from "../state/context";
+import {
+  UPDATE_LOCATIONS_COLLECTION,
+  UPDATE_STUDY_REQUESTS_COLLECTION,
+  UPDATE_USER,
+} from "../state/actions";
+import {
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  FlexboxGrid,
+  ButtonToolbar,
+  HelpBlock,
+  Alert,
+} from "rsuite";
+import { Col } from "rsuite";
+import { Button } from "rsuite";
+import db from "../base";
+import logo from "../images/where2study.png";
+import styled from 'styled-components';
+
+const LoginContainer = styled.div`
+    height: 100%;
+    width: 100%;
+`;
+
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formValue: {
+        email: "",
+        password: "",
+      },
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  handleSignUp() {
+    this.props.history.push("/signup");
+  }
+
+  handleLogin() {
+    const { email, password } = this.state.formValue;
+
+    if (email.trim() == "" || password.trim() == "") {
+      Alert.warning("Email and password fields cannot be empty", 4000);
+    } else {
+      try {
+        db.auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((user) => {
+            if (user) {
+              window.localStorage.setItem('loginToken', user.user.uid);
+              const userData = db.database().ref('Users');
+              userData.orderByChild('uuid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
+                const {
+                    active_post,
+                    classes,
+                    display_name,
+                    email,
+                    major,
+                    pronouns,
+                    uuid,
+                } = dataSnapshot.val()[user.user.uid];
+                this.context.dispatch({
+                    type: UPDATE_USER,
+                    payload: {
+                      user: {
+                        active_post,
+                        classes,
+                        display_name,
+                        email,
+                        major,
+                        pronouns,
+                        uuid,
+                      },
+                    },
+                  });
+              });
+              const locations = db.database().ref("Locations");
+              locations.on("value", (dataSnapshot) => {
+                this.context.dispatch({
+                  type: UPDATE_LOCATIONS_COLLECTION,
+                  payload: {
+                    locations: dataSnapshot.val(),
+                  },
+                });
+              });
+            this.props.history.push("/");
+          }
+          })
+          .catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === "auth/wrong-password") {
+              Alert.error("The username and password did not match", 4000);
+            } else if (errorCode === "auth/user-not-found") {
+              Alert.error("The user does not exist", 4000);
+            } else {
+              Alert.error(errorMessage, 4000);
+            }
+          });
+      } catch (error) {
+        alert(error);
+      }
+    }
+  }
+
+  handleChange(value) {
+    this.setState({
+      formValue: value,
+    });
+  }
+
+  render() {
+    const { state, dispatch } = this.context;
+    console.log(state);
+    return (
+    <LoginContainer>
+        <FlexboxGrid colSpan={20} justify="center">
+          <FlexboxGrid.Item>
+            <Col>
+              <img src={logo} height={250} width={300} />
+              <Form
+                onChange={this.handleChange}
+                formValue={this.state.formValue}
+              >
+                <FormGroup>
+                  <ControlLabel>Email</ControlLabel>
+                  <FormControl name="email" type="email" placeholder="Email" />
+                  <HelpBlock tooltip>Required</HelpBlock>
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Password</ControlLabel>
+                  <FormControl
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    onKeyDown={(key) => {
+                      if (key.code === 'Enter') {
+                        this.handleLogin();
+                      }
+                    }}
+                  />
+                  <HelpBlock tooltip>Required</HelpBlock>
+                </FormGroup>
+                <FormGroup>
+                  <ButtonToolbar>
+                    <Button onClick={this.handleLogin} appearance="primary">
+                      Sign In
+                    </Button>
+                    <Button
+                      onClick={this.handleSignUp}
+                      appearance="primary"
+                      color="green"
+                    >
+                      Sign Up
+                    </Button>
+                  </ButtonToolbar>
+                </FormGroup>
+              </Form>
+            </Col>
+          </FlexboxGrid.Item>
+        </FlexboxGrid>
+      </LoginContainer>
+    );
+  }
+}
+
+Login.contextType = DataContext;
+export default Login;
