@@ -38,7 +38,11 @@ class RequestCreation extends React.Component{
       );
         return(
             <>
-            <div className="show-requestCreation">
+            <div className="show-requestCreation"
+                           style={{
+                                        paddingRight: "50px",
+                                    }}
+            >
                 <Affix top={50}>
                 <FlexboxGrid colSpan={20} justify="end">
                     <FlexboxGrid.Item>

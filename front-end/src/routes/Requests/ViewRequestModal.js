@@ -90,7 +90,8 @@ class Home extends React.Component {
             show={this.open}
             onHide={this.close}
             style={{
-              paddingTop: "150px",
+              paddingLeft: "125px",
+              paddingTop: "100px",
             }}
           >
             <Modal.Header>
@@ -194,6 +195,7 @@ class Home extends React.Component {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              paddingLeft: "125px",
             }}
           >
             <Modal.Body style={{ fontWeight: "bold" }}>
