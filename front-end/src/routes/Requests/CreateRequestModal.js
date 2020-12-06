@@ -1,234 +1,320 @@
-import React, { Component } from "react";
-import ButtonToolbar, {
-  Button,
-  Modal,
-  Grid,
-  Row,
-  Col,
-  Rate,
-  Container,
-  Header,
-  Content,
-  Footer,
-  Sidebar,
-  Divider,
-  List,
-  Tooltip,
-  Whisper,
-  Alert,
-  Progress,
-  Form,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  HelpBlock,
-  InputPicker,
-  Input,
-  InputGroup,
-  DatePicker,
-  SelectPicker,
-  AutoComplete,
-  Icon,
-} from "rsuite";
+import  React, { Component } from 'react';
+import {
+    Button, 
+    Modal, 
+    Grid, 
+    Row, 
+    Rate, 
+    Divider, 
+    Tooltip, 
+    Whisper, 
+    Alert, 
+    Form, 
+    FormGroup, 
+    FormControl,
+    ControlLabel, 
+    Input, 
+    DatePicker, 
+    SelectPicker, 
+    Icon, 
+    Schema, 
+    InputNumber } 
+from 'rsuite';
 
-//import speaker from '../images/speaker.svg';
+/**
+ * Fill SelectPickers
+ */
+import courses from "../courses.json";  
+import locations from "../locations.json";
+import { DataContext } from "../../state/context.js"; 
+
+const max_chars = 100;
+const alert_time = 1250;
+
+
+/**
+ * Define Request Schema for use in validating a Users request 
+ */
+const{ StringType, NumberType, DateType } = Schema.Types;
+const model = Schema.Model({
+    title: StringType().isRequired('This field is required'),
+    class: StringType().isRequired('This field is required'),
+    location: StringType().isRequired('This field is required'),
+    noise_level: NumberType().isRequired('This field is required'),
+    end_time: DateType().isRequired('This field is required'),
+    max_partners: NumberType().isRequired('This field is required'),
+    description: StringType()
+        .maxLength(max_chars, '100 Characters Max' )
+        .isRequired('This field is required')
+});
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-      create: false,
-    };
-    this.close = this.close.bind(this);
-    this.open = this.open.bind(this);
+    constructor(props) {
+        super(props);
+        this.state = {
+            formValue: {
+                title: '',
+                class: '',
+                location: '',
+                noise_level: 1,
+                end_time: new Date(),
+                description: '',
+                max_partners: 1,           
+                study_start: new Date()     
+            },
+            formError: {},
+            chars_left: max_chars,
 
-    this.studyPartners = [
-      "Nicholas Weaver",
-      "Andre Lopez",
-      "Rigo Caretto",
-      "Brian Sanders",
-      "Gary Gillespie",
-    ];
-    this.classes = [
-      {
-        label: "CSE 110",
-        value: "CSE 110",
-        role: "Master",
-      },
-      {
-        label: "CSE 12",
-        value: "CSE 12",
-        role: "Master",
-      },
-      {
-        label: "CSE 15L",
-        value: "CSE 15L",
-        role: "Master",
-      },
-    ];
+            show: false,
+            create: false
+        };
 
-    this.locations = [
-      {
-        label: "Price Center",
-        value: "Price Center",
-        role: "Master",
-      },
-      {
-        label: "Geisel 1st Floor",
-        value: "Geisel 1st Floor",
-        role: "Master",
-      },
-      {
-        label: "Geisel 2nd Floor",
-        value: "Geisel 2nd Floor",
-        role: "Master",
-      },
-    ];
-    this.renderCharacter = (value, index) => {
-      return <Icon icon="speaker" style={{ color: "#ff9800" }} />;
-    };
-  }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.createNewRequest = this.createNewRequest.bind(this);
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
+ 
+        
+    }
 
-  /**
-   * Set the state of the modal to stop showing and calls parent component
-   */
-  close() {
-    this.setState({ show: false });
+  
+    /**
+     * Once the user has submitted the form validate it against the
+     * database schema model. If no errors proceed to create the request.
+     */
+    handleSubmit(){
+        if( !this.form.check() ){
+            Alert.error('Please fix the highlighted fields', alert_time);
+
+        } else {
+            // No error occurred handle accordingly
+            this.createNewRequest();
+        }
+    }
+
+    /**
+     * CREATE   Format the current state of the User's form request and POST to the 
+     *          Realtime Database 
+     */
+    createNewRequest = () =>{
+        // Convert Dates to correct format for storage
+        let newStudyStart = this.state.formValue.study_start;
+        newStudyStart = new String( newStudyStart.toString().substring(16,18) + ':' + newStudyStart.toString().substring(19,21) ) ;
+        
+        // Convert Dates to correct format for storage
+        let newStudyEnd = this.state.formValue.end_time;
+        newStudyEnd =  new String( newStudyEnd.toString().substring(16,18) + ':' + newStudyEnd.toString().substring(19,21) )  ;
+
+        let config = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userId: this.context.state.user.uuid,
+                displayName: this.context.state.user.display_name,
+                reqClass: this.state.formValue.class,
+                desc: this.state.formValue.description,
+                location: this.state.formValue.location,
+                maxPartners: this.state.formValue.max_partners,
+                noiseRating: this.state.formValue.noise_level,
+                title: this.state.formValue.title,
+                studyStart: newStudyStart,
+                studyEnd: newStudyEnd
+            })
+        }
+            
+        // TODO: POST CALL 
+        fetch('http://localhost:1337/requests/create-request', config)
+            .then( 
+                 this.close()
+            )
+            .catch(error => console.log(error)); 
+    }
+
+
+
+     /**
+     * Set the state of the modal to stop showing and call parent component
+     */
+    close() {
+        this.setState({ show: false });
+
+        /**
+         * CALLS the parent component to tell it to stop rendering me
+         */
+        this.props.parentCallBack();
+
+    }
 
     /**
      * CALLS the parent component to tell it to stop rendering me
      */
-    this.props.parentCallBack();
-  }
+    open() {
+        this.setState({show: this.props.shouldShow});   // Setting it to the prop passed in by tha parent component
+    }
 
-  /**
-   * Set the state of the modal to start showing
-   */
-  open() {
-    this.setState({ show: this.props.shouldShow }); // Setting it to the prop passed in by tha parent component
-  }
+    render(){
+        const { formValue } = this.state;
+        console.log( this.context )
+        return (
+            <>
+                <div className="centered">
+                    <div className="modal-container">
+                        <Modal show={this.open} onHide={this.close}>
+                            <Modal.Header>
+                                <Modal.Title> <h2>Create a Study Request!</h2></Modal.Title>
+                            </Modal.Header>
 
-  render() {
-    return (
-      <>
-        <div className="centered">
-          <div className="modal-container">
-            <Modal
-              show={this.open}
-              onHide={this.close}
-              style={{
-                paddingTop: "50px",
-              }}
-            >
-              <Modal.Header>
-                <Modal.Title>
-                  {" "}
-                  <h2>Create a Study Request!</h2>
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Grid fluid>
-                  <Row>
-                    <h5>Enter a Descriptive Title:</h5>
-                    <Col xs={10}>
-                      {" "}
-                      <Input
-                        style={{ width: 224 }}
-                        placeholder="Enter title here!"
-                      />{" "}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Divider></Divider>
-                  </Row>
-                  <Row className="show-grid">
-                    <h5>Select a Class:</h5>
-                    <SelectPicker
-                      data={this.classes}
-                      style={{ width: 224 }}
-                      preventOverflow
-                    />
-                  </Row>
-                  <Row>
-                    <Divider></Divider>
-                  </Row>
-                  <Row className="show-grid">
-                    <h5>Select a Study Location:</h5>
-                    <SelectPicker
-                      data={this.locations}
-                      style={{ width: 224 }}
-                      preventOverflow
-                    />
-                  </Row>
-                  <Row>
-                    <Divider></Divider>
-                  </Row>
-                  <Row className="show-grid">
-                    <h5>Rate Your Study Location's Noise Level:</h5>
-                    <Col xs={10}>
-                      {" "}
-                      <Rate
-                        defaultValue={1}
-                        max={5}
-                        size="sm"
-                        character={
-                          <Icon
-                            icon="volume-up"
-                            style={{ color: "rgba(0, 106, 150, 0.75)" }}
-                          />
-                        }
-                      />{" "}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Divider></Divider>
-                  </Row>
-                  <Row className="show-grid">
-                    <h5>Enter Your Estimated End Time</h5>
-                    <DatePicker format="hh:mm A" showMeridian ranges={[]} />
-                  </Row>
-                  <Row>
-                    <Divider></Divider>
-                  </Row>
-                  <Row className="show-grid">
-                    <h5>
-                      Enter a description to help your classmates find you:
-                    </h5>
-                    <Input
-                      componentClass="textarea"
-                      rows={3}
-                      size="lg"
-                      placeholder="Describe your surroundings or some identifying feature!"
-                    />
-                  </Row>
-                </Grid>
-              </Modal.Body>
+                            <Modal.Body>
+                                <Grid fluid>
+                                <Form 
+                                    ref={ref => (this.form = ref)}
+                                    onChange={formValue => {
+                                        this.setState({ formValue });
+                                    }}
+                                    onCheck={formError => {
+                                        this.setState({ formError });
+                                    }}
+                                    formValue={formValue}
+                                    model={model}
+                                    layout="vertical"
+                                >
+                               
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Enter a Descriptive Title:</h5>
+                                            <FormControl 
+                                                name="title" 
+                                                type ="title" 
+                                                style={{ width: 224 }} 
+                                                preventOverflow 
+                                                placeholder="Enter title here!"
+                                            />
+                                        </FormGroup>
+                                </Row> 
 
-              <Modal.Footer>
-                <Whisper
-                  placement="top"
-                  trigger="hover"
-                  speaker={
-                    <Tooltip>
-                      Are you sure you want to create this study request?
-                    </Tooltip>
-                  }
-                >
-                  <Button onClick={this.close} appearance="primary">
-                    CREATE REQUEST
-                  </Button>
-                </Whisper>
-                <Button onClick={this.close} appearance="subtle">
-                  Cancel
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </div>
-        </div>
-      </>
-    );
-  }
-}
+                                <Row><Divider></Divider></Row> 
 
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Select a Class:</h5>
+                                            <FormControl 
+                                                accepter={SelectPicker}
+                                                name="class"
+                                                type="class"
+                                                data={courses}
+                                                style={{ width: 224 }}
+                                                preventOverflow
+                                            />
+                                    </FormGroup>
+                                </Row> 
+
+                                <Row><Divider></Divider></Row> 
+
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Number of Partners:</h5>
+                                            <FormControl 
+                                                accepter={InputNumber}
+                                                min={1}
+                                                name="max_partners"
+                                                label="max_partners"
+                                                style={{ width: 224 }}
+                                            />
+                                    </FormGroup>
+                                </Row> 
+
+                                <Row><Divider></Divider></Row> 
+
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Select a Study Location:</h5> 
+                                            <FormControl 
+                                                accepter={SelectPicker}
+                                                name="location"
+                                                type="location"
+                                                data={locations}
+                                                style={{ width: 224 }}
+                                                preventOverflow 
+                                            />
+                                    </FormGroup>
+                                </Row> 
+
+                                <Row><Divider></Divider></Row> 
+
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Rate Your Study Location's Noise Level:</h5>
+                                            <FormControl 
+                                                accepter={Rate}
+                                                name="noise_level"
+                                                type="noise_level"
+                                                defaultValue={1}
+                                                max={5}
+                                                size="sm"
+                                                character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />}
+                                            />
+                                    </FormGroup>
+                                </Row> 
+
+                                <Row><Divider></Divider></Row> 
+
+                                <Row xs={10} className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Enter Your Estimated End Time</h5> 
+                                            <FormControl
+                                                accepter={DatePicker}
+                                                name="end_time"
+                                                type="end_time"
+                                                format="hh:mm A"
+                                                showMeridian ranges={[]}
+                                            />
+                                    </FormGroup>
+                                </Row> 
+
+                                <Row><Divider></Divider></Row> 
+                                    
+                                <Row className="show-grid"> 
+                                    <FormGroup>
+                                        <h5>Enter a description to help your classmates find you:</h5>
+                                            <ControlLabel>Characters Remaining: { max_chars - this.state.formValue.description.length } </ControlLabel>
+                                            <FormControl
+                                                accepter={Input}
+                                                componentClass="textarea"
+                                                name="description"
+                                                type="description"
+                                                rows={3}
+                                                style={ {width: 600 } }
+                                                size="lg"
+                                                placeholder= "Describe your surroundings or some identifying feature!"
+                                            />
+                                        </FormGroup>
+                                 </Row> 
+                        
+                                </Form>
+                                </Grid>
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Whisper 
+                                    placement="top" 
+                                    trigger="hover" 
+                                    speaker={<Tooltip>Do you want to join this study group?</Tooltip>}>
+                                    <Button onClick={this.handleSubmit} appearance="primary">
+                                        CREATE REQUEST
+                                    </Button>
+                                </Whisper>
+                                <Button 
+                                    onClick={this.close} 
+                                    appearance="subtle">
+                                    Cancel
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                </div>
+            </>
+        )
+    }
+};
+Home.contextType = DataContext;
 export default Home;
