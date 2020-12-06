@@ -46,13 +46,27 @@ class StudyRequests extends Component{
     }
 
     convertTime(timeString){
-        let modifier = timeString.substring(4, 6);
-        if(modifier === "pm"){
-            let hour = parseInt(timeString.substr(0, 2)) + 12;
-            console.log("Hour: " + hour);
-            return hour + timeString.substring(2, 4);
+        let time = timeString.split(":");
+        let hour = parseInt(time[0]);
+        let modifier = time[1].split(" ");
+
+        if(hour === 12){
+            hour = 0;
         }
-        return timeString.substring(0, 4);
+
+        if(modifier.length === 2){ // Time such as 12:00 pm
+            if(modifier[1].toLowerCase() === "pm"){
+                hour += 12;
+            }
+            return hour + ":" + parseInt(modifier[0]);
+        }else if(time[1].length > 2){ // Time such as 12:00pm
+            modifier = time[1].substring(2, 4);
+            if(modifier.toLowerCase() === "pm"){
+                hour += 12;
+            }
+            return hour + ":" + parseInt(time[1].substring(0, 2));
+        }
+        return timeString; // Time such as 19:59
     }
 
     filterCheck(studyReq) {
