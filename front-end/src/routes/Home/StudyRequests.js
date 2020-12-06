@@ -50,23 +50,25 @@ class StudyRequests extends Component{
         let hour = parseInt(time[0]);
         let modifier = time[1].split(" ");
 
-        if(hour === 12){
-            hour = 0;
-        }
-
         if(modifier.length === 2){ // Time such as 12:00 pm
+            if(hour === 12){
+                hour = 0;
+            }
             if(modifier[1].toLowerCase() === "pm"){
                 hour += 12;
             }
             return hour + ":" + parseInt(modifier[0]);
         }else if(time[1].length > 2){ // Time such as 12:00pm
+            if(hour === 12){
+                hour = 0;
+            }
             modifier = time[1].substring(2, 4);
             if(modifier.toLowerCase() === "pm"){
                 hour += 12;
             }
             return hour + ":" + parseInt(time[1].substring(0, 2));
         }
-        return timeString; // Time such as 19:59
+        return hour + ":" + parseInt(time[1]); // Time such as 19:59
     }
 
     filterCheck(studyReq) {
