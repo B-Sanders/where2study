@@ -91,11 +91,11 @@ export function editRequest({
 }
 
 
-export function addPartner({partnerId, posterId}) {
+export function addPartner({partnerId, partnerName, posterId}) {
 
         // Add study partner as child to request/study_partners
         return db.database().ref(`RequestsList/${posterId}/study_partners/`).update({
-            [partnerId]:partnerId
+            [partnerId]:partnerName
         }).then(() => (
             console.log('Partner added')
         ));
