@@ -1,5 +1,4 @@
 import React from "react";
-// import { Redirect } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -13,13 +12,11 @@ import {
 import { Radio, RadioGroup } from "rsuite";
 import { Col } from "rsuite";
 import { Button } from "rsuite";
-import db from "../base";
 import logo from "../images/where2study.png";
 import { TagPicker } from "rsuite";
 import { InputPicker } from "rsuite";
 import major from "./majors.json";
 import courses from "./courses.json";
-// const functions = require('firebase-functions');
 
 class Signup extends React.Component {
   constructor(props) {
