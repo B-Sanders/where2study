@@ -11,6 +11,7 @@ import Signup from "./routes/Signup";
 import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
 import HomePage from "./routes/Home/index.js";
+import Locations from "./routes/Locations/index";
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
@@ -20,6 +21,7 @@ function App() {
       <DataContext.Provider value={{ state, dispatch }}>
         <Router>
             <PrivateRoute exact path="/" component={HomePage} />
+            <PrivateRoute exact path="/locations" component={Locations} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <PrivateRoute exact path="/profileEdit" component={ProfileEdit} />
