@@ -125,14 +125,7 @@ class Login extends React.Component {
     const { state, dispatch } = this.context;
     console.log(state);
     return (
-      <LoginContainer
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          overflow: "auto",
-        }}
-      >
+      <LoginContainer>
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>

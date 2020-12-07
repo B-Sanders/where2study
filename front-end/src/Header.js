@@ -30,8 +30,9 @@ const LogoutSettingsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 600px;
+  height: 200px;
   margin-top: auto;
+  margin-bottom: 166px;
 `;
 
 const TopButtonContainer = styled.div`
@@ -113,6 +114,23 @@ class Header2 extends React.Component {
             activeKey={this.state.activeKey}
             style={{ color: "yellow" }}
           >
+            <Sidenav.Header>
+              <div style={{ background: "#006A96" }}>
+                <a href="/">
+                  <img
+                    src={logo}
+                    style={{ marginLeft: 55 }}
+                    height="100"
+                    width="125"
+                  />
+                </a>
+                <h4>
+                  <span style={{ padding: "10px 10px", color: "white" }}>
+                    {this.state.display_name}
+                  </span>
+                </h4>
+              </div>
+            </Sidenav.Header>
             <Sidenav.Body style={{ background: "#006A96", color: "white" }}>
               <Nav>
                 <TopButtonContainer>
