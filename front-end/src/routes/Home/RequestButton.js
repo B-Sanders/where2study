@@ -63,7 +63,7 @@ class RequestCreation extends React.Component{
 
                         { this.state.showEditModal && <EditRequestModal shouldShow={this.state.showEditModal} parentCallBack ={ ()=>{this.setState({ showEditModal: false})} } /> }
                               
-                        { this.state.showCreateModal && <CreateRequestModal shouldShow={this.state.showCreateModal} parentCallBack ={ ()=>{this.setState({ showCreateModal: false}); this.context.state.user.active_post = true } } /> }
+                        { this.state.showCreateModal && <CreateRequestModal shouldShow={this.state.showCreateModal} parentCallBack ={ ()=>{this.setState({ showCreateModal: false}); } } /> }
                  
                             </div>
                         </Col>
