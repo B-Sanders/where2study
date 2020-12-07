@@ -86,7 +86,6 @@ class Header2 extends React.Component {
 
     render() {
       const { expanded } = this.state;
-      console.log(window.localStorage.getItem('loginToken'))
       return (
 
           <SideBarContainer>

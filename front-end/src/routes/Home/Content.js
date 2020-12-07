@@ -19,14 +19,12 @@ class Home extends Component {
     }
 
     handleFilterChange(value){
-        console.log("Filter changed " + value[3]);
         this.setState({
             filters: value
         });
     }
 
     render() {
-      console.log('this.context.state', this.context.state);
         return (
             <Container scrollable>
             <Header>
