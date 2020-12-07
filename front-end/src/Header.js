@@ -11,7 +11,7 @@ const headerStyles = {
     height: '100%',
     overflow: 'auto',
     position: 'fixed'
-  };
+};
 
   
 class Header2 extends React.Component {
@@ -43,24 +43,26 @@ class Header2 extends React.Component {
             history={this.props.history}
             style={headerStyles}
             >
-                <div style={{background:  '#006A96'}}>
-                  <a href="/">
-                    <img src={logo} style={{marginLeft: 55}} height="100" width="125"/>
-                  </a>
-                  <h4><span style={{marginLeft: 15, color: 'white'}}>{this.state.display_name}</span></h4>
-                </div>
                 <Sidenav
                   expanded={expanded}
                   defaultOpenKeys={['1', '2']}
                   activeKey={this.state.activeKey}
                   style={{color: 'yellow'}}
                 >
+                  <Sidenav.Header>
+                     <div style={{background:  '#006A96'}}>
+                        <a href="/">
+                        <img src={logo} style={{marginLeft: 55}} height="100" width="125"/>
+                     </a>
+                     <h4><span style={{padding: '10px 10px', color: 'white'}}>{this.state.display_name}</span></h4>
+                  </div>
+                  </Sidenav.Header>
                     <Sidenav.Body style={{ background: '#006A96',color: 'white'}}>
                       <Nav >
                         <Nav.Item href="/" eventKey="2" icon={<Icon style={{color:"#FFCD00"}} icon="book" />}>
                         <span style={{color:'white'}}><strong>Study Requests</strong></span>
                         </Nav.Item>
-                        <Nav.Item  eventKey="1" icon={<Icon style={{color:"#FFCD00"}} icon="location-arrow" />}>
+                        <Nav.Item  href="/locations" seventKey="1" icon={<Icon style={{color:"#FFCD00"}} icon="location-arrow" />}>
                          <span style={{ color:'white' }}><strong>Locations</strong></span>
                         </Nav.Item>
                         <Nav.Item style={{marginTop: 300}} href="/profile" eventKey="3" size="m" icon={<Icon style={{color:"white",fontSize: 13,marginTop: -10,marginLeft: 110}} icon="gear-circle"/>}>

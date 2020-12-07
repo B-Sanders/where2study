@@ -6,17 +6,10 @@ import ButtonToolbar, {
   Row,
   Col,
   Rate,
-  Container,
-  Header,
-  Content,
-  Footer,
-  Sidebar,
   Divider,
   List,
   Tooltip,
   Whisper,
-  Alert,
-  Progress,
   Icon,
 } from "rsuite";
 

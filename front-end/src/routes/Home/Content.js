@@ -28,19 +28,19 @@ class Home extends Component {
     render() {
         return (
             <Container scrollable>
-            <Header>
-              <FlexboxGrid justify="center">
-                <FlexboxGrid.Item>
-                  <img src={logo} height="125" width="150" href="/"/>
-                </FlexboxGrid.Item>
-              </FlexboxGrid>
-            </Header>
-            <Content>
-              <SearchBar handleFilterChange={this.handleFilterChange} />
-              <StudyRequests filters={this.state.filters} />
-              <RequestButton />
-            </Content>
-              </Container>
+              <Header>
+                <FlexboxGrid justify="center">
+                  <FlexboxGrid.Item>
+                    <img src={logo} height="125" width="150" href="/"/>
+                  </FlexboxGrid.Item>
+                </FlexboxGrid>
+              </Header>
+              <Content>
+                <SearchBar handleFilterChange={this.handleFilterChange} />
+                <StudyRequests filters={this.state.filters} />
+                <RequestButton />
+              </Content>
+            </Container>
         )
     }
 };
