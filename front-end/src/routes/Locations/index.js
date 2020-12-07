@@ -16,8 +16,6 @@ const LocationsContainer = styled.div`
     display: flex;
     flex-direction: row;
     className: "show-fake-browser navbar-page";
-    overflow: auto;
-
 `;
 
 class Locations extends Component{

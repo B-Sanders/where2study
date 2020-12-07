@@ -17,6 +17,7 @@ import { TagPicker } from "rsuite";
 import { InputPicker } from "rsuite";
 import major from "./majors.json";
 import courses from "./courses.json";
+import geisel from "../images/geisel1.jpg";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -121,95 +122,126 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div
-        className="show-signup"
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          overflow: "auto",
-        }}
-      >
-        <FlexboxGrid colSpan={20} justify="center">
-          <FlexboxGrid.Item componentClass={Col}>
-            <Col>
-              <img src={logo} alt="Logo" height={250} width={300} />
-              <Form
-                formValue={this.state.formValue}
-                onChange={(formValue) => this.handleChange(formValue)}
+      <div>
+        <div
+          style={{
+            backgroundImage: `url(${geisel})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+            overflow: "auto",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
+          <FlexboxGrid
+            justify="center"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              position: "inherit",
+              overflow: "auto",
+              alignItems: "center",
+              alignContent: "center",
+              background: "#f2f2f2",
+              borderRadius: 15,
+              padding: "40px",
+            }}
+          >
+            <FlexboxGrid.Item componentClass={Col}>
+              <Col
+                style={{
+                  position: "inherit",
+                }}
               >
-                <FormGroup>
-                  <ControlLabel>Email</ControlLabel>
-                  <FormControl name="email" type="email" placeholder="Email" />
-                  <HelpBlock tooltip>Required</HelpBlock>
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Password</ControlLabel>
-                  <FormControl
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    minLength="6"
-                  />
-                  <HelpBlock tooltip>Required</HelpBlock>
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Display Name</ControlLabel>
-                  <FormControl
-                    name="display_name"
-                    type="text"
-                    placeholder="Display Name"
-                    minLength="1"
-                    maxLength="15"
-                  />
-                  <HelpBlock tooltip>
-                    Must be at least 1 character long
-                  </HelpBlock>
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Major</ControlLabel>
-                  <FormControl
-                    name="major"
-                    accepter={InputPicker}
-                    data={major}
-                  ></FormControl>
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Courses</ControlLabel>
-                  <FormControl
-                    name="classes"
-                    accepter={TagPicker}
-                    data={courses}
-                    style={{ width: 300 }}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Pronouns</ControlLabel>
-                  <FormControl name="pronouns" accepter={RadioGroup}>
-                    <Radio value="He/Him">He/Him</Radio>
-                    <Radio value="She/Her">She/Her</Radio>
-                    <Radio value="They/Them">They/Them</Radio>
-                    <Radio value="Other">Other</Radio>
-                  </FormControl>
-                </FormGroup>
-                <FormGroup>
-                  <ButtonToolbar>
-                    <Button onClick={this.handleSignUp} appearance="primary">
-                      Create Account
-                    </Button>
-                    <Button
-                      onClick={this.redirectLogin}
-                      appearance="primary"
-                      color="green"
-                    >
-                      Back to Login
-                    </Button>
-                  </ButtonToolbar>
-                </FormGroup>
-              </Form>
-            </Col>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
+                <img src={logo} alt="Logo" height={250} width={300} />
+                <Form
+                  formValue={this.state.formValue}
+                  onChange={(formValue) => this.handleChange(formValue)}
+                  style={{ position: "inherit" }}
+                >
+                  <FormGroup style={{ position: "inherit" }}>
+                    <ControlLabel>Email</ControlLabel>
+                    <FormControl
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                    />
+                    <HelpBlock tooltip>Required</HelpBlock>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Password</ControlLabel>
+                    <FormControl
+                      name="password"
+                      type="password"
+                      placeholder="Password"
+                      minLength="6"
+                    />
+                    <HelpBlock tooltip>Required</HelpBlock>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Display Name</ControlLabel>
+                    <FormControl
+                      name="display_name"
+                      type="text"
+                      placeholder="Display Name"
+                      minLength="1"
+                      maxLength="15"
+                    />
+                    <HelpBlock tooltip>
+                      Must be at least 1 character long
+                    </HelpBlock>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Major</ControlLabel>
+                    <FormControl
+                      name="major"
+                      accepter={InputPicker}
+                      data={major}
+                      style={{ width: 300 }}
+                    ></FormControl>
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Courses</ControlLabel>
+                    <FormControl
+                      name="classes"
+                      accepter={TagPicker}
+                      data={courses}
+                      style={{ width: 300 }}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>Pronouns</ControlLabel>
+                    <FormControl name="pronouns" accepter={RadioGroup}>
+                      <Radio value="He/Him">He/Him</Radio>
+                      <Radio value="She/Her">She/Her</Radio>
+                      <Radio value="They/Them">They/Them</Radio>
+                      <Radio value="Other">Other</Radio>
+                    </FormControl>
+                  </FormGroup>
+                  <FormGroup>
+                    <ButtonToolbar>
+                      <Button onClick={this.handleSignUp} appearance="primary">
+                        Create Account
+                      </Button>
+                      <Button
+                        onClick={this.redirectLogin}
+                        appearance="primary"
+                        color="green"
+                      >
+                        Back to Login
+                      </Button>
+                    </ButtonToolbar>
+                  </FormGroup>
+                </Form>
+              </Col>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </div>
       </div>
     );
   }
