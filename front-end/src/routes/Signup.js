@@ -32,6 +32,12 @@ class Signup extends React.Component {
       },
     };
 
+    const styles = {
+      flex: "1",
+      background: "#aaa",
+      height: "100px",
+      // overflow-y: scroll;
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.redirectLogin = this.redirectLogin.bind(this);
@@ -115,9 +121,17 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="show-signup">
-        <FlexboxGrid colSpan={24} justify="center">
-          <FlexboxGrid.Item componentClass={Col} colspan={24} md={6}>
+      <div
+        className="show-signup"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          overflow: "auto",
+        }}
+      >
+        <FlexboxGrid colSpan={20} justify="center">
+          <FlexboxGrid.Item componentClass={Col}>
             <Col>
               <img src={logo} alt="Logo" height={250} width={300} />
               <Form
