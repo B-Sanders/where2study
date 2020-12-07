@@ -111,7 +111,7 @@ class Home extends React.Component {
                 {" "}
                 <h2>{sReq.request_title}</h2>
               </Modal.Title>
-                <h6>Request from {partnersList[0]}</h6>
+              <h6>Request from {partnersList[0]}</h6>
             </Modal.Header>
             <Modal.Body>
               <Grid fluid>
@@ -136,6 +136,7 @@ class Home extends React.Component {
                       defaultValue={sReq.noise_rating}
                       max={5}
                       size="sm"
+                      readOnly={true}
                       character={
                         <Icon
                           icon="volume-up"

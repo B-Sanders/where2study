@@ -66,7 +66,6 @@ class HomePage extends Component{
     }
 
     render(){
-        console.log(this.context.state);
         return(
             <HomeContainer>
                 <Sidebar history={this.props.history}>
