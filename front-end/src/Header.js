@@ -30,8 +30,9 @@ const LogoutSettingsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 600px;
+  height: 200px;
   margin-top: auto;
+  margin-bottom: 166px;
 `;
 
 const TopButtonContainer = styled.div`
