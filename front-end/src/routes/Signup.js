@@ -145,7 +145,7 @@ class Signup extends React.Component {
               flexDirection: "column",
               position: "inherit",
               overflow: "auto",
-              opacity: 0.96,
+              opacity: 0.97,
               alignItems: "center",
               alignContent: "center",
               background: "#f2f2f2",

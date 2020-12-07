@@ -21,6 +21,7 @@ import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
 import styled from "styled-components";
+import geisel from "../images/geisel1.jpg";
 
 const LoginContainer = styled.div`
   height: 100%;
@@ -123,10 +124,39 @@ class Login extends React.Component {
 
   render() {
     const { state, dispatch } = this.context;
-    console.log(state);
+    // console.log(state);
     return (
-      <LoginContainer>
-        <FlexboxGrid colSpan={20} justify="center">
+      <LoginContainer
+        style={{
+          backgroundImage: `url(${geisel})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          position: "absolute",
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100%",
+          overflow: "auto",
+          alignItems: "center",
+          alignContent: "center",
+        }}
+      >
+        <FlexboxGrid
+          colSpan={20}
+          justify="center"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "inherit",
+            overflow: "auto",
+            opacity: 0.97,
+            alignItems: "center",
+            alignContent: "center",
+            background: "#f2f2f2",
+            borderRadius: 15,
+            padding: "40px",
+          }}
+        >
           <FlexboxGrid.Item>
             <Col>
               <img src={logo} height={250} width={300} />
