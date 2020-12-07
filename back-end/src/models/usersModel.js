@@ -38,11 +38,11 @@ export function createUser({
   }
 }
 
-export function obtainUser(userID) {
+export function obtainUser(reqHeaders) {
   // Send snapshot of the specific user
   return db
     .database()
-    .ref("Users/" + userID)
+    .ref("Users/" + reqHeaders["userid"])
     .once("value")
     .then((snapshot) => snapshot.val())
     .catch((error) => console.log(error));

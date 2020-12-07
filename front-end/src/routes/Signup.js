@@ -116,11 +116,10 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="show-signup">
-        <FlexboxGrid colSpan={20} justify="center">
-          <FlexboxGrid.Item>
+        <FlexboxGrid colSpan={24} justify="center">
+          <FlexboxGrid.Item componentClass={Col} colspan={24} md={6}>
             <Col>
-              <h1 align="center">SignUp</h1>
-              <img src={logo} alt="Logo" height={300} width={300} />
+              <img src={logo} alt="Logo" height={250} width={300} />
               <Form
                 formValue={this.state.formValue}
                 onChange={(formValue) => this.handleChange(formValue)}
@@ -173,9 +172,9 @@ class Signup extends React.Component {
                 <FormGroup>
                   <ControlLabel>Pronouns</ControlLabel>
                   <FormControl name="pronouns" accepter={RadioGroup}>
-                    <Radio value="He">He/Him</Radio>
-                    <Radio value="She">She/Her</Radio>
-                    <Radio value="They">They/Them</Radio>
+                    <Radio value="He/Him">He/Him</Radio>
+                    <Radio value="She/Her">She/Her</Radio>
+                    <Radio value="They/Them">They/Them</Radio>
                     <Radio value="Other">Other</Radio>
                   </FormControl>
                 </FormGroup>

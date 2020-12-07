@@ -12,7 +12,6 @@ import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
 import HomePage from "./routes/Home/index.js";
 
-
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (

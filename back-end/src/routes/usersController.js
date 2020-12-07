@@ -5,7 +5,7 @@ const userRouter = express.Router();
 
 // Obtain a specific user to display their profile
 userRouter.get("/profile", (req, res) => {
-  obtainUser(req.query.userID)
+  obtainUser(req.headers)
     .then((doc) => res.send(doc))
     .catch((err) => {
       res.send(300).json({ msg: "Something went wrong", error: err });
