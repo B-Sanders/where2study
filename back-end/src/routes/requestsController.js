@@ -15,7 +15,7 @@ requestRouter.get('/all-requests', (req, res) => {
 
 // Create a study request from locations page
 requestRouter.post('/create-request', (req, res) => {
-    //console.log( req.body )
+    console.log( req.body )
     // Create a study request from passed object
     createRequest(req.body)
       .then(() => res.sendStatus(200))
@@ -27,7 +27,6 @@ requestRouter.post('/create-request', (req, res) => {
 
 // Edit a study request, from study requests page
 requestRouter.post('/edit-request', (req, res) => {
-   console.log(req.body) 
     // Create a study request from passed object
     editRequest(req.body)
         .then(() => res.sendStatus(200))
