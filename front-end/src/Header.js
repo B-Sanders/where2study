@@ -1,23 +1,23 @@
-import {Nav, Button, Icon, Sidebar, Sidenav} from 'rsuite';
-import React from 'react';
-import logo from "./images/where2study.png"
-import db from "./base"
-import styled from 'styled-components';
+import { Nav, Button, Icon, Sidebar, Sidenav } from "rsuite";
+import React from "react";
+import logo from "./images/where2study.png";
+import db from "./base";
+import styled from "styled-components";
 
 const headerStyles = {
-    fontSize: 16,
-    // justified: true,
-    // background:  '#006A96',
-    // color: 'white',
-    // height: '100%',
-    // overflow: 'auto',
-    // position: 'fixed'
-  };
+  fontSize: 16,
+  // justified: true,
+  // background:  '#006A96',
+  // color: 'white',
+  // height: '100%',
+  // overflow: 'auto',
+  // position: 'fixed'
+};
 
 const SideBarContainer = styled.div`
   height: 100%;
   width: 260px;
-  background: #006A96;
+  background: #006a96;
   .rs-sidebar {
     height: 100%;
   }
@@ -46,7 +46,7 @@ const StyledSidebar = styled(Sidebar)`
   position: fixed;
   display: flex;
   flex-direction: column;
-  background:  '#006A96';
+  background: "#006A96";
 `;
 
 const StyledNavItem = styled(Nav.Item)`
@@ -63,28 +63,30 @@ const AccountWrapper = styled.div`
   padding: 15px;
   cursor: pointer;
 `;
-  
+
 class Header2 extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        expanded: true,
-        display_name: ""
-      };
-       this.loadUser.bind(this);
-       this.loadUser();
-    }
-    
-  loadUser() {
-    var uniqueId = window.localStorage.getItem('loginToken');
-    var data;
-    /** Load the user data */
-    db.database().ref("Users/" + uniqueId).once('value').then( snapshot => {
-       data =  snapshot.val();
-       this.state.display_name = "Welcome " + data.display_name
-    })
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: true,
+      display_name: "",
+    };
+    this.loadUser.bind(this);
+    this.loadUser();
   }
 
+  loadUser() {
+    var uniqueId = window.localStorage.getItem("loginToken");
+    var data;
+    /** Load the user data */
+    db.database()
+      .ref("Users/" + uniqueId)
+      .once("value")
+      .then((snapshot) => {
+        data = snapshot.val();
+        this.state.display_name = "Welcome " + data.display_name;
+      });
+  }
     render() {
       const { expanded } = this.state;
       return (
