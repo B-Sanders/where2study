@@ -33,12 +33,6 @@ class Signup extends React.Component {
       },
     };
 
-    const styles = {
-      flex: "1",
-      background: "#aaa",
-      height: "100px",
-      // overflow-y: scroll;
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.redirectLogin = this.redirectLogin.bind(this);
@@ -66,22 +60,19 @@ class Signup extends React.Component {
     if (email.trim() === "" || password.trim() === "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
       is_valid_email = false;
-    }
-
-    if (!email.includes("@")) {
+    } else if (!email.includes("@")) {
       // TODO:  Possibly add other checks here that would help
       //        prevent against SQL injection
       Alert.warning("This is not a valid email format.", 4000);
       is_valid_email = false;
-    }
-
-    if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
+    } else if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
       Alert.warning("You need a valid UCSD email to create an account.", 4000);
       is_valid_email = false;
-    }
-
-    if (password.length < 6) {
+    } else if (password.length < 6) {
       Alert.warning("Password needs to be at least 6 characters long.");
+      is_valid_email = false;
+    } else if (display_name.length < 1) {
+      Alert.warning("Display name needs to be at least one character.");
       is_valid_email = false;
     }
 
@@ -103,7 +94,16 @@ class Signup extends React.Component {
       fetch("http://localhost:1337/user/signup", config)
         .then((res) => {
           if (res.status === 200) {
+            Alert.success(
+              "User successfully created!\nYou will be redirected to the login page.",
+              4000
+            );
+
             this.props.history.push("/login");
+          } else if (res.status === 301) {
+            Alert.warning("User already exists.", 4000);
+          } else {
+            Alert.error("Experienced an unknown error.", 4000);
           }
         })
         .catch((error) => console.log(error));
@@ -145,6 +145,7 @@ class Signup extends React.Component {
               flexDirection: "column",
               position: "inherit",
               overflow: "auto",
+              opacity: 0.96,
               alignItems: "center",
               alignContent: "center",
               background: "#f2f2f2",
