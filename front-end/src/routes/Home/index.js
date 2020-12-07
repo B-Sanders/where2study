@@ -18,8 +18,6 @@ const HomeContainer = styled.div`
     display: flex;
     flex-direction: row;
     className: "show-fake-browser navbar-page";
-    overflow: auto;
-
 `;
 
 class HomePage extends Component{
