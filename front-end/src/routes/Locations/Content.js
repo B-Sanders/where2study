@@ -8,7 +8,7 @@ import Locations from "./Locations";
 class Location extends Component{
     render() {
         return (
-            <Container scrollable>
+            <Container style={{ overflow: 'scroll' }}>
               <Header>
                 <FlexboxGrid justify="center">
                   <FlexboxGrid.Item>
