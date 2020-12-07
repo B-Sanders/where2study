@@ -23,6 +23,14 @@ import { UPDATE_USER } from "../../state/actions";
 const ProfileEditContainer = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+`;
+
+const ProfileContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 
@@ -113,6 +121,7 @@ class ProfileEdit extends React.Component {
     return (
       <ProfileEditContainer>
         <SideBar history={this.props.history}/>
+        <ProfileContainer>
         <FlexboxGrid colspan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
@@ -174,6 +183,7 @@ class ProfileEdit extends React.Component {
             </Col>
           </FlexboxGrid.Item>
         </FlexboxGrid>
+        </ProfileContainer>
       </ProfileEditContainer>
     );
   }
