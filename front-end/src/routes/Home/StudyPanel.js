@@ -18,7 +18,7 @@ function StudyPanel ({ reqTitle, clas, loc, locImage, noiseRating}) {
                     }
                 />
                 <Col xs={24}> 
-                    <Rate readOnly defaultValue={noiseRating} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
+                    <Rate readOnly defaultValue={noiseRating} value={noiseRating} size="sm" character={<Icon icon="volume-up" style={{ color: 'rgba(0, 106, 150, 0.75)' }} />} /> 
                 </Col>
             </Panel>
         </FlexboxGrid.Item>

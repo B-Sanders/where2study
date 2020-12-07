@@ -19,7 +19,6 @@ class Home extends Component {
     }
 
     handleFilterChange(value){
-        console.log("Filter changed " + value[3]);
         this.setState({
             filters: value
         });
