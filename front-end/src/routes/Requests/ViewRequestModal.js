@@ -124,6 +124,7 @@ class Home extends React.Component {
                       defaultValue={sReq.noise_rating}
                       max={5}
                       size="sm"
+                      readOnly={true}
                       character={
                         <Icon
                           icon="volume-up"

@@ -64,7 +64,8 @@ class EditRequest extends React.Component {
   constructor(props, context) {
     super(props, context);
     /**
-     * TODO:: Avoid Hard Coding Values for requestkey ?
+     * Pull the users user id so I can then use it to access a specfific request
+     * within the context
      */
     let requestKey = this.context.state.user.uuid;
 
@@ -72,27 +73,27 @@ class EditRequest extends React.Component {
      * Reconvert from HH:MM format to Date Type for DatePicker
      */
     let time = new String(
-      this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2.study_end
+      this.context.state.requests[requestKey].study_end
     );
     let hour = time.substring(0, 2);
     let minutes = time.substring(3, 5);
 
     this.state = {
       formValue: {
-        title: this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2
+        title: this.context.state.requests[requestKey]
           .request_title,
-        class: this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2.class,
-        location: this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2
+        class: this.context.state.requests[requestKey].class,
+        location: this.context.state.requests[requestKey]
           .location,
-        noise_level: this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2
+        noise_level: this.context.state.requests[requestKey]
           .noise_rating,
         end_time: new Date(null, null, null, hour, minutes),
-        description: this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2
+        description: this.context.state.requests[requestKey]
           .description,
         max_partners: parseInt(
-          this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2.max_partners
+          this.context.state.requests[requestKey].max_partners
         ),
-        study_start: this.context.state.requests.vWyBNUhcqZTLrEE6iW9vx2qvCeD2
+        study_start: this.context.state.requests[requestKey]
           .study_start,
       },
       formError: {},
@@ -103,7 +104,7 @@ class EditRequest extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.createNewRequest = this.createNewRequest.bind(this);
+    this.editRequest = this.editRequest.bind(this);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.closeConfirm = this.closeConfirm.bind(this);
@@ -119,7 +120,7 @@ class EditRequest extends React.Component {
       Alert.error("Please fix the highlighted fields", alert_time);
     } else {
       // No error occurred handle accordingly
-      this.createNewRequest();
+      this.editRequest();
     }
   }
 
@@ -127,15 +128,35 @@ class EditRequest extends React.Component {
    * CREATE   Format the current state of the User's form request and POST to the
    *          Realtime Database
    */
-  createNewRequest = () => {
-    // Convert Dates to correct format for storage
-    let newStudyEnd = this.state.formValue.end_time;
-    newStudyEnd = new String(newStudyEnd.toISOString().substring(11, 16));
+  editRequest() {
+    // Convert End Date to correct format for storage 
+    // NOTE:: Study Start is not being altered so need to reconvert
+    let endMinutes = String(this.state.formValue.end_time.getMinutes());
+    if (endMinutes.length === 1) {
+      endMinutes = "0" + endMinutes;
+    }
+    let endHours = String(this.state.formValue.end_time.getHours());
+    if (endHours.length === 1) {
+      endHours = "0" + endHours;
+    }
+    const newStudyEnd = `${endHours}:${endMinutes}`;
 
+    //let requestKey = this.context.state.user.uuid;
     let config = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        /*userId: this.context.state.user.uuid,
+        displayName: this.context.state.user.display_name,
+        reqClass: this.state.formValue.class,
+        desc: this.state.formValue.description ,
+        location: this.state.formValue.location,
+        maxPartners: this.state.formValue.max_partners,
+        noiseRating: this.state.formValue.noise_level,
+        title: this.state.formValue.title,
+        studyStart: this.context.state.requests[requestKey].study_start,
+        studyEnd: newStudyEnd */
+       
         userId: this.context.state.user.uuid,
         title: this.state.formValue.title,
         reqClass: this.state.formValue.class,
@@ -178,9 +199,19 @@ class EditRequest extends React.Component {
 
   deleteRequest() {
     // TODO: Insert delete function
-
-    this.setState({ show: false });
-    this.props.parentCallBack();
+    let config = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: this.context.state.user.uuid,
+          location: this.context.state.user.location,
+        }),
+      };
+  
+      // TODO: POST CALL
+      fetch("http://localhost:1337/requests/delete-request", config)
+        .then(this.close())
+        .catch((error) => console.log(error));
   }
 
   render() {
@@ -387,7 +418,7 @@ class EditRequest extends React.Component {
                         </Tooltip>
                       }
                     >
-                      <Button onClick={this.close} appearance="primary">
+                      <Button onClick={this.handleSubmit} appearance="primary">
                         CONFIRM EDITS
                       </Button>
                     </Whisper>
