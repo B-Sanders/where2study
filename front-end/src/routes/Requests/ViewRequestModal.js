@@ -69,10 +69,22 @@ class Home extends React.Component {
   }
 
   acceptRequest() {
-    // TODO: Insert Accept function
+      let config = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              partnerId: this.context.state.user.uuid,
+              partnerName: this.context.state.user.display_name,
+              posterId: this.props.studyRequest.user_id
+          })
+      };
 
-    this.setState({ show: false });
-    this.props.parentCallBack();
+      fetch('http://localhost:1337/requests/add-partner', config)
+          .then(
+          ).catch(error => console.log(error));
+
+      this.setState({ show: false });
+      this.props.parentCallBack();
   }
 
   render() {
@@ -99,7 +111,7 @@ class Home extends React.Component {
                 {" "}
                 <h2>{sReq.request_title}</h2>
               </Modal.Title>
-              <h6>Request from {sReq.study_partners[0]}</h6>
+                <h6>Request from {partnersList[0]}</h6>
             </Modal.Header>
             <Modal.Body>
               <Grid fluid>
