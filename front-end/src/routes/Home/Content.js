@@ -26,6 +26,7 @@ class Home extends Component {
     }
 
     render() {
+      console.log('this.context.state', this.context.state);
         return (
             <Container scrollable>
             <Header>

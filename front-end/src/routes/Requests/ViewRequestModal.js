@@ -69,10 +69,22 @@ class Home extends React.Component {
   }
 
   acceptRequest() {
-    // TODO: Insert Accept function
+      let config = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              partnerId: this.context.state.user.uuid,
+              partnerName: this.context.state.user.display_name,
+              posterId: this.props.studyRequest.user_id
+          })
+      };
 
-    this.setState({ show: false });
-    this.props.parentCallBack();
+      fetch('http://localhost:1337/requests/add-partner', config)
+          .then(
+          ).catch(error => console.log(error));
+
+      this.setState({ show: false });
+      this.props.parentCallBack();
   }
 
   render() {
@@ -124,6 +136,7 @@ class Home extends React.Component {
                       defaultValue={sReq.noise_rating}
                       max={5}
                       size="sm"
+                      readOnly={true}
                       character={
                         <Icon
                           icon="volume-up"
