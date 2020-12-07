@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import Content from "./Content";
 import {Sidebar} from "rsuite"
-//import Header from "../../Header";
 import Header from "../../Header";
 import styled from 'styled-components';
 import { DataContext } from "../../state/context";
 import {
     UPDATE_LOCATIONS_COLLECTION,
-    UPDATE_STUDY_REQUESTS_COLLECTION,
     UPDATE_USER,
   } from "../../state/actions";
 import db from "../../base";
 
-const HomeContainer = styled.div`
+const LocationsContainer = styled.div`
     height: 100%;
     width: 100%;
     display: flex;
@@ -20,12 +18,11 @@ const HomeContainer = styled.div`
     className: "show-fake-browser navbar-page";
 `;
 
-class HomePage extends Component{
+class Locations extends Component{
     constructor(props) {
         super(props);
     };
-
-    componentDidMount() {
+      componentDidMount() {
         const userId = window.localStorage.getItem('loginToken');
         const userData = db.database().ref('Users');
             userData.orderByChild('uuid').equalTo(userId).on('value', (dataSnapshot) => {
@@ -53,28 +50,30 @@ class HomePage extends Component{
                 },
             });
         });
-        db.database().ref("RequestsList").on("value", (dataSnapshot) => {
+        db.database().ref("Locations").on("value", (dataSnapshot) => {
             this.context.dispatch({
-                type: UPDATE_STUDY_REQUESTS_COLLECTION,
+                type: UPDATE_LOCATIONS_COLLECTION,
                 payload: {
-                    requests: dataSnapshot.val(),
+                    locations: dataSnapshot.val(),
                 },
             });
         });
     }
 
     render(){
+        console.log(this.context.state);
         return(
-            <HomeContainer>
+            <LocationsContainer>
                 <Sidebar history={this.props.history}>
                     <Header history={this.props.history}/>
                 </Sidebar>
                 <Content />
-            </HomeContainer>
+            </LocationsContainer>
         )
     };
+
 }
 
-HomePage.contextType = DataContext;
-export default HomePage;
+export default Locations;
+Locations.contextType = DataContext;
 

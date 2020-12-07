@@ -20,11 +20,11 @@ import { Col } from "rsuite";
 import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const LoginContainer = styled.div`
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 `;
 
 class Login extends React.Component {
@@ -56,10 +56,13 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
-              window.localStorage.setItem('loginToken', user.user.uid);
-              const userData = db.database().ref('Users');
-              userData.orderByChild('uuid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
-                const {
+              window.localStorage.setItem("loginToken", user.user.uid);
+              const userData = db.database().ref("Users");
+              userData
+                .orderByChild("uuid")
+                .equalTo(user.user.uid)
+                .on("value", (dataSnapshot) => {
+                  const {
                     active_post,
                     classes,
                     display_name,
@@ -67,8 +70,8 @@ class Login extends React.Component {
                     major,
                     pronouns,
                     uuid,
-                } = dataSnapshot.val()[user.user.uid];
-                this.context.dispatch({
+                  } = dataSnapshot.val()[user.user.uid];
+                  this.context.dispatch({
                     type: UPDATE_USER,
                     payload: {
                       user: {
@@ -82,7 +85,7 @@ class Login extends React.Component {
                       },
                     },
                   });
-              });
+                });
               const locations = db.database().ref("Locations");
               locations.on("value", (dataSnapshot) => {
                 this.context.dispatch({
@@ -92,8 +95,8 @@ class Login extends React.Component {
                   },
                 });
               });
-            this.props.history.push("/");
-          }
+              this.props.history.push("/");
+            }
           })
           .catch(function (error) {
             var errorCode = error.code;
@@ -122,7 +125,7 @@ class Login extends React.Component {
     const { state, dispatch } = this.context;
     console.log(state);
     return (
-    <LoginContainer>
+      <LoginContainer>
         <FlexboxGrid colSpan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
@@ -143,7 +146,7 @@ class Login extends React.Component {
                     type="password"
                     placeholder="Password"
                     onKeyDown={(key) => {
-                      if (key.code === 'Enter') {
+                      if (key.code === "Enter") {
                         this.handleLogin();
                       }
                     }}

@@ -6,17 +6,10 @@ import ButtonToolbar, {
   Row,
   Col,
   Rate,
-  Container,
-  Header,
-  Content,
-  Footer,
-  Sidebar,
   Divider,
   List,
   Tooltip,
   Whisper,
-  Alert,
-  Progress,
   Icon,
 } from "rsuite";
 
@@ -111,7 +104,7 @@ class Home extends React.Component {
                 {" "}
                 <h2>{sReq.request_title}</h2>
               </Modal.Title>
-                <h6>Request from {partnersList[0]}</h6>
+              <h6>Request from {partnersList[0]}</h6>
             </Modal.Header>
             <Modal.Body>
               <Grid fluid>
