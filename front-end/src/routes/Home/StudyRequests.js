@@ -36,25 +36,25 @@ function renderAllPanels(reqList) {
 }
 
 let images = new Map();
-images.set("AtkinsonHall", atkinsonHall);
-images.set("CSEBuilding", cseBuilding);
-images.set("GalbraithHall", galbraithHall);
-images.set("GeiselF1", geiselLibrary);
-images.set("GeiselF2", geiselLibrary);
-images.set("GeiselF3", geiselLibrary);
-images.set("GeiselF4", geiselLibrary);
-images.set("GeiselF5", geiselLibrary);
-images.set("GeiselF6", geiselLibrary);
-images.set("GeiselF7", geiselLibrary);
-images.set("GeiselF8", geiselLibrary)
-images.set("GeiselF9", geiselLibrary);
-images.set("OtherLocation", other);
-images.set("PriceCenterEast", priceCenterEast);
-images.set("PriceCenterWest", priceCenterWest);
-images.set("TheLoft", loft);
-images.set("VillageEcoFlats", ecoFlats);
-images.set("VillageNorthBreakStudyLounge", village);
-images.set("PriceCenter", priceCenter);
+images.set("Atkinson Hall", atkinsonHall);
+images.set("CSE Building", cseBuilding);
+images.set("Galbraith Hall", galbraithHall);
+images.set("Geisel F1", geiselLibrary);
+images.set("Geisel F2", geiselLibrary);
+images.set("Geisel F3", geiselLibrary);
+images.set("Geisel F4", geiselLibrary);
+images.set("Geisel F5", geiselLibrary);
+images.set("Geisel F6", geiselLibrary);
+images.set("Geisel F7", geiselLibrary);
+images.set("Geisel F8", geiselLibrary)
+images.set("Geisel F9", geiselLibrary);
+images.set("Other Location", other);
+images.set("Price Center East", priceCenterEast);
+images.set("Price Center West", priceCenterWest);
+images.set("The Loft", loft);
+images.set("Village Eco Flats", ecoFlats);
+images.set("Village North Break Study Lounge", village);
+images.set("Price Center", priceCenter);
 images.set("Zoom", zooms);
 
 
@@ -99,7 +99,7 @@ class StudyRequests extends Component{
         console.log('this.props.filters', this.props.filters);
         return ((this.props.filters[2] !== null && studyReq.noise_rating !== this.props.filters[2])
             ||
-            ((this.props.filters[1] !== null && studyReq.class.toLowerCase() !== this.props.filters[1]))
+            ((this.props.filters[1] !== null && studyReq.class !== this.props.filters[1]))
             ||
             ((this.props.filters[0] !== null && studyReq.location !== this.props.filters[0]))
             ||
@@ -125,7 +125,7 @@ class StudyRequests extends Component{
                         return ( 
                             <Button onClick={ ()=>{this.setState({showViewModal: true, viewedRequest: studyReq})}}>
                                 <StudyPanel reqTitle={studyReq.request_title} clas={studyReq.class} 
-                                loc={studyReq.location} locImage={images.get(studyReq.location)} noiseRating={studyReq.noise_rating}>
+                                loc={studyReq.location_name} locImage={images.get(studyReq.location)} noiseRating={studyReq.noise_rating}>
                                 </StudyPanel>
                             </Button>
                         )

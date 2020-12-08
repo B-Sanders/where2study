@@ -53,6 +53,14 @@ const StyledSidebar = styled(Sidebar)`
 const StyledNavItem = styled(Nav.Item)`
   /* margin-bottom: 10px; */
   height: 70px;
+  span {
+    color: white;
+  }
+  hover,span: hover{
+    color: black;
+  }
+
+  
 `;
 
 const AccountWrapper = styled.div`
@@ -64,6 +72,7 @@ const AccountWrapper = styled.div`
   padding: 15px;
   cursor: pointer;
 `;
+
 
 class Header2 extends React.Component {
   constructor(props) {
@@ -97,10 +106,10 @@ class Header2 extends React.Component {
                       <Nav >
                         <TopButtonContainer>
                         <StyledNavItem href="/" eventKey="2" icon={<Icon style={{color:"#FFCD00"}} icon="book" />}>
-                        <span style={{color:'white'}}><strong>Study Requests</strong></span>
+                        <span><strong>Study Requests</strong></span>
                         </StyledNavItem>
                         <StyledNavItem href="/locations" eventKey="1" icon={<Icon style={{color:"#FFCD00"}} icon="location-arrow" />}>
-                         <span style={{ color:'white' }}><strong>Locations</strong></span>
+                         <span><strong>Locations</strong></span>
                         </StyledNavItem>
                         </TopButtonContainer>
                       </Nav>

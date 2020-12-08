@@ -39,7 +39,7 @@ class Home extends Component {
               <StudyRequests filters={this.state.filters} />
               <RequestButton />
             </Content>
-              </Container>
+          </Container>
         )
     }
 };
