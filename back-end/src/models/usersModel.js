@@ -35,7 +35,6 @@ export async function createUser({
       });
   } catch (err) {
     if (err.code === "auth/email-already-in-use") {
-      console.log("Email is already in use");
       return 301;
     } else {
       return 300;

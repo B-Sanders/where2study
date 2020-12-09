@@ -103,9 +103,9 @@ class Login extends React.Component {
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode === "auth/wrong-password") {
-              Alert.error("The username and password did not match", 4000);
+              Alert.error("The username and password did not match.", 4000);
             } else if (errorCode === "auth/user-not-found") {
-              Alert.error("The user does not exist", 4000);
+              Alert.error("The user does not exist.", 4000);
             } else {
               Alert.error(errorMessage, 4000);
             }
