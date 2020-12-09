@@ -146,16 +146,6 @@ class EditRequest extends React.Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        /*userId: this.context.state.user.uuid,
-        displayName: this.context.state.user.display_name,
-        reqClass: this.state.formValue.class,
-        desc: this.state.formValue.description ,
-        location: this.state.formValue.location,
-        maxPartners: this.state.formValue.max_partners,
-        noiseRating: this.state.formValue.noise_level,
-        title: this.state.formValue.title,
-        studyStart: this.context.state.requests[requestKey].study_start,
-        studyEnd: newStudyEnd */
        
         userId: this.context.state.user.uuid,
         title: this.state.formValue.title,
