@@ -81,7 +81,8 @@ class Home extends React.Component {
            <Modal.Body>
              <Grid fluid>
                <Row className="show-grid">
-                 <label>Description</label>
+                 <h4>{`Traffic Level: ${data.traffic_level}`}</h4>
+                 <h4>{`Noise Level: ${data.noise_level}`}</h4>
                </Row>
              </Grid>
            </Modal.Body>

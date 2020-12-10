@@ -7,7 +7,6 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        
         db.auth().onAuthStateChanged(setCurrentUser);
 
     }, []);
