@@ -16,7 +16,8 @@ import zoomCall from "../../images/zoom-logo.jpg"
 import LocationPanel from "./LocationPanel.js"
 import { DataContext } from "../../state/context.js"
 
-import ViewLocationModal from "./LocationModal";
+import ViewLocationModal from "./ViewLocationModal"
+
 
 let images = new Map();
 images.set("Atkinson Hall", atkinsonHall);
@@ -44,7 +45,8 @@ class StudyRequests extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            showViewModal: false     // State Variable used to decide to conditionally render the view modal.
+            showViewModal: false,    // State Variable used to decide to conditionally render the view modal.
+            viewedLocation: 0
         };
 
     }
@@ -54,12 +56,12 @@ class StudyRequests extends Component{
         Object.keys(this.context.state.locations).forEach((key) => locationsList.push(this.context.state.locations[key]));
         return(
         <div style={{overflow: 'visible'}}>
-            { this.state.showViewModal && <ViewLocationModal shouldShow={this.state.showViewModal} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }
+            { this.state.showViewModal && <ViewLocationModal shouldShow={this.state.showViewModal} location={this.state.viewedLocation} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }
             <FlexboxGrid justify="center">
                 <FlexboxGrid justify="space-around">
                     {locationsList.map((locationData) => {
                         return ( 
-                            <Button onClick={ ()=>{this.setState({showViewModal: true})}}>
+                            <Button onClick={ ()=>{this.setState({showViewModal: true, viewedLocation: locationData})}}>
                                 <LocationPanel
                                 loc={locationData.location_name} locImage={images.get(locationData.location_name)} noiseRating={locationData.noise_level} trafficLevel={locationData.traffic_level}>
                                 </LocationPanel>
