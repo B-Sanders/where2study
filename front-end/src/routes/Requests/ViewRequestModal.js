@@ -12,6 +12,7 @@ import ButtonToolbar, {
   Whisper,
   Icon,
 } from "rsuite";
+import locations from '../locationsMap.json';
 
 import { DataContext } from "../../state/context.js";
 import styled from "styled-components";
@@ -88,6 +89,9 @@ class Home extends React.Component {
       partnersList.push(sReq.study_partners[key])
     );
 
+    console.log('sReq', sReq
+    );
+
     return (
       <div className="centered">
         <div className="modal-container">
@@ -114,7 +118,7 @@ class Home extends React.Component {
                 <Row className="show-grid">
                   <Col xs={10}>
                     {" "}
-                    <h5>{sReq.location}</h5>{" "}
+                    <h5>{locations[sReq.location]}</h5>{" "}
                   </Col>
                   <Col xs={4}> </Col>
                   <Col xs={10}>
