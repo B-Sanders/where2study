@@ -25,8 +25,5 @@ async function scrapeUCSD() {
     length 3 arrays are of the form: ["Price Center", "Not Busy", "5% full"]
     length 4 arrays are of the form: ["BLB Lab", "PCs & Macs", "Not Busy", "0% full (74 of 74 available)"]
 */
-scrapeUCSD().then((data) => { 
-    console.log('scrape done');
-}).catch((err) => console.log(err));
 
 export default scrapeUCSD;

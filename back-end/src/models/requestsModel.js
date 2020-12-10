@@ -1,4 +1,5 @@
 import db from '../database/base';
+import { updateLocationsNoiseLevels } from './locationsModel';
 
 
 export function getAllRequests() {
@@ -50,9 +51,10 @@ export function createRequest({
         },
         study_start: studyStart,
         study_end: studyEnd
-    }).then(() => (
-        console.log('Success')
-    ));
+    }).then(() => {
+        updateLocationsNoiseLevels();
+        return console.log('Success');
+    });
 }
 
 
@@ -87,6 +89,7 @@ export function editRequest({
             }
     })
     // Return updated request
+    updateLocationsNoiseLevels();
     return db.database().ref().update(updates);
 }
 

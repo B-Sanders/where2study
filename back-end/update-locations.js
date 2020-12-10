@@ -1,11 +1,11 @@
 import { updateLocationsNoiseLevels, updateLocationsTrafficLevel } from './src/models/locationsModel';
 
-// updateLocationsNoiseLevels()
-//     .then(() => {
-//         console.log('done');
-//     }).catch((err) => { console.log(err) });
+updateLocationsNoiseLevels()
+    .then(() => {
+        console.log('locations noise levels updated');
+    }).catch((err) => { console.log(err) });
 
 updateLocationsTrafficLevel()
     .then(() => {
-        console.log('done');
+        console.log('locations traffic levels updated');
     }).catch((err) => { console.log(err) });

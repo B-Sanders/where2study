@@ -75,7 +75,6 @@ export async function updateLocationsTrafficLevel() {
             });
         }
         else if (areaList[0] === 'Price Center') {
-            console.log('here');
             Object.keys(priceCenterValues).forEach((key) => {
                 priceCenterValues[key] = areaList[1];
                 db.database().ref(`Locations/${key}`).update({
