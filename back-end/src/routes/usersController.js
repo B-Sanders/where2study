@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import { createUser, editUser, obtainUser } from "../models/usersModel";
 
 const userRouter = express.Router();
@@ -16,10 +16,16 @@ userRouter.get("/profile", (req, res) => {
 userRouter.post("/signup", (req, res) => {
   // Create a user from passed object
   createUser(req.body)
-    .then(() => res.sendStatus(200))
-    .catch((err) => {
-      res.send(300).json({ msg: "Something went wrong", error: err });
-    });
+    .then(function (test) {
+      if (test === 200) {
+        res.sendStatus(200);
+      } else if (test === 301) {
+        res.sendStatus(301);
+      } else {
+        res.sendStatus(300);
+      }
+    })
+    .catch(() => res.status(300));
 });
 
 // Edit a user from user profile page

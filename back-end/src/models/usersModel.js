@@ -1,6 +1,6 @@
 import db from "../database/base";
 
-export function createUser({
+export async function createUser({
   activePost,
   userClasses,
   displayName,
@@ -10,31 +10,35 @@ export function createUser({
   userPronouns,
 }) {
   try {
-    return db
+    // console.log("\n\n\nInside createUser try block...");
+    return await db
       .auth()
       .createUserWithEmailAndPassword(userEmail, userPassword)
       .then((user) => {
-        if (user) {
-          const userID = user.user.uid;
-          const userData = {
-            active_post: activePost,
-            classes: userClasses,
-            display_name: displayName,
-            email: userEmail,
-            major: userMajor,
-            pronouns: userPronouns,
-            uuid: userID,
-          };
+        const userID = user.user.uid;
+        const userData = {
+          active_post: activePost,
+          classes: userClasses,
+          display_name: displayName,
+          email: userEmail,
+          major: userMajor,
+          pronouns: userPronouns,
+          uuid: userID,
+        };
 
-          // Create a new user with index of userId
-          db.database()
-            .ref("Users/" + userID)
-            .set(userData)
-            .then(() => console.log("Successful creation"));
-        }
+        // Create a new user with index of userId
+        db.database()
+          .ref("Users/" + userID)
+          .set(userData);
+        console.log("Successfully added user to the database...");
+        return 200;
       });
-  } catch (error) {
-    return error;
+  } catch (err) {
+    if (err.code === "auth/email-already-in-use") {
+      return 301;
+    } else {
+      return 300;
+    }
   }
 }
 
