@@ -61,7 +61,6 @@ class Locations extends Component{
     }
 
     render(){
-        console.log(this.context.state);
         return(
             <LocationsContainer>
                 <Sidebar history={this.props.history}>

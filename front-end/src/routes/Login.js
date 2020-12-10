@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
-import { Redirect } from "react-router-dom";
-import { DataContext } from "../state/context";
-import {
-  UPDATE_LOCATIONS_COLLECTION,
-  UPDATE_STUDY_REQUESTS_COLLECTION,
-  UPDATE_USER,
-} from "../state/actions";
+import { AuthContext } from '../auth/Auth';
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -57,46 +52,8 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
-              window.localStorage.setItem("loginToken", user.user.uid);
-              const userData = db.database().ref("Users");
-              userData
-                .orderByChild("uuid")
-                .equalTo(user.user.uid)
-                .on("value", (dataSnapshot) => {
-                  const {
-                    active_post,
-                    classes,
-                    display_name,
-                    email,
-                    major,
-                    pronouns,
-                    uuid,
-                  } = dataSnapshot.val()[user.user.uid];
-                  this.context.dispatch({
-                    type: UPDATE_USER,
-                    payload: {
-                      user: {
-                        active_post,
-                        classes,
-                        display_name,
-                        email,
-                        major,
-                        pronouns,
-                        uuid,
-                      },
-                    },
-                  });
-                });
-              const locations = db.database().ref("Locations");
-              locations.on("value", (dataSnapshot) => {
-                this.context.dispatch({
-                  type: UPDATE_LOCATIONS_COLLECTION,
-                  payload: {
-                    locations: dataSnapshot.val(),
-                  },
-                });
-              });
-              this.props.history.push("/");
+              window.localStorage.setItem('loginToken', user.user.uid);
+              this.props.history.push('/');
             }
           })
           .catch(function (error) {
@@ -122,10 +79,12 @@ class Login extends React.Component {
     });
   }
 
+  
+
   render() {
-    const { state, dispatch } = this.context;
-    // console.log(state);
+    const { currentUser } = this.context;
     return (
+      !!currentUser ? <Redirect to="/" /> :
       <LoginContainer
         style={{
           backgroundImage: `url(${geisel})`,
@@ -206,5 +165,5 @@ class Login extends React.Component {
   }
 }
 
-Login.contextType = DataContext;
+Login.contextType = AuthContext;
 export default Login;
