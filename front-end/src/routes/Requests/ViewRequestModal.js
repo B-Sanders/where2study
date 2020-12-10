@@ -89,9 +89,6 @@ class Home extends React.Component {
       partnersList.push(sReq.study_partners[key])
     );
 
-    console.log('sReq', sReq
-    );
-
     return (
       <div className="centered">
         <div className="modal-container">
