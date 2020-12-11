@@ -53,7 +53,6 @@ class SearchBar extends React.Component{
 
     render(){
         return(
-          <Divider>
             <FlexboxGrid justify="center" >
                 <FlexboxGrid.Item>
                   <SelectPicker
@@ -92,7 +91,6 @@ class SearchBar extends React.Component{
                    />
                 </FlexboxGrid.Item>
             </FlexboxGrid>
-          </Divider>
         )
     }
 }
