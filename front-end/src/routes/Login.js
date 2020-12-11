@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { AuthContext } from '../auth/Auth';
-import { Redirect } from 'react-router-dom';
+import React, { useContext, useImperativeHandle } from "react";
+import { AuthContext } from "../auth/Auth";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import {
   Form,
   FormGroup,
@@ -22,7 +22,6 @@ const LoginContainer = styled.div`
   height: 100%;
   width: 100%;
 `;
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +34,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleForgottenPassword = this.handleForgottenPassword.bind(this);
   }
 
   handleSignUp() {
@@ -52,8 +52,8 @@ class Login extends React.Component {
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
             if (user) {
-              window.localStorage.setItem('loginToken', user.user.uid);
-              this.props.history.push('/');
+              window.localStorage.setItem("loginToken", user.user.uid);
+              this.props.history.push("/");
             }
           })
           .catch(function (error) {
@@ -73,18 +73,21 @@ class Login extends React.Component {
     }
   }
 
+  handleForgottenPassword() {
+    this.props.history.push("/account-recovery");
+  }
+
   handleChange(value) {
     this.setState({
       formValue: value,
     });
   }
 
-  
-
   render() {
     const { currentUser } = this.context;
-    return (
-      !!currentUser ? <Redirect to="/" /> :
+    return !!currentUser ? (
+      <Redirect to="/" />
+    ) : (
       <LoginContainer
         style={{
           backgroundImage: `url(${geisel})`,
@@ -141,6 +144,10 @@ class Login extends React.Component {
                     }}
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
+                  <br />
+                  <Link onClick={this.handleForgottenPassword}>
+                    Forgot password?
+                  </Link>
                 </FormGroup>
                 <FormGroup>
                   <ButtonToolbar>

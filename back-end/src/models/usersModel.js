@@ -10,7 +10,6 @@ export async function createUser({
   userPronouns,
 }) {
   try {
-    // console.log("\n\n\nInside createUser try block...");
     return await db
       .auth()
       .createUserWithEmailAndPassword(userEmail, userPassword)
@@ -36,6 +35,27 @@ export async function createUser({
   } catch (err) {
     if (err.code === "auth/email-already-in-use") {
       return 301;
+    } else {
+      return 300;
+    }
+  }
+}
+
+export async function recoverAccount({ userEmail }) {
+  try {
+    return await db
+      .auth()
+      .sendPasswordResetEmail(userEmail)
+      .then(function () {
+        return 200;
+      });
+  } catch (err) {
+    if (err.code === "auth/user-not-found") {
+      return 301;
+    } else if (err.code === "auth/invalid-email") {
+      return 302;
+    } else if (err.code === "auth/argument-error") {
+      return 303;
     } else {
       return 300;
     }

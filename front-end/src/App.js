@@ -12,24 +12,26 @@ import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
 import HomePage from "./routes/Home/index.js";
 import Locations from "./routes/Locations/index";
+import AccountRecovery from "./routes/account-recovery";
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
-   <>
-    <AuthProvider>
-      <DataContext.Provider value={{ state, dispatch }}>
-        <Router>
+    <>
+      <AuthProvider>
+        <DataContext.Provider value={{ state, dispatch }}>
+          <Router>
             <PrivateRoute exact path="/" component={HomePage} />
             <PrivateRoute exact path="/locations" component={Locations} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/account-recovery" component={AccountRecovery} />
             <PrivateRoute exact path="/profileEdit" component={ProfileEdit} />
             <PrivateRoute exact path="/profile" component={Profile} />
-        </Router>
-      </DataContext.Provider>
-    </AuthProvider>
-  </>
+          </Router>
+        </DataContext.Provider>
+      </AuthProvider>
+    </>
   );
 }
 
