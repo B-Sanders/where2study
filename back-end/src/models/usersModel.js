@@ -62,21 +62,20 @@ export async function recoverAccount({ userEmail }) {
   }
 }
 
-export function obtainUser(reqHeaders) {
+export function obtainUser(userid) {
   // Send snapshot of the specific user
   return db
     .database()
-    .ref("Users/" + reqHeaders["userid"])
+    .ref("Users/" + userid)
     .once("value")
     .then((snapshot) => snapshot.val())
     .catch((error) => console.log(error));
 }
 
 export function editUser({
-  activePost,
   userClasses,
   displayName,
-  userEmail,
+  // userEmail,
   userMajor,
   userPronouns,
   userID,
@@ -84,10 +83,9 @@ export function editUser({
   var updates = {};
 
   var edit = {
-    active_post: activePost,
     classes: userClasses,
     display_name: displayName,
-    email: userEmail,
+    // email: userEmail,
     major: userMajor,
     pronouns: userPronouns,
     uuid: userID,

@@ -11,6 +11,7 @@ import {
     UPDATE_USER,
   } from "../../state/actions";
 import db from "../../base";
+import { getRequests, getUser } from '../../utils/fetches';
 
 const HomeContainer = styled.div`
     height: 100%;
@@ -27,37 +28,27 @@ class HomePage extends Component{
 
     componentDidMount() {
         const userId = window.localStorage.getItem('loginToken');
-        const userData = db.database().ref('Users');
-            userData.orderByChild('uuid').equalTo(userId).on('value', (dataSnapshot) => {
-            const {
-                active_post,
-                classes,
-                display_name,
-                email,
-                major,
-                pronouns,
-                uuid,
-            } = dataSnapshot.val()[userId];
+        getUser(userId).then((res) => {
             this.context.dispatch({
                 type: UPDATE_USER,
                 payload: {
                     user: {
-                    active_post,
-                    classes,
-                    display_name,
-                    email,
-                    major,
-                    pronouns,
-                    uuid,
+                    active_post: res.active_post,
+                    classes: res.classes,
+                    display_name: res.display_name,
+                    email: res.email,
+                    major: res.major,
+                    pronouns: res.pronouns,
+                    uuid: res.uuid,
                     },
                 },
             });
         });
-        db.database().ref("RequestsList").on("value", (dataSnapshot) => {
+        getRequests().then((res) => {
             this.context.dispatch({
                 type: UPDATE_STUDY_REQUESTS_COLLECTION,
                 payload: {
-                    requests: dataSnapshot.val(),
+                    requests: res,
                 },
             });
         });
