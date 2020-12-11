@@ -1,5 +1,10 @@
 import express, { response } from "express";
-import { createUser, editUser, obtainUser } from "../models/usersModel";
+import {
+  createUser,
+  editUser,
+  obtainUser,
+  userLogin,
+} from "../models/usersModel";
 
 const userRouter = express.Router();
 
@@ -26,6 +31,20 @@ userRouter.post("/signup", (req, res) => {
       }
     })
     .catch(() => res.status(300));
+});
+
+// Connect front and backend to let users log in
+userRouter.post("/login", (req, res) => {
+  userLogin(req.body)
+    .then((user) => {
+      if (user.status === 200) {
+        res.send(user);
+      }
+    })
+    .catch(() => {
+      console.log("error");
+      res.status(300);
+    });
 });
 
 // Edit a user from user profile page

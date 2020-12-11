@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { AuthContext } from '../auth/Auth';
-import { Redirect } from 'react-router-dom';
+import { AuthContext } from "../auth/Auth";
+import { Redirect } from "react-router-dom";
 import {
   Form,
   FormGroup,
@@ -43,33 +43,34 @@ class Login extends React.Component {
 
   handleLogin() {
     const { email, password } = this.state.formValue;
+    let validUser = true;
 
     if (email.trim() == "" || password.trim() == "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
-    } else {
-      try {
-        db.auth()
-          .signInWithEmailAndPassword(email, password)
-          .then((user) => {
-            if (user) {
-              window.localStorage.setItem('loginToken', user.user.uid);
-              this.props.history.push('/');
-            }
-          })
-          .catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode === "auth/wrong-password") {
-              Alert.error("The username and password did not match.", 4000);
-            } else if (errorCode === "auth/user-not-found") {
-              Alert.error("The user does not exist.", 4000);
-            } else {
-              Alert.error(errorMessage, 4000);
-            }
-          });
-      } catch (error) {
-        alert(error);
-      }
+      validUser = false;
+    }
+
+    if (validUser) {
+      let payload = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userEmail: email, userPassword: password }),
+      };
+
+      fetch("http://localhost:1337/user/login", payload)
+        .then((res) => {
+          console.log("inside fetch");
+          console.log("display res");
+          console.log(res);
+          console.log("status " + res.status);
+          if (res.status === 200) {
+            console.log("successful login");
+            // window.localStorage.setItem("loginToken", user.user.uid);
+            window.localStorage.setItem("loginToken", res.uid);
+            this.props.history.push("/");
+          }
+        })
+        .catch((error) => console.log(error));
     }
   }
 
@@ -79,12 +80,11 @@ class Login extends React.Component {
     });
   }
 
-  
-
   render() {
     const { currentUser } = this.context;
-    return (
-      !!currentUser ? <Redirect to="/" /> :
+    return !!currentUser ? (
+      <Redirect to="/" />
+    ) : (
       <LoginContainer
         style={{
           backgroundImage: `url(${geisel})`,

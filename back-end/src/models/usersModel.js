@@ -42,6 +42,37 @@ export async function createUser({
   }
 }
 
+export async function userLogin({ userEmail, userPassword }) {
+  try {
+    return await db
+      .auth()
+      .signInWithEmailAndPassword(userEmail, userPassword)
+      .then((user) => {
+        console.log("valid user");
+        const valid = {
+          status: 200,
+          uid: user.user.uid,
+        };
+
+        return valid;
+      });
+    // .catch(function (error) {
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   if (errorCode === "auth/wrong-password") {
+    //     Alert.error("The username and password did not match.", 4000);
+    //   } else if (errorCode === "auth/user-not-found") {
+    //     Alert.error("The user does not exist.", 4000);
+    //   } else {
+    //     Alert.error(errorMessage, 4000);
+    //   }
+    // });
+  } catch (error) {
+    console.log("error");
+    console.log(error);
+  }
+}
+
 export function obtainUser(reqHeaders) {
   // Send snapshot of the specific user
   return db
