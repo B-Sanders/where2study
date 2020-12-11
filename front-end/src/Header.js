@@ -123,8 +123,10 @@ class Header2 extends React.Component {
                 </AccountWrapper>
                 
                 <Button size="lg" onClick={() => {
-                  window.localStorage.removeItem('loginToken');
-                  this.props.history.push('/login');
+                  db.auth().signOut().then(() => {
+                    this.props.history.push('/login');
+                    window.localStorage.removeItem('loginToken');
+                  })
                 }} style={{}} color="red" appearance="primary">Logout</Button>
                 </LogoutSettingsContainer>
             </StyledSidebar>

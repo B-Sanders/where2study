@@ -47,7 +47,7 @@ export function createRequest({
         noise_rating: noiseRating,
         request_title: title,
         study_partners: {
-            1: displayName,
+            [userId]: displayName,
         },
         study_start: studyStart,
         study_end: studyEnd

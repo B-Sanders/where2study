@@ -353,7 +353,7 @@ class EditRequest extends React.Component {
                         <h5>Enter Your Estimated End Time</h5>
                         <FormControl
                           accepter={DatePicker}
-                          placement="leftStart"
+                          placement="topStart"
                           name="end_time"
                           type="end_time"
                           format="hh:mm A"
