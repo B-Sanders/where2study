@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllRequests, createRequest, editRequest, deleteRequest, addPartner } from '../models/requestsModel';
+import { getAllRequests, createRequest, editRequest, deleteRequest, addPartner, leaveRequest } from '../models/requestsModel';
 
 
 const requestRouter = express.Router();
@@ -54,6 +54,16 @@ requestRouter.post('/delete-request', (req, res) => {
     
     // Delete request identified by userId
     deleteRequest(req.body)
+        .then(() => res.sendStatus(200))
+        .catch((err) => {
+            res.send(300).json({"msg":"Something went wrong","error":err});
+        })
+});
+
+requestRouter.post('/leave-request', (req, res) => {
+    
+    // Leave the request identified by userId and posterID
+    leaveRequest(req.body)
         .then(() => res.sendStatus(200))
         .catch((err) => {
             res.send(300).json({"msg":"Something went wrong","error":err});

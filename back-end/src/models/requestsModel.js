@@ -125,3 +125,15 @@ export function deleteRequest({userId, location}) {
         "Successful deletion"
     });
 }
+
+export function leaveRequest({userId, posterId}) {
+
+    // Add study partner as child to request/study_partners
+    var userUpdate = {};
+    userUpdate[`Users/${userId}/active_post`] = false;
+    db.database().ref().update(userUpdate);
+
+    return db.database().ref(`RequestsList/${posterId}/study_partners/`).child(userId).remove().then(() => {
+        console.log('Partner removed')
+    });
+}

@@ -42,7 +42,7 @@ class Active extends React.Component {
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.closeConfirm = this.closeConfirm.bind(this);
-    this.acceptRequest = this.acceptRequest.bind(this);
+    this.leaveRequest = this.leaveRequest.bind(this);
   }
 
   /**
@@ -68,24 +68,24 @@ class Active extends React.Component {
     this.setState({ showConfirmModal: false });
   }
 
-  acceptRequest() {
+  leaveRequest() {
+    console.log(this.props.studyRequest.user_id);
       let config = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-              partnerId: this.context.state.user.uuid,
-              partnerName: this.context.state.user.display_name,
+              userId: this.context.state.user.uuid,
               posterId: this.props.studyRequest.user_id
           })
       };
 
-      fetch('http://localhost:1337/requests/add-partner', config)
+      fetch('http://localhost:1337/requests/leave-request', config)
           .then(
           ).catch(error => console.log(error));
 
       this.setState({ show: false });
       this.props.parentCallBack();
-      Alert.success(`You succesfully accepted a Study Request!`, 2000);
+      Alert.success(`You succesfully left a Study Request!`, 2000);
   }
 
   render() {
@@ -194,7 +194,7 @@ class Active extends React.Component {
                             <Button
                                 color="red"
                                 onClick={() => {
-                                    this.setState({ showEditModal: true });
+                                  this.setState({ showConfirmModal: true });
                                 }}
                                 appearance="primary"
                                 >
@@ -214,7 +214,52 @@ class Active extends React.Component {
             </Modal.Footer>
           </Modal>
         </div>
+        <div className="confirm_leave_modal">
+          <ColorModal
+            backdrop="static"
+            show={this.state.showConfirmModal}
+            onHide={this.close}
+            size="sm"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingLeft: "125px",
+            }}
+          >
+            <Modal.Body style={{ fontWeight: "bold" }}>
+              <p>Would you like to leave this study request?</p>
+            </Modal.Body>
+            <Modal.Footer>
+              <div
+                className="centered"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  onClick={this.closeConfirm}
+                  appearance="primary"
+                  color="yellow"
+                >
+                  {" "}
+                  Cancel
+                </Button>
+                <Button
+                  onClick={this.leaveRequest}
+                  appearance="primary"
+                  color="red"
+                >
+                  Leave
+                </Button>
+              </div>
+            </Modal.Footer>
+          </ColorModal>
+        </div>
       </div>
+      
     );
   }
 }
