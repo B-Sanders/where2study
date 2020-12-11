@@ -7,7 +7,7 @@ import {
   ControlLabel,
   FlexboxGrid,
   ButtonToolbar,
-  Alert, RadioGroup, Radio, InputPicker,
+  Alert, RadioGroup, Radio, InputPicker, Header, Container,
 } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 import { Button } from "rsuite";
@@ -19,6 +19,7 @@ import SideBar from "../../Header"
 import styled from 'styled-components';
 import { DataContext } from "../../state/context";
 import { UPDATE_USER } from "../../state/actions";
+import logo from "../../images/where2study.png"
 
 const ProfileEditContainer = styled.div`
   width: 100%;
@@ -125,7 +126,14 @@ class ProfileEdit extends React.Component {
         <FlexboxGrid colspan={20} justify="center">
           <FlexboxGrid.Item>
             <Col>
-              <h1 align="center">Profile</h1>
+              <Header>
+                <FlexboxGrid justify="center">
+                  <FlexboxGrid.Item>
+                    <img src={logo} height="125" width="150" href="/"/>
+                  </FlexboxGrid.Item>
+                </FlexboxGrid>
+              </Header>
+              <h1 align="center">Profile Edit</h1>
               <Form>
                 <FormGroup>
                   <ControlLabel>User ID</ControlLabel>
