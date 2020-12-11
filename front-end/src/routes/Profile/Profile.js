@@ -18,6 +18,7 @@ import { DataContext } from "../../state/context";
 import Sidebar from "../../Header";
 import { UPDATE_USER } from "../../state/actions";
 import logo from "../../images/where2study.png"
+import { getUser } from '../../utils/fetches';
 const HomeContainer = styled.div`
     height: 100%;
     width: 100%;
@@ -50,34 +51,24 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    const userData = db.database().ref('Users');
-    userData.orderByChild('uuid').equalTo(window.localStorage.getItem('loginToken')).on('value', (dataSnapshot) => {
-        const {
-            active_post,
-            classes,
-            display_name,
-            email,
-            major,
-            pronouns,
-            uuid,
-        } = dataSnapshot.val()[window.localStorage.getItem('loginToken')];
-  
-        this.context.dispatch({
+    const userId = window.localStorage.getItem('loginToken');
+    getUser(userId).then((res) => {
+      this.context.dispatch({
           type: UPDATE_USER,
           payload: {
-            user: {
-              active_post,
-              classes,
-              display_name,
-              email,
-              major,
-              pronouns,
-              uuid,
-            },
+              user: {
+              active_post: res.active_post,
+              classes: res.classes,
+              display_name: res.display_name,
+              email: res.email,
+              major: res.major,
+              pronouns: res.pronouns,
+              uuid: res.uuid,
+              },
           },
-        });
-        this.loadUser();
       });
+      this.loadUser();
+    });
   }
 
   loadUser () {

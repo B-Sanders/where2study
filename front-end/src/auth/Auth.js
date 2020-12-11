@@ -12,7 +12,6 @@ export const AuthProvider = ({children}) => {
             setCurrentUser(user);
             setIsLoading(false);
         })
-
     }, []);
     return (
         <AuthContext.Provider value = {{currentUser, isLoading}}>

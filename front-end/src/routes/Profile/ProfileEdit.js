@@ -19,7 +19,8 @@ import SideBar from "../../Header"
 import styled from 'styled-components';
 import { DataContext } from "../../state/context";
 import { UPDATE_USER } from "../../state/actions";
-import logo from "../../images/where2study.png"
+import logo from "../../images/where2study.png";
+import { getUser, editProfile } from '../../utils/fetches';
 
 const ProfileEditContainer = styled.div`
   width: 100%;
@@ -33,18 +34,6 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
-
-
-var uniqueId;
-const user = db.auth().currentUser;
-
-if (user) {
-  // User is signed in.
-  uniqueId = user.uid;
-} else {
-  // No user is signed in.
-  // Alert.warning("No user is signed in.",4000);
-}
 
 class ProfileEdit extends React.Component {
   constructor(props) {
@@ -66,14 +55,18 @@ class ProfileEdit extends React.Component {
       classes,
       pronouns,
     } = this.state;
+    if (pronouns === '') {
+      pronouns = this.context.state.user.pronouns;
+    }
+
     major = major.join();
-    const userData = {
-      display_name,
-      major,
-      classes,
-      pronouns,
-    };
-    db.database().ref("Users/" + this.context.state.user.uuid).update(userData);
+    editProfile({
+      userClasses: classes,
+      displayName: display_name,
+      userMajor: major,
+      userPronouns: pronouns,
+      userID: this.context.state.user.uuid,
+    });
     this.props.history.push("/profile");
   };
 
@@ -82,33 +75,23 @@ class ProfileEdit extends React.Component {
   }
 
   componentDidMount() {
-    const userData = db.database().ref('Users');
-    userData.orderByChild('uuid').equalTo(window.localStorage.getItem('loginToken')).on('value', (dataSnapshot) => {
-        const {
-            active_post,
-            classes,
-            display_name,
-            email,
-            major,
-            pronouns,
-            uuid,
-        } = dataSnapshot.val()[window.localStorage.getItem('loginToken')];
-  
-        this.context.dispatch({
+    const userId = window.localStorage.getItem('loginToken');
+    getUser(userId).then((res) => {
+      console.log('res.major', res.major);
+      this.context.dispatch({
           type: UPDATE_USER,
           payload: {
-            user: {
-              active_post,
-              classes,
-              display_name,
-              email,
-              major,
-              pronouns,
-              uuid,
-            },
+              user: {
+              active_post: res.active_post,
+              classes: res.classes,
+              display_name: res.display_name,
+              email: res.email,
+              major: res.major,
+              pronouns: res.pronouns,
+              uuid: res.uuid,
+              },
           },
-        });
-        console.log(this.context.state.user.major);
+      });
         this.setState({
           display_name: this.context.state.user.display_name,
           major: this.context.state.user.major.split(','),

@@ -9,12 +9,13 @@ import {
     UPDATE_USER,
   } from "../../state/actions";
 import db from "../../base";
+import { getLocations, getUser } from '../../utils/fetches';
 
 const LocationsContainer = styled.div`
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: row;
+flex-direction: row;
     className: "show-fake-browser navbar-page";
 `;
 
@@ -24,37 +25,27 @@ class Locations extends Component{
     };
       componentDidMount() {
         const userId = window.localStorage.getItem('loginToken');
-        const userData = db.database().ref('Users');
-            userData.orderByChild('uuid').equalTo(userId).on('value', (dataSnapshot) => {
-            const {
-                active_post,
-                classes,
-                display_name,
-                email,
-                major,
-                pronouns,
-                uuid,
-            } = dataSnapshot.val()[userId];
+        getUser(userId).then((res) => {
             this.context.dispatch({
                 type: UPDATE_USER,
                 payload: {
                     user: {
-                    active_post,
-                    classes,
-                    display_name,
-                    email,
-                    major,
-                    pronouns,
-                    uuid,
+                    active_post: res.active_post,
+                    classes: res.classes,
+                    display_name: res.display_name,
+                    email: res.email,
+                    major: res.major,
+                    pronouns: res.pronouns,
+                    uuid: res.uuid,
                     },
                 },
             });
         });
-        db.database().ref("Locations").on("value", (dataSnapshot) => {
+        getLocations().then((res) => {
             this.context.dispatch({
                 type: UPDATE_LOCATIONS_COLLECTION,
                 payload: {
-                    locations: dataSnapshot.val(),
+                    locations: res,
                 },
             });
         });
