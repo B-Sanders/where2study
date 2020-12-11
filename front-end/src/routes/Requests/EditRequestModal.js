@@ -31,6 +31,7 @@ import styled from "styled-components";
 
 const max_chars = 100;
 const alert_time = 1250;
+const confirm_time = 2000;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -121,6 +122,7 @@ class EditRequest extends React.Component {
     } else {
       // No error occurred handle accordingly
       this.editRequest();
+      Alert.success("Request edited successfully!", confirm_time);
     }
   }
 
@@ -212,6 +214,8 @@ class EditRequest extends React.Component {
       fetch("http://localhost:1337/requests/delete-request", config)
         .then(this.close())
         .catch((error) => console.log(error));
+
+    Alert.success("Request deleted successfully!", confirm_time);
   }
 
   render() {

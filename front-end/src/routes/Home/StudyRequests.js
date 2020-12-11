@@ -110,6 +110,7 @@ class StudyRequests extends Component{
     render(){
         var requestsList = [];
         Object.keys(this.context.state.requests).forEach((key) => requestsList.push(this.context.state.requests[key]));
+        console.log(this.context.state.requests);
         return(
         <div style={{overflow: 'visible'}}>
             { this.state.showViewModal && <ViewRequestModal shouldShow={this.state.showViewModal} studyRequest={this.state.viewedRequest} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }

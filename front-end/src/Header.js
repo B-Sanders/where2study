@@ -90,7 +90,7 @@ class Header2 extends React.Component {
                   <a href="/">
                     <img src={logo} style={{marginLeft: 55}} height="100" width="125"/>
                   </a>
-                  {this.context.state.user.display_name && <h4><span style={{marginLeft: 15, color: 'white'}}>{`Welcome ${this.context.state.user.display_name}`}</span></h4> }
+                  {this.context.state.user.display_name && <h4><span style={{marginLeft: 15, color: 'white'}}>{`Welcome ${this.context.state.user.display_name}!`}</span></h4> }
             </div>
             <StyledSidebar
             history={this.props.history}

@@ -26,7 +26,12 @@ const ColorModal = styled(Modal)`
   }
 `;
 
-class Home extends React.Component {
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+class Active extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +42,7 @@ class Home extends React.Component {
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
     this.closeConfirm = this.closeConfirm.bind(this);
-    this.acceptRequest = this.acceptRequest.bind(this);
+    this.leaveRequest = this.leaveRequest.bind(this);
   }
 
   /**
@@ -63,25 +68,24 @@ class Home extends React.Component {
     this.setState({ showConfirmModal: false });
   }
 
-  acceptRequest() {
+  leaveRequest() {
     console.log(this.props.studyRequest.user_id);
       let config = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-              partnerId: this.context.state.user.uuid,
-              partnerName: this.context.state.user.display_name,
+              userId: this.context.state.user.uuid,
               posterId: this.props.studyRequest.user_id
           })
       };
 
-      fetch('http://localhost:1337/requests/add-partner', config)
+      fetch('http://localhost:1337/requests/leave-request', config)
           .then(
           ).catch(error => console.log(error));
 
       this.setState({ show: false });
       this.props.parentCallBack();
-      Alert.success(`You succesfully accepted a Study Request!`, 2000);
+      Alert.success(`You succesfully left a Study Request!`, 2000);
   }
 
   render() {
@@ -91,7 +95,7 @@ class Home extends React.Component {
     Object.keys(sReq.study_partners).forEach((key) =>
       partnersList.push(sReq.study_partners[key])
     );
-
+    console.log(this.context);
     return (
       <div className="centered">
         <div className="modal-container">
@@ -100,7 +104,6 @@ class Home extends React.Component {
             onHide={this.close}
             style={{
               paddingLeft: "125px",
-              paddingTop: "100px",
             }}
           >
             <Modal.Header>
@@ -173,30 +176,45 @@ class Home extends React.Component {
               </Grid>
             </Modal.Body>
             <Modal.Footer>
-              <Whisper
-                placement="top"
-                trigger="hover"
-                speaker={
-                  <Tooltip>Do you want to join this study group?</Tooltip>
+            <ButtonContainer>
+                { this.context.state.user.uuid === this.props.studyOwner ? 
+                    <div>
+                    </div>
+                :
+                    <div>
+                        <Whisper
+                            placement="top"
+                            trigger="hover"
+                            speaker={
+                            <Tooltip>
+                                Do you want to leave this study request?
+                            </Tooltip>
+                            }
+                            >
+                            <Button
+                                color="red"
+                                onClick={() => {
+                                  this.setState({ showConfirmModal: true });
+                                }}
+                                appearance="primary"
+                                >
+                                LEAVE
+                            </Button>
+                        </Whisper>
+                    </div>
+                    
                 }
-              >
-                <Button
-                  onClick={() => {
-                    this.setState({ showConfirmModal: true });
-                  }}
-                  appearance="primary"
-                  disabled={(partnersList[0] === this.context.state.user.display_name) || (this.context.state.user.active_post)}
-                >
-                  ACCEPT
-                </Button>
-              </Whisper>
-              <Button onClick={this.close} appearance="subtle">
-                Cancel
-              </Button>
+                  <div>
+                    <Button onClick={this.close} appearance="subtle">
+                        Cancel
+                    </Button>
+                  </div>
+                </ButtonContainer>
+              
             </Modal.Footer>
           </Modal>
         </div>
-        <div className="confirm_accept_modal">
+        <div className="confirm_leave_modal">
           <ColorModal
             backdrop="static"
             show={this.state.showConfirmModal}
@@ -210,8 +228,7 @@ class Home extends React.Component {
             }}
           >
             <Modal.Body style={{ fontWeight: "bold" }}>
-              <p>Would you like to join this study request?</p>
-              <p>Note: You may only be a part of one study request at a time!</p>
+              <p>Would you like to leave this study request?</p>
             </Modal.Body>
             <Modal.Footer>
               <div
@@ -231,21 +248,22 @@ class Home extends React.Component {
                   Cancel
                 </Button>
                 <Button
-                  onClick={this.acceptRequest}
+                  onClick={this.leaveRequest}
                   appearance="primary"
-                  color="green"
+                  color="red"
                 >
-                  Accept
+                  Leave
                 </Button>
               </div>
             </Modal.Footer>
           </ColorModal>
         </div>
       </div>
+      
     );
   }
 }
 
-Home.contextType = DataContext;
+Active.contextType = DataContext;
 
-export default Home;
+export default Active;
