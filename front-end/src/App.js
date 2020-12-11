@@ -16,20 +16,18 @@ import Locations from "./routes/Locations/index";
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
-   <>
     <AuthProvider>
       <DataContext.Provider value={{ state, dispatch }}>
         <Router>
             <PrivateRoute exact path="/" component={HomePage} />
             <PrivateRoute exact path="/locations" component={Locations} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
             <PrivateRoute exact path="/profileEdit" component={ProfileEdit} />
             <PrivateRoute exact path="/profile" component={Profile} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
         </Router>
       </DataContext.Provider>
     </AuthProvider>
-  </>
   );
 }
 
