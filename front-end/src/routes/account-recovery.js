@@ -11,7 +11,6 @@ import {
   Button,
   Alert,
 } from "rsuite";
-import FlexboxGridItem from "rsuite/lib/FlexboxGrid/FlexboxGridItem";
 import logo from "../images/where2study.png";
 import geisel from "../images/geisel1.jpg";
 
@@ -52,8 +51,6 @@ class AccountRecovery extends React.Component {
     }
 
     if (!email.includes("@")) {
-      // TODO:  Possibly add other checks here that would help
-      //        prevent against SQL injection
       Alert.warning("This is not a valid email format.", 4000);
       valid = false;
     } else if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
