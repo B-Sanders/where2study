@@ -336,7 +336,7 @@ class Home extends React.Component {
                   placement="top"
                   trigger="hover"
                   speaker={
-                    <Tooltip>Do you want to join this study group?</Tooltip>
+                    <Tooltip>Do you want to create this study request?</Tooltip>
                   }
                 >
                   <Button onClick={this.handleSubmit} appearance="primary">

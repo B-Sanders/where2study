@@ -104,7 +104,6 @@ class Active extends React.Component {
             onHide={this.close}
             style={{
               paddingLeft: "125px",
-              paddingTop: "100px",
             }}
           >
             <Modal.Header>

@@ -185,7 +185,7 @@ class Home extends React.Component {
                     this.setState({ showConfirmModal: true });
                   }}
                   appearance="primary"
-                  disabled={partnersList[0] === this.context.state.user.display_name}
+                  disabled={(partnersList[0] === this.context.state.user.display_name) || (this.context.state.user.active_post)}
                 >
                   ACCEPT
                 </Button>
@@ -210,7 +210,8 @@ class Home extends React.Component {
             }}
           >
             <Modal.Body style={{ fontWeight: "bold" }}>
-              Would you like to join this study request?
+              <p>Would you like to join this study request?</p>
+              <p>Note: You may only be a part of one study request at a time!</p>
             </Modal.Body>
             <Modal.Footer>
               <div
