@@ -111,7 +111,7 @@ class Active extends React.Component {
                 {" "}
                 <h2>{sReq.request_title}</h2>
               </Modal.Title>
-          <h6>Request from {partnersList[0]}</h6>
+          <h6>Request from {sReq.study_partners[this.props.posterId]}</h6>
             </Modal.Header>
             <Modal.Body>
               <Grid fluid>

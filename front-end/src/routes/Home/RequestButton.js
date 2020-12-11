@@ -80,8 +80,10 @@ class RequestCreation extends React.Component{
                             */}
 
                         { this.state.showActiveModal && <ActiveRequestModal  shouldShow={this.state.showActiveModal} 
-                            studyRequest={this.context.state.requests[this.context.state.user.active_post]} 
-                            studyOwner={this.context.state.user.active_post} parentCallBack ={ ()=>{this.setState({ showActiveModal: false})} } /> 
+                            studyRequest={this.context.state.requests[this.context.state.user.active_post]}
+                            posterId={this.context.state.user.active_post} 
+                            studyOwner={this.context.state.user.active_post} parentCallBack ={ ()=>{this.setState({ showActiveModal: false})} } 
+                            /> 
                         }
                         
                         { this.state.showEditModal && <EditRequestModal shouldShow={this.state.showEditModal} parentCallBack ={ ()=>{this.setState({ showEditModal: false})} } /> }
