@@ -30,6 +30,7 @@ import { DataContext } from "../../state/context.js";
 
 const max_chars = 100;
 const alert_time = 1250;
+const confirm_time = 2000;
 
 /**
  * Define Request Schema for use in validating a Users request
@@ -84,6 +85,7 @@ class Home extends React.Component {
     } else {
       // No error occurred handle accordingly
       this.createNewRequest();
+      Alert.success("Request created successfully!", confirm_time);
     }
   }
 

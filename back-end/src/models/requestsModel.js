@@ -25,7 +25,7 @@ export function createRequest({
 }) {
 
     var userUpdate = {};
-    userUpdate[`Users/${userId}/active_post`] = true;
+    userUpdate[`Users/${userId}/active_post`] = userId;
 
     // Add child to active_requests -->  "userId": userId
     db.database().ref(`Locations/${location}/active_requests/`).update({
@@ -97,6 +97,11 @@ export function editRequest({
 export function addPartner({partnerId, partnerName, posterId}) {
 
         // Add study partner as child to request/study_partners
+        var userUpdate = {};
+        userUpdate[`Users/${partnerId}/active_post`] = posterId;
+        console.log('POSTER ID', posterId);
+        db.database().ref().update(userUpdate);
+
         return db.database().ref(`RequestsList/${posterId}/study_partners/`).update({
             [partnerId]:partnerName
         }).then(() => (
