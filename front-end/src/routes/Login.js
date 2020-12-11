@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import React, { useContext } from "react";
-import { AuthContext } from "../auth/Auth";
-import { Redirect, useHistory, Route } from "react-router-dom";
-=======
 import React, { useContext, useImperativeHandle } from "react";
 import { AuthContext } from "../auth/Auth";
 import { Link, Redirect, useHistory } from "react-router-dom";
->>>>>>> dbe9d753f1e8db519e21c5fdc248567fd7d4d7fb
 import {
   Form,
   FormGroup,
@@ -49,16 +43,10 @@ class Login extends React.Component {
     this.props.history.push("/signup");
   }
 
-  login(uid) {
-    window.localStorage.setItem("loginToken", uid);
-    <PrivateRoute exact path="/" component={HomePage} />;
-  }
-
   handleLogin() {
     const { email, password } = this.state.formValue;
     let validUser = true;
     let validCredentials = false;
-    var uid = undefined;
 
     if (email.trim() == "" || password.trim() == "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
@@ -77,14 +65,11 @@ class Login extends React.Component {
         .then((data) => {
           console.log(data);
           if (data.status === 200) {
-            console.log("inside the status if block");
-            uid = data.uid.user.uid;
+            // console.log("inside the status if block");
+            let uid = data.uid.user.uid;
             validCredentials = true;
-            const history = useHistory();
-            this.login(uid);
-            // this.history.push("/");
-            // history.push("/");
-            // this.props.history.push("/");
+            window.localStorage.setItem("loginToken", uid);
+            this.props.history.push("/");
           } else {
             console.log(data);
           }
@@ -92,7 +77,7 @@ class Login extends React.Component {
         .catch((err) => console.log(err));
     }
 
-    // user later
+    // use later
     // Login.js:64
     // {code: "auth/quota-exceeded", message: "Exceeded quota for verifying passwords."}
     // code: "auth/quota-exceeded"
