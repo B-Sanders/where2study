@@ -42,16 +42,16 @@ export async function createUser({
   }
 }
 
-export async function userLogin({ userEmail, userPassword }) {
+export function userLogin({ userEmail, userPassword }) {
   try {
-    return await db
+    return db
       .auth()
       .signInWithEmailAndPassword(userEmail, userPassword)
       .then((user) => {
         console.log("valid user");
         const valid = {
           status: 200,
-          uid: user.user.uid,
+          uid: user,
         };
 
         return valid;

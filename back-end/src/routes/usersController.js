@@ -37,13 +37,10 @@ userRouter.post("/signup", (req, res) => {
 userRouter.post("/login", (req, res) => {
   userLogin(req.body)
     .then((user) => {
-      if (user.status === 200) {
-        res.send(user);
-      }
+      res.json(user);
     })
-    .catch(() => {
-      console.log("error");
-      res.status(300);
+    .catch((err) => {
+      res.json(err);
     });
 });
 

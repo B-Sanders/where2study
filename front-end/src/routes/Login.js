@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../auth/Auth";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory, Route } from "react-router-dom";
 import {
   Form,
   FormGroup,
@@ -13,10 +13,11 @@ import {
 } from "rsuite";
 import { Col } from "rsuite";
 import { Button } from "rsuite";
-import db from "../base";
 import logo from "../images/where2study.png";
 import styled from "styled-components";
 import geisel from "../images/geisel1.jpg";
+import PrivateRoute from "../auth/PrivateRoute";
+const HomePage = "../routes/Home/index";
 
 const LoginContainer = styled.div`
   height: 100%;
@@ -32,6 +33,7 @@ class Login extends React.Component {
         password: "",
       },
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
@@ -41,9 +43,16 @@ class Login extends React.Component {
     this.props.history.push("/signup");
   }
 
+  login(uid) {
+    window.localStorage.setItem("loginToken", uid);
+    <PrivateRoute exact path="/" component={HomePage} />;
+  }
+
   handleLogin() {
     const { email, password } = this.state.formValue;
     let validUser = true;
+    let validCredentials = false;
+    var uid = undefined;
 
     if (email.trim() == "" || password.trim() == "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
@@ -58,20 +67,30 @@ class Login extends React.Component {
       };
 
       fetch("http://localhost:1337/user/login", payload)
-        .then((res) => {
-          console.log("inside fetch");
-          console.log("display res");
-          console.log(res);
-          console.log("status " + res.status);
-          if (res.status === 200) {
-            console.log("successful login");
-            // window.localStorage.setItem("loginToken", user.user.uid);
-            window.localStorage.setItem("loginToken", res.uid);
-            this.props.history.push("/");
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.status === 200) {
+            console.log("inside the status if block");
+            uid = data.uid.user.uid;
+            validCredentials = true;
+            const history = useHistory();
+            this.login(uid);
+            // this.history.push("/");
+            // history.push("/");
+            // this.props.history.push("/");
+          } else {
+            console.log(data);
           }
         })
-        .catch((error) => console.log(error));
+        .catch((err) => console.log(err));
     }
+
+    // Login.js:64
+    // {code: "auth/quota-exceeded", message: "Exceeded quota for verifying passwords."}
+    // code: "auth/quota-exceeded"
+    // message: "Exceeded quota for verifying passwords."
+    // __proto__: Object
   }
 
   handleChange(value) {
