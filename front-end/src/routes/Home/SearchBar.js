@@ -43,7 +43,6 @@ class SearchBar extends React.Component{
     }
 
     changeFilter(e, index){
-        console.log("Changed filter to " + e);
         let newFilters = this.state.filters;
         newFilters[index] = e;
         this.setState({

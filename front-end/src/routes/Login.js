@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
-import { Redirect } from "react-router-dom";
-import { DataContext } from "../state/context";
-import {
-  UPDATE_LOCATIONS_COLLECTION,
-  UPDATE_STUDY_REQUESTS_COLLECTION,
-  UPDATE_USER,
-} from "../state/actions";
+import { AuthContext } from '../auth/Auth';
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -20,11 +15,12 @@ import { Col } from "rsuite";
 import { Button } from "rsuite";
 import db from "../base";
 import logo from "../images/where2study.png";
-import styled from 'styled-components';
+import styled from "styled-components";
+import geisel from "../images/geisel1.jpg";
 
 const LoginContainer = styled.div`
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 `;
 
 class Login extends React.Component {
@@ -57,51 +53,16 @@ class Login extends React.Component {
           .then((user) => {
             if (user) {
               window.localStorage.setItem('loginToken', user.user.uid);
-              const userData = db.database().ref('Users');
-              userData.orderByChild('uuid').equalTo(user.user.uid).on('value', (dataSnapshot) => {
-                const {
-                    active_post,
-                    classes,
-                    display_name,
-                    email,
-                    major,
-                    pronouns,
-                    uuid,
-                } = dataSnapshot.val()[user.user.uid];
-                this.context.dispatch({
-                    type: UPDATE_USER,
-                    payload: {
-                      user: {
-                        active_post,
-                        classes,
-                        display_name,
-                        email,
-                        major,
-                        pronouns,
-                        uuid,
-                      },
-                    },
-                  });
-              });
-              const locations = db.database().ref("Locations");
-              locations.on("value", (dataSnapshot) => {
-                this.context.dispatch({
-                  type: UPDATE_LOCATIONS_COLLECTION,
-                  payload: {
-                    locations: dataSnapshot.val(),
-                  },
-                });
-              });
-            this.props.history.push("/");
-          }
+              this.props.history.push('/');
+            }
           })
           .catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode === "auth/wrong-password") {
-              Alert.error("The username and password did not match", 4000);
+              Alert.error("The username and password did not match.", 4000);
             } else if (errorCode === "auth/user-not-found") {
-              Alert.error("The user does not exist", 4000);
+              Alert.error("The user does not exist.", 4000);
             } else {
               Alert.error(errorMessage, 4000);
             }
@@ -118,12 +79,43 @@ class Login extends React.Component {
     });
   }
 
+  
+
   render() {
-    const { state, dispatch } = this.context;
-    console.log(state);
+    const { currentUser } = this.context;
     return (
-    <LoginContainer>
-        <FlexboxGrid colSpan={20} justify="center">
+      !!currentUser ? <Redirect to="/" /> :
+      <LoginContainer
+        style={{
+          backgroundImage: `url(${geisel})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          position: "absolute",
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100%",
+          overflow: "auto",
+          alignItems: "center",
+          alignContent: "center",
+        }}
+      >
+        <FlexboxGrid
+          colSpan={20}
+          justify="center"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "inherit",
+            overflow: "auto",
+            opacity: 0.97,
+            alignItems: "center",
+            alignContent: "center",
+            background: "#f2f2f2",
+            borderRadius: 15,
+            padding: "40px",
+          }}
+        >
           <FlexboxGrid.Item>
             <Col>
               <img src={logo} height={250} width={300} />
@@ -143,7 +135,7 @@ class Login extends React.Component {
                     type="password"
                     placeholder="Password"
                     onKeyDown={(key) => {
-                      if (key.code === 'Enter') {
+                      if (key.code === "Enter") {
                         this.handleLogin();
                       }
                     }}
@@ -173,5 +165,5 @@ class Login extends React.Component {
   }
 }
 
-Login.contextType = DataContext;
+Login.contextType = AuthContext;
 export default Login;

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components"
+import {ButtonToolbar, Header,Content, Container} from "rsuite"
 import {
 
   Form,
@@ -14,12 +15,21 @@ import { Button } from "rsuite";
 import { TagPicker } from "rsuite";
 import db from "../../base";
 import { DataContext } from "../../state/context";
-import SideBar from "../../Header";
+import Sidebar from "../../Header";
 import { UPDATE_USER } from "../../state/actions";
-
+import logo from "../../images/where2study.png"
 const HomeContainer = styled.div`
     height: 100%;
     width: 100%;
+    display: flex;
+    /* justify-content: center; */
+`;
+
+const ProfileContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 class Profile extends React.Component {
@@ -29,7 +39,7 @@ class Profile extends React.Component {
       formValue: {
         display_name: "",
         major: "",
-        classes: "",
+        classes: [],
         pronouns: "",
         userId: "",
       },
@@ -74,7 +84,7 @@ class Profile extends React.Component {
       /** Initialize the formValue */
       this.setState({formValue: {
         display_name: this.context.state.user.display_name,
-        major: this.context.state.user.major,
+        major: this.context.state.user.major.replace(/_/g, ' ').charAt(0).toUpperCase() + this.context.state.user.major.replace(/_/g, ' ').slice(1),
         classes: this.context.state.user.classes,
         pronouns: this.context.state.user.pronouns,
       }});
@@ -87,39 +97,53 @@ class Profile extends React.Component {
   render() {
     return (
       <HomeContainer>
-      <SideBar history={this.props.history}/>
-      <FlexboxGrid colspan={20} justify="center">
-        <FlexboxGrid.Item>
-          <Col>
-            <h1 align="center">Profile</h1>
-            <Form formValue={this.state.formValue} >
-              <FormGroup>
-                <ControlLabel>User ID</ControlLabel>
-                <FormControl name="display_name" readOnly={true} type="text" placeholder={'display_name'} />
-
-                <ControlLabel>Major</ControlLabel>
-                <FormControl name="major" readOnly={true} type="text" placeholder={'major'}/>
-
-                <ControlLabel>Classes</ControlLabel>
-                <FormControl name="classes" readOnly={true} type="text" placeholder={'classes'} />
-
-                <ControlLabel>Pronouns</ControlLabel>
-                <FormControl name="pronouns" readOnly={true} type="text" placeholder={'pro'} />
-              </FormGroup>
-            </Form>
-
-            <FlexboxGrid.Item>
-              <Row>
-                <div className="buttons">
-                  <Button onClick={this.handleEdit} appearance="primary">
-                    Edit
-                  </Button>
-                </div>
-              </Row>
-            </FlexboxGrid.Item>
-          </Col>
-        </FlexboxGrid.Item>
-      </FlexboxGrid>
+        <Sidebar history={this.props.history}>
+          <Header history={this.props.history}/>
+        </Sidebar>
+        <Content>
+          <Container style={{ overflow: 'scroll' }}>
+            <Header>
+              <FlexboxGrid justify="center">
+                <FlexboxGrid.Item>
+                  <img src={logo} height="125" width="150" href="/"/>
+                </FlexboxGrid.Item>
+              </FlexboxGrid>
+            </Header>
+            <Content>
+              <FlexboxGrid colspan={24} justify="center">
+                <FlexboxGrid.Item>
+                  <Col>
+                    <Form>
+                      <FormGroup>
+                        <ControlLabel><strong>Username: </strong></ControlLabel>
+                        <FormControl readOnly name="username" type="username" placeholder={this.state.formValue.display_name}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <ControlLabel><strong>Major </strong></ControlLabel>
+                        <FormControl readOnly name="major" type="major" placeholder={this.state.formValue.major}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <ControlLabel><strong>Classes: </strong></ControlLabel>
+                        <FormControl readOnly name="classes" type="classes" placeholder={this.state.formValue.classes + " "}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <ControlLabel><strong>Pronouns: </strong></ControlLabel>
+                        <FormControl readOnly name="pronouns" type="pronouns" placeholder={this.state.formValue.pronouns + " "}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <ButtonToolbar>
+                          <Button onClick={this.handleEdit} appearance="primary">
+                            Edit
+                          </Button>
+                        </ButtonToolbar>
+                      </FormGroup>
+                    </Form>
+                  </Col>
+                </FlexboxGrid.Item>
+              </FlexboxGrid>
+            </Content>
+          </Container>
+        </Content>
       </HomeContainer>
     );
   }

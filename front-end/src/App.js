@@ -11,23 +11,23 @@ import Signup from "./routes/Signup";
 import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
 import HomePage from "./routes/Home/index.js";
+import Locations from "./routes/Locations/index";
 
 function App() {
   const [state, dispatch] = useReducer(dataReducer, initialDataState);
   return (
-   <>
     <AuthProvider>
       <DataContext.Provider value={{ state, dispatch }}>
         <Router>
             <PrivateRoute exact path="/" component={HomePage} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            <PrivateRoute exact path="/locations" component={Locations} />
             <PrivateRoute exact path="/profileEdit" component={ProfileEdit} />
             <PrivateRoute exact path="/profile" component={Profile} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
         </Router>
       </DataContext.Provider>
     </AuthProvider>
-  </>
   );
 }
 

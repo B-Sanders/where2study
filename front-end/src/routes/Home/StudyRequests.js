@@ -5,6 +5,14 @@ import priceCenter from "../../images/price-center.jpg"
 import geiselLibrary from "../../images/geisel-libary.jpg"
 import atkinsonHall from "../../images/atkinson-hall.jpg"
 import galbraithHall from "../../images/galbraith-hall.jpg"
+import other from "../../images/other-locations.jpg"
+import priceCenterEast from "../../images/price-center-east.jpg"
+import priceCenterWest from "../../images/price-center-west.jpg"
+import loft from "../../images/the-loft.jpg"
+import ecoFlats from "../../images/eco-flats.jpg"
+import village from "../../images/village-north.jpg"
+
+import zooms from "../../images/zoom-logo.jpg"
 
 import StudyPanel from "./StudyPanel.js"
 import { DataContext } from "../../state/context.js"
@@ -31,8 +39,24 @@ let images = new Map();
 images.set("AtkinsonHall", atkinsonHall);
 images.set("CSEBuilding", cseBuilding);
 images.set("GalbraithHall", galbraithHall);
+images.set("GeiselF1", geiselLibrary);
 images.set("GeiselF2", geiselLibrary);
+images.set("GeiselF3", geiselLibrary);
+images.set("GeiselF4", geiselLibrary);
+images.set("GeiselF5", geiselLibrary);
+images.set("GeiselF6", geiselLibrary);
+images.set("GeiselF7", geiselLibrary);
+images.set("GeiselF8", geiselLibrary)
+images.set("GeiselF9", geiselLibrary);
+images.set("OtherLocation", other);
+images.set("PriceCenterEast", priceCenterEast);
+images.set("PriceCenterWest", priceCenterWest);
+images.set("TheLoft", loft);
+images.set("VillageEcoFlats", ecoFlats);
+images.set("VillageNorthBreakStudyLounge", village);
 images.set("PriceCenter", priceCenter);
+images.set("Zoom", zooms);
+
 
 
 class StudyRequests extends Component{
@@ -72,10 +96,9 @@ class StudyRequests extends Component{
     }
 
     filterCheck(studyReq) {
-        console.log('this.props.filters', this.props.filters);
         return ((this.props.filters[2] !== null && studyReq.noise_rating !== this.props.filters[2])
             ||
-            ((this.props.filters[1] !== null && studyReq.class.toLowerCase() !== this.props.filters[1]))
+            ((this.props.filters[1] !== null && studyReq.class !== this.props.filters[1]))
             ||
             ((this.props.filters[0] !== null && studyReq.location !== this.props.filters[0]))
             ||
@@ -101,7 +124,7 @@ class StudyRequests extends Component{
                         return ( 
                             <Button onClick={ ()=>{this.setState({showViewModal: true, viewedRequest: studyReq})}}>
                                 <StudyPanel reqTitle={studyReq.request_title} clas={studyReq.class} 
-                                loc={studyReq.location} locImage={images.get(studyReq.location)} noiseRating={studyReq.noise_rating}>
+                                loc={studyReq.location_name} locImage={images.get(studyReq.location)} noiseRating={studyReq.noise_rating}>
                                 </StudyPanel>
                             </Button>
                         )

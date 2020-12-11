@@ -3,7 +3,8 @@ import { FlexboxGrid } from 'rsuite';
 import { Col, Affix } from 'rsuite'
 import { IconButton, Icon} from 'rsuite';
 import { Tooltip, Whisper } from 'rsuite';
-import {DataContext} from '../../state/context.js'
+import {DataContext} from '../../state/context.js';
+import styled from 'styled-components';
 
 /**
  * Import the respective components
@@ -12,6 +13,13 @@ import EditRequestModal from '../Requests/EditRequestModal'
 import CreateRequestModal from '../Requests/CreateRequestModal';
 
 
+const ButtonContainer = styled.div`
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+`;
 /**
  * Temporary file used to show off the create and edit request modals and their funtionality
  */
@@ -38,11 +46,7 @@ class RequestCreation extends React.Component{
       );
         return(
             <>
-            <div className="show-requestCreation"
-                           style={{
-                                        paddingRight: "50px",
-                                    }}
-            >
+            <ButtonContainer>
                 <Affix top={50}>
                 <FlexboxGrid colSpan={20} justify="end">
                     <FlexboxGrid.Item>
@@ -59,7 +63,7 @@ class RequestCreation extends React.Component{
 
                         { this.state.showEditModal && <EditRequestModal shouldShow={this.state.showEditModal} parentCallBack ={ ()=>{this.setState({ showEditModal: false})} } /> }
                               
-                        { this.state.showCreateModal && <CreateRequestModal shouldShow={this.state.showCreateModal} parentCallBack ={ ()=>{this.setState({ showCreateModal: false}); this.context.state.user.active_post = true } } /> }
+                        { this.state.showCreateModal && <CreateRequestModal shouldShow={this.state.showCreateModal} parentCallBack ={ ()=>{this.setState({ showCreateModal: false}); } } /> }
                  
                             </div>
                         </Col>
@@ -79,7 +83,7 @@ class RequestCreation extends React.Component{
                     </FlexboxGrid.Item>
                 </FlexboxGrid>
                 </Affix>
-            </div>
+            </ButtonContainer>
             </>
         );
     }

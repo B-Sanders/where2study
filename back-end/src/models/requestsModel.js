@@ -1,4 +1,5 @@
 import db from '../database/base';
+import { updateLocationsNoiseLevels } from './locationsModel';
 
 
 export function getAllRequests() {
@@ -46,13 +47,14 @@ export function createRequest({
         noise_rating: noiseRating,
         request_title: title,
         study_partners: {
-            1: displayName,
+            [userId]: displayName,
         },
         study_start: studyStart,
         study_end: studyEnd
-    }).then(() => (
-        console.log('Success')
-    ));
+    }).then(() => {
+        updateLocationsNoiseLevels();
+        return console.log('Success');
+    });
 }
 
 
@@ -87,9 +89,20 @@ export function editRequest({
             }
     })
     // Return updated request
+    updateLocationsNoiseLevels();
     return db.database().ref().update(updates);
 }
 
+
+export function addPartner({partnerId, partnerName, posterId}) {
+
+        // Add study partner as child to request/study_partners
+        return db.database().ref(`RequestsList/${posterId}/study_partners/`).update({
+            [partnerId]:partnerName
+        }).then(() => (
+            console.log('Partner added')
+        ));
+}
 
 export function deleteRequest({userId, location}) {
 

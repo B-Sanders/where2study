@@ -19,7 +19,6 @@ class Home extends Component {
     }
 
     handleFilterChange(value){
-        console.log("Filter changed " + value[3]);
         this.setState({
             filters: value
         });
@@ -27,7 +26,7 @@ class Home extends Component {
 
     render() {
         return (
-            <Container scrollable>
+            <Container style={{ overflow: 'scroll' }}>
             <Header>
               <FlexboxGrid justify="center">
                 <FlexboxGrid.Item>
@@ -40,7 +39,7 @@ class Home extends Component {
               <StudyRequests filters={this.state.filters} />
               <RequestButton />
             </Content>
-              </Container>
+          </Container>
         )
     }
 };

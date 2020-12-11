@@ -1,54 +1,101 @@
-import {Nav, Button, Icon, Sidebar, Sidenav} from 'rsuite';
-import React from 'react';
-import logo from "./images/where2study.png"
-import db from "./base"
+import { Nav, Button, Icon, Sidebar, Sidenav, Header } from "rsuite";
+import React from "react";
+import logo from "./images/where2study.png";
+import db from "./base";
+import styled from "styled-components";
+import { DataContext } from "./state/context";
 
 const headerStyles = {
-    fontSize: 16,
-    justified: true,
-    background:  '#006A96',
-    color: 'white',
-    height: '100%',
-    overflow: 'auto',
-    position: 'fixed'
-  };
+  fontSize: 16,
+  // justified: true,
+  // background:  '#006A96',
+  // color: 'white',
+  // height: '100%',
+  // overflow: 'auto',
+  // position: 'fixed'
+};
 
-  
-class Header2 extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        expanded: true,
-        display_name: ""
-      };
-       this.loadUser.bind(this);
-       this.loadUser();
-    }
-    
-  loadUser() {
-    var uniqueId = window.localStorage.getItem('loginToken');
-    var data;
-    /** Load the user data */
-    db.database().ref("Users/" + uniqueId).once('value').then( snapshot => {
-       data =  snapshot.val();
-       this.state.display_name = "Welcome " + data.display_name
-    })
+const SideBarContainer = styled.div`
+  height: 100%;
+  width: 260px;
+  background: #006a96;
+  .rs-sidebar {
+    height: 100%;
+  }
+  /* overflow-y: scroll; */
+  /* display: flex; */
+  /* flex-direction: row; */
+`;
+
+const LogoutSettingsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 200px;
+  margin-top: auto;
+  margin-bottom: 166px;
+`;
+
+const TopButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const StyledSidebar = styled(Sidebar)`
+  height: 85%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  background: "#006A96";
+`;
+
+const StyledNavItem = styled(Nav.Item)`
+  /* margin-bottom: 10px; */
+  height: 70px;
+  span {
+    color: white;
+  }
+  hover,span: hover{
+    color: black;
   }
 
+  
+`;
+
+const AccountWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  padding: 15px;
+  cursor: pointer;
+`;
+
+
+class Header2 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: true,
+      display_name: "",
+    };
+  }
     render() {
       const { expanded } = this.state;
-      console.log(window.localStorage.getItem('loginToken'))
       return (
-            <Sidebar
-            history={this.props.history}
-            style={headerStyles}
-            >
-                <div style={{background:  '#006A96'}}>
+          <SideBarContainer>
+            <div style={{ height: '180px', width: '260px', background:  '#006A96'}}>
                   <a href="/">
                     <img src={logo} style={{marginLeft: 55}} height="100" width="125"/>
                   </a>
-                  <h4><span style={{marginLeft: 15, color: 'white'}}>{this.state.display_name}</span></h4>
-                </div>
+                  {this.context.state.user.display_name && <h4><span style={{marginLeft: 15, color: 'white'}}>{`Welcome ${this.context.state.user.display_name}`}</span></h4> }
+            </div>
+            <StyledSidebar
+            history={this.props.history}
+            style={headerStyles}
+            >  
                 <Sidenav
                   expanded={expanded}
                   defaultOpenKeys={['1', '2']}
@@ -57,25 +104,36 @@ class Header2 extends React.Component {
                 >
                     <Sidenav.Body style={{ background: '#006A96',color: 'white'}}>
                       <Nav >
-                        <Nav.Item href="/" eventKey="2" icon={<Icon style={{color:"#FFCD00"}} icon="book" />}>
-                        <span style={{color:'white'}}><strong>Study Requests</strong></span>
-                        </Nav.Item>
-                        <Nav.Item  eventKey="1" icon={<Icon style={{color:"#FFCD00"}} icon="location-arrow" />}>
-                         <span style={{ color:'white' }}><strong>Locations</strong></span>
-                        </Nav.Item>
-                        <Nav.Item style={{marginTop: 300}} href="/profile" eventKey="3" size="m" icon={<Icon style={{color:"white",fontSize: 13,marginTop: -10,marginLeft: 110}} icon="gear-circle"/>}>
-                        <br />
-                        <span style={{color:'white',marginLeft: 45}}><strong>Account</strong></span>
-                        </Nav.Item>
-                        <Button size="lg" onClick={() => {
-                          window.localStorage.removeItem('loginToken');
-                          this.props.history.push('/login');
-                        }} style={{marginLeft: 90}} color="red" appearance="primary">Logout</Button>
+                        <TopButtonContainer>
+                        <StyledNavItem href="/" eventKey="2" icon={<Icon style={{color:"#FFCD00"}} icon="book" />}>
+                        <span><strong>Study Requests</strong></span>
+                        </StyledNavItem>
+                        <StyledNavItem href="/locations" eventKey="1" icon={<Icon style={{color:"#FFCD00"}} icon="location-arrow" />}>
+                         <span><strong>Locations</strong></span>
+                        </StyledNavItem>
+                        </TopButtonContainer>
                       </Nav>
                     </Sidenav.Body>
                 </Sidenav>
-            </Sidebar>
+                <LogoutSettingsContainer>
+                <AccountWrapper onClick={() => this.props.history.push('/profile')}>
+                  <Icon style={{color:"white",fontSize: 13,marginTop: -10}} icon="gear-circle"/>
+                  <br />
+                  <span style={{color:'white',}}><strong>Account</strong></span>
+                </AccountWrapper>
+                
+                <Button size="lg" onClick={() => {
+                  db.auth().signOut().then(() => {
+                    this.props.history.push('/login');
+                    window.localStorage.removeItem('loginToken');
+                  })
+                }} style={{}} color="red" appearance="primary">Logout</Button>
+                </LogoutSettingsContainer>
+            </StyledSidebar>
+            </SideBarContainer>
       );
     }
 }
+
+Header2.contextType = DataContext;
 export default Header2;

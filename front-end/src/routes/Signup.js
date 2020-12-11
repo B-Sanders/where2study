@@ -1,5 +1,4 @@
 import React from "react";
-// import { Redirect } from 'react-router-dom';
 import {
   Form,
   FormGroup,
@@ -13,13 +12,12 @@ import {
 import { Radio, RadioGroup } from "rsuite";
 import { Col } from "rsuite";
 import { Button } from "rsuite";
-import db from "../base";
 import logo from "../images/where2study.png";
 import { TagPicker } from "rsuite";
 import { InputPicker } from "rsuite";
 import major from "./majors.json";
 import courses from "./courses.json";
-// const functions = require('firebase-functions');
+import geisel from "../images/geisel1.jpg";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -49,6 +47,11 @@ class Signup extends React.Component {
       classes,
       pronouns,
     } = this.state.formValue;
+
+    var is_valid_email = true;
+    const isUCSDEmail =
+      email.includes("@") &&
+      email.substr(email.lastIndexOf("@") + 1).split(" ")[0];
     /**
      * undefinedReference.child failed: First argument was an invalid path =
      * "Users/[object Object]". Paths must be non-empty strings and can't
@@ -56,61 +59,54 @@ class Signup extends React.Component {
      */
     if (email.trim() === "" || password.trim() === "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
+      is_valid_email = false;
     } else if (!email.includes("@")) {
       // TODO:  Possibly add other checks here that would help
       //        prevent against SQL injection
       Alert.warning("This is not a valid email format.", 4000);
-    } else {
-      try {
-        const isUCSDEmail =
-          email.includes("@") &&
-          email.substr(email.lastIndexOf("@") + 1).split(" ")[0];
+      is_valid_email = false;
+    } else if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
+      Alert.warning("You need a valid UCSD email to create an account.", 4000);
+      is_valid_email = false;
+    } else if (password.length < 6) {
+      Alert.warning("Password needs to be at least 6 characters long.");
+      is_valid_email = false;
+    } else if (display_name.length < 1) {
+      Alert.warning("Display name needs to be at least one character.");
+      is_valid_email = false;
+    }
 
-        if (!(isUCSDEmail.toLowerCase() === "ucsd.edu")) {
-          Alert.warning(
-            "You need a valid UCSD email to create an account.",
-            4000
-          );
-        } else if (password.length < 6) {
-          Alert.warning("Password needs to be at least 6 characters long.");
-        } else {
-          db.auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((user) => {
-              if (user) {
-                /** TODO: MVC this */
-                var uuid = user.user.uid;
-                const activePost = false;
-                let config = {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    activePost,
-                    userEmail: email,
-                    displayName: display_name,
-                    userMajor: major,
-                    userClasses: classes,
-                    userPronouns:pronouns,
-                    userID:uuid
-                  })
-                };
-                fetch('http://localhost:1337/user/signup', config).catch(error => console.log(error));
-                this.props.history.push("/login");
-              }
-            })
-            .catch(function (error) {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              if (errorCode === "auth/weak-password") {
-                Alert.error("The password is too weak.", 4000);
-              } else {
-                alert(errorCode + errorMessage, 4000);
-              }
-            });
-        }
-      } catch (error) {
-        Alert.error(error);
-      }
+    if (is_valid_email) {
+      let config = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          activePost: false,
+          userClasses: classes,
+          displayName: display_name,
+          userEmail: email,
+          userPassword: password,
+          userMajor: major,
+          userPronouns: pronouns,
+        }),
+      };
+
+      fetch("http://localhost:1337/user/signup", config)
+        .then((res) => {
+          if (res.status === 200) {
+            Alert.success(
+              "User successfully created!\nYou will be redirected to the login page.",
+              4000
+            );
+
+            this.props.history.push("/login");
+          } else if (res.status === 301) {
+            Alert.warning("User already exists.", 4000);
+          } else {
+            Alert.error("Experienced an unknown error.", 4000);
+          }
+        })
+        .catch((error) => console.log(error));
     }
   }
 
@@ -124,22 +120,51 @@ class Signup extends React.Component {
     this.props.history.push("/login");
   }
 
-  onChangeGender(event) {
-    console.log(event.target.value);
-  }
-
   render() {
     return (
-      <div className="show-signup">
-        <FlexboxGrid colSpan={24} justify="center">
-          <FlexboxGrid.Item componentClass={Col} colspan={24} md={6}>
-            <Col>
+      <div
+        style={{
+          backgroundImage: `url(${geisel})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          position: "absolute",
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100%",
+          overflow: "auto",
+          alignItems: "center",
+          alignContent: "center",
+        }}
+      >
+        <FlexboxGrid
+          justify="center"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "inherit",
+            overflow: "auto",
+            opacity: 0.97,
+            alignItems: "center",
+            alignContent: "center",
+            background: "#f2f2f2",
+            borderRadius: 15,
+            padding: "40px",
+          }}
+        >
+          <FlexboxGrid.Item componentClass={Col}>
+            <Col
+              style={{
+                position: "inherit",
+              }}
+            >
               <img src={logo} alt="Logo" height={250} width={300} />
               <Form
                 formValue={this.state.formValue}
                 onChange={(formValue) => this.handleChange(formValue)}
+                style={{ position: "inherit" }}
               >
-                <FormGroup>
+                <FormGroup style={{ position: "inherit" }}>
                   <ControlLabel>Email</ControlLabel>
                   <FormControl name="email" type="email" placeholder="Email" />
                   <HelpBlock tooltip>Required</HelpBlock>
@@ -163,7 +188,9 @@ class Signup extends React.Component {
                     minLength="1"
                     maxLength="15"
                   />
-                  <HelpBlock tooltip>Must be at least 1 character long</HelpBlock>
+                  <HelpBlock tooltip>
+                    Must be at least 1 character long
+                  </HelpBlock>
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>Major</ControlLabel>
@@ -171,6 +198,7 @@ class Signup extends React.Component {
                     name="major"
                     accepter={InputPicker}
                     data={major}
+                    style={{ width: 300 }}
                   ></FormControl>
                 </FormGroup>
                 <FormGroup>

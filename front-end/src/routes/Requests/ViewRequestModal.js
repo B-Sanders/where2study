@@ -6,19 +6,13 @@ import ButtonToolbar, {
   Row,
   Col,
   Rate,
-  Container,
-  Header,
-  Content,
-  Footer,
-  Sidebar,
   Divider,
   List,
   Tooltip,
   Whisper,
-  Alert,
-  Progress,
   Icon,
 } from "rsuite";
+import locations from '../locationsMap.json';
 
 import { DataContext } from "../../state/context.js";
 import styled from "styled-components";
@@ -111,7 +105,7 @@ class Home extends React.Component {
                 {" "}
                 <h2>{sReq.request_title}</h2>
               </Modal.Title>
-                <h6>Request from {partnersList[0]}</h6>
+              <h6>Request from {partnersList[0]}</h6>
             </Modal.Header>
             <Modal.Body>
               <Grid fluid>
@@ -121,7 +115,7 @@ class Home extends React.Component {
                 <Row className="show-grid">
                   <Col xs={10}>
                     {" "}
-                    <h5>{sReq.location}</h5>{" "}
+                    <h5>{locations[sReq.location]}</h5>{" "}
                   </Col>
                   <Col xs={4}> </Col>
                   <Col xs={10}>
@@ -136,6 +130,7 @@ class Home extends React.Component {
                       defaultValue={sReq.noise_rating}
                       max={5}
                       size="sm"
+                      readOnly={true}
                       character={
                         <Icon
                           icon="volume-up"
