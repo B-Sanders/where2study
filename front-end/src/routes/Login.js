@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useContext } from "react";
 import { AuthContext } from "../auth/Auth";
 import { Redirect, useHistory, Route } from "react-router-dom";
+=======
+import React, { useContext, useImperativeHandle } from "react";
+import { AuthContext } from "../auth/Auth";
+import { Link, Redirect, useHistory } from "react-router-dom";
+>>>>>>> dbe9d753f1e8db519e21c5fdc248567fd7d4d7fb
 import {
   Form,
   FormGroup,
@@ -23,7 +29,6 @@ const LoginContainer = styled.div`
   height: 100%;
   width: 100%;
 `;
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +42,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
+    this.handleForgottenPassword = this.handleForgottenPassword.bind(this);
   }
 
   handleSignUp() {
@@ -86,11 +92,16 @@ class Login extends React.Component {
         .catch((err) => console.log(err));
     }
 
+    // user later
     // Login.js:64
     // {code: "auth/quota-exceeded", message: "Exceeded quota for verifying passwords."}
     // code: "auth/quota-exceeded"
     // message: "Exceeded quota for verifying passwords."
     // __proto__: Object
+  }
+
+  handleForgottenPassword() {
+    this.props.history.push("/account-recovery");
   }
 
   handleChange(value) {
@@ -160,6 +171,10 @@ class Login extends React.Component {
                     }}
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
+                  <br />
+                  <Link onClick={this.handleForgottenPassword}>
+                    Forgot password?
+                  </Link>
                 </FormGroup>
                 <FormGroup>
                   <ButtonToolbar>

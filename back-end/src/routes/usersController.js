@@ -4,6 +4,7 @@ import {
   editUser,
   obtainUser,
   userLogin,
+  recoverAccount,
 } from "../models/usersModel";
 
 const userRouter = express.Router();
@@ -42,6 +43,22 @@ userRouter.post("/login", (req, res) => {
     .catch((err) => {
       res.json(err);
     });
+});
+
+userRouter.post("/account-recovery", (req, res) => {
+  recoverAccount(req.body).then(function (dbres) {
+    if (dbres == 200) {
+      res.sendStatus(200);
+    } else if (dbres === 301) {
+      res.sendStatus(301);
+    } else if (dbres === 302) {
+      res.sendStatus(302);
+    } else if (dbres === 303) {
+      res.sendStatus(303);
+    } else {
+      res.status(300).send(dbres);
+    }
+  });
 });
 
 // Edit a user from user profile page

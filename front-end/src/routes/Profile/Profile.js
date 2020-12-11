@@ -101,7 +101,7 @@ class Profile extends React.Component {
           <Header history={this.props.history}/>
         </Sidebar>
         <Content>
-          <Container style={{ overflow: 'scroll' }}>
+          <Container style={{ overflow: 'hidden' }}>
             <Header>
               <FlexboxGrid justify="center">
                 <FlexboxGrid.Item>
@@ -142,7 +142,9 @@ class Profile extends React.Component {
                 </FlexboxGrid.Item>
               </FlexboxGrid>
             </Content>
+
           </Container>
+
         </Content>
       </HomeContainer>
     );
