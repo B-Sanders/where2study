@@ -182,6 +182,7 @@ class Home extends React.Component {
                     this.setState({ showConfirmModal: true });
                   }}
                   appearance="primary"
+                  disabled={partnersList[0] === this.context.state.user.display_name}
                 >
                   ACCEPT
                 </Button>
