@@ -69,10 +69,11 @@ class StudyRequests extends Component{
 
     }
 
-    convertTime(timeString){
+    checkTime(timeString, minHour, minMinute){
         let time = timeString.split(":");
         let hour = parseInt(time[0]);
         let modifier = time[1].split(" ");
+        let minute = time[1];
 
         if(modifier.length === 2){ // Time such as 12:00 pm
             if(hour === 12){
@@ -81,7 +82,7 @@ class StudyRequests extends Component{
             if(modifier[1].toLowerCase() === "pm"){
                 hour += 12;
             }
-            return hour + ":" + parseInt(modifier[0]);
+            minute = parseInt(modifier[0]);
         }else if(time[1].length > 2){ // Time such as 12:00pm
             if(hour === 12){
                 hour = 0;
@@ -90,9 +91,9 @@ class StudyRequests extends Component{
             if(modifier.toLowerCase() === "pm"){
                 hour += 12;
             }
-            return hour + ":" + parseInt(time[1].substring(0, 2));
+            minute = parseInt(time[1].substring(0, 2));
         }
-        return hour + ":" + parseInt(time[1]); // Time such as 19:59
+        return hour > minHour || (hour === minHour && minute >= minMinute); // Time such as 19:59
     }
 
     filterCheck(studyReq) {
@@ -102,7 +103,7 @@ class StudyRequests extends Component{
             ||
             ((this.props.filters[0] !== null && studyReq.location !== this.props.filters[0]))
             ||
-            ((this.props.filters[3] !== null && this.convertTime(studyReq.study_end) !== this.props.filters[3].getHours() + ":" + this.props.filters[3].getMinutes())));
+            ((this.props.filters[3] !== null && !this.checkTime(studyReq.study_end, this.props.filters[3].getHours(), this.props.filters[3].getMinutes()))));
     }
 
 
