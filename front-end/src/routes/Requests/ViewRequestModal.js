@@ -18,6 +18,8 @@ import locations from '../locationsMap.json';
 import { DataContext } from "../../state/context.js";
 import styled from "styled-components";
 import db from "../../base";
+import { UPDATE_STUDY_REQUESTS_COLLECTION, UPDATE_USER } from "../../state/actions";
+import { getUser, getRequests } from '../../utils/fetches';
 
 const ColorModal = styled(Modal)`
   .rs-modal-content {
@@ -79,6 +81,31 @@ class Home extends React.Component {
           .then(
           ).catch(error => console.log(error));
 
+          const userId = window.localStorage.getItem('loginToken');
+      getUser(userId).then((res) => {
+        this.context.dispatch({
+          type: UPDATE_USER,
+          payload: {
+            user: {
+              active_post: res.active_post,
+              classes: res.classes,
+              display_name: res.display_name,
+              email: res.email,
+              major: res.major,
+              pronouns: res.pronouns,
+              uuid: res.uuid,
+            },
+          },
+        });
+      });
+      getRequests().then((res) => {
+        this.context.dispatch({
+          type: UPDATE_STUDY_REQUESTS_COLLECTION,
+          payload: {
+            requests: res,
+          },
+        });
+      });
       this.setState({ show: false });
       this.props.parentCallBack();
       Alert.success(`You succesfully accepted a Study Request!`, 2000);
