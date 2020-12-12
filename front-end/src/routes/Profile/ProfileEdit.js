@@ -158,6 +158,7 @@ class ProfileEdit extends React.Component {
                     <FormControl
                       name="pronouns"
                       accepter={RadioGroup}
+                      value={this.state.pronouns}
                       onChange={(val) => {
                         this.setState({ pronouns: val });
                       }}
@@ -177,7 +178,7 @@ class ProfileEdit extends React.Component {
                         Update
                       </Button>{" "}
                       <Button
-                        onClick={this.updateProfile}
+                        onClick={this.backToProfile}
                         appearance="primary"
                         color="green"
                       >
