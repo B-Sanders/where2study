@@ -27,6 +27,8 @@ import {
 import courses from "../courses.json";
 import locations from "../locations.json";
 import { DataContext } from "../../state/context.js";
+import { getUser, getRequests } from '../../utils/fetches';
+import { UPDATE_STUDY_REQUESTS_COLLECTION, UPDATE_USER } from "../../state/actions";
 
 const max_chars = 100;
 const alert_time = 1250;
@@ -137,6 +139,32 @@ class Home extends React.Component {
     fetch("http://localhost:1337/requests/create-request", config)
       .then(this.close())
       .catch((error) => console.log(error));
+    
+    const userId = window.localStorage.getItem('loginToken');
+    getUser(userId).then((res) => {
+      this.context.dispatch({
+        type: UPDATE_USER,
+        payload: {
+          user: {
+            active_post: res.active_post,
+            classes: res.classes,
+            display_name: res.display_name,
+            email: res.email,
+            major: res.major,
+            pronouns: res.pronouns,
+            uuid: res.uuid,
+          },
+        },
+      });
+    });
+    getRequests().then((res) => {
+      this.context.dispatch({
+        type: UPDATE_STUDY_REQUESTS_COLLECTION,
+        payload: {
+          requests: res,
+        },
+      });
+    });
   };
 
   /**

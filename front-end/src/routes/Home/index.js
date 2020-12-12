@@ -25,7 +25,7 @@ class HomePage extends Component{
     constructor(props) {
         super(props);
     };
-
+    
     componentDidMount() {
         const userId = window.localStorage.getItem('loginToken');
         getUser(userId).then((res) => {

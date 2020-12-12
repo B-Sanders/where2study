@@ -58,9 +58,6 @@ class RequestCreation extends React.Component{
           Active Request
         </Tooltip>
       );
-        console.log(this.context.state.user.active_post);
-        console.log(this.context.state.user.uuid);
-        console.log(this.context.state.requests[this.context.state.user.uuid]);
         return(
             <>
             

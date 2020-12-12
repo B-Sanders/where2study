@@ -14,10 +14,11 @@ import ButtonToolbar, {
   Icon,
 } from "rsuite";
 import locations from '../locationsMap.json';
-
 import { DataContext } from "../../state/context.js";
 import styled from "styled-components";
+import { getUser, getRequests } from '../../utils/fetches';
 import db from "../../base";
+import { UPDATE_STUDY_REQUESTS_COLLECTION, UPDATE_USER } from "../../state/actions";
 
 const ColorModal = styled(Modal)`
   .rs-modal-content {
@@ -69,7 +70,6 @@ class Active extends React.Component {
   }
 
   leaveRequest() {
-    console.log(this.props.studyRequest.user_id);
       let config = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -83,6 +83,32 @@ class Active extends React.Component {
           .then(
           ).catch(error => console.log(error));
 
+      const userId = window.localStorage.getItem('loginToken');
+      getUser(userId).then((res) => {
+        this.context.dispatch({
+          type: UPDATE_USER,
+          payload: {
+            user: {
+              active_post: res.active_post,
+              classes: res.classes,
+              display_name: res.display_name,
+              email: res.email,
+              major: res.major,
+              pronouns: res.pronouns,
+              uuid: res.uuid,
+            },
+          },
+        });
+      });
+      getRequests().then((res) => {
+        this.context.dispatch({
+          type: UPDATE_STUDY_REQUESTS_COLLECTION,
+          payload: {
+            requests: res,
+          },
+        });
+      });
+
       this.setState({ show: false });
       this.props.parentCallBack();
       Alert.success(`You succesfully left a Study Request!`, 2000);
@@ -95,7 +121,6 @@ class Active extends React.Component {
     Object.keys(sReq.study_partners).forEach((key) =>
       partnersList.push(sReq.study_partners[key])
     );
-    console.log(this.context);
     return (
       <div className="centered">
         <div className="modal-container">
