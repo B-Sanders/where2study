@@ -145,10 +145,7 @@ class Login extends React.Component {
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
                   <br />
-                  <Link
-                    alignItems="right"
-                    onClick={this.handleForgottenPassword}
-                  >
+                  <Link onClick={this.handleForgottenPassword}>
                     Forgot password?
                   </Link>
                 </FormGroup>
