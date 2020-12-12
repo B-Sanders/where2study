@@ -121,7 +121,7 @@ class Login extends React.Component {
         >
           <FlexboxGrid.Item>
             <Col>
-              <img src={logo} height={250} width={300} />
+              <img src={logo} alt="Logo" height={250} width={300} />
               <Form
                 onChange={this.handleChange}
                 formValue={this.state.formValue}
@@ -145,7 +145,10 @@ class Login extends React.Component {
                   />
                   <HelpBlock tooltip>Required</HelpBlock>
                   <br />
-                  <Link onClick={this.handleForgottenPassword}>
+                  <Link
+                    alignItems="right"
+                    onClick={this.handleForgottenPassword}
+                  >
                     Forgot password?
                   </Link>
                 </FormGroup>
