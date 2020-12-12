@@ -180,11 +180,11 @@ class Signup extends React.Component {
                   <HelpBlock tooltip>Required</HelpBlock>
                 </FormGroup>
                 <FormGroup>
-                  <ControlLabel>Display Name</ControlLabel>
+                  <ControlLabel>Username</ControlLabel>
                   <FormControl
                     name="display_name"
                     type="text"
-                    placeholder="Display Name"
+                    placeholder="Username"
                     minLength="1"
                     maxLength="15"
                   />
