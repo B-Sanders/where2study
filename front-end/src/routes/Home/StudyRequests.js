@@ -64,7 +64,8 @@ class StudyRequests extends Component{
         super(props);
         this.state = {
             showViewModal: false,       // State Variable used to decide to conditionally render the view modal.
-            viewedRequest: 0
+            viewedRequest: 0,
+            posterId: " "
         };
 
     }
@@ -113,7 +114,7 @@ class StudyRequests extends Component{
         console.log(this.context.state.requests);
         return(
         <div style={{overflow: 'visible'}}>
-            { this.state.showViewModal && <ViewRequestModal shouldShow={this.state.showViewModal} studyRequest={this.state.viewedRequest} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }
+            { this.state.showViewModal && <ViewRequestModal shouldShow={this.state.showViewModal} studyRequest={this.state.viewedRequest} posterId={this.state.posterId} parentCallBack ={ ()=>{this.setState({ showViewModal: false})} } /> }
             <FlexboxGrid justify="center">
                 <FlexboxGrid justify="space-around">
                     {requestsList.map((studyReq) => {
@@ -123,8 +124,9 @@ class StudyRequests extends Component{
                                 <></>
                             )
                         }
-                        return ( 
-                            <Button onClick={ ()=>{this.setState({showViewModal: true, viewedRequest: studyReq})}}>
+                        console.log(studyReq.user_id);
+                        return (
+                            <Button onClick={ ()=>{this.setState({showViewModal: true, viewedRequest: studyReq, posterId: studyReq.user_id})}}>
                                 <StudyPanel reqTitle={studyReq.request_title} clas={studyReq.class} 
                                 loc={studyReq.location_name} locImage={images.get(studyReq.location)} noiseRating={studyReq.noise_rating}>
                                 </StudyPanel>
