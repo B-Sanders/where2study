@@ -119,7 +119,7 @@ class ProfileEdit extends React.Component {
                 <h1 align="center">Profile Edit</h1>
                 <Form>
                   <FormGroup>
-                    <ControlLabel>User ID</ControlLabel>
+                    <ControlLabel>Username</ControlLabel>
                     <FormControl
                       name="display_name"
                       type="text"
