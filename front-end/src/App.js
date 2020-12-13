@@ -10,8 +10,8 @@ import Login from "./routes/Login.js";
 import Signup from "./routes/Signup";
 import ProfileEdit from "./routes/Profile/ProfileEdit.js";
 import Profile from "./routes/Profile/Profile.js";
-import HomePage from "./routes/Home/index.js";
-import Locations from "./routes/Locations/index";
+import HomePage from "./routes/Home/Homepage.js";
+import Locations from "./routes/Locations/LocationsPage";
 import AccountRecovery from "./routes/account-recovery";
 
 function App() {
