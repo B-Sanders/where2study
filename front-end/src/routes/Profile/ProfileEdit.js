@@ -92,16 +92,18 @@ class ProfileEdit extends React.Component {
           },
         },
       });
+
       this.setState({
         display_name: this.context.state.user.display_name,
         major: this.context.state.user.major.split(","),
-        classes: this.context.state.user.classes.split(","),
+        classes: Object.keys(this.context.state.user.classes).map((key) => this.context.state.user.classes[key]),
         pronouns: this.context.state.user.pronouns,
       });
     });
   }
 
   render() {
+    console.log('this.state.classes', this.state.classes);
     return (
       <ProfileEditContainer>
         <SideBar history={this.props.history} />
@@ -123,7 +125,7 @@ class ProfileEdit extends React.Component {
                     <FormControl
                       name="display_name"
                       type="text"
-                      maxlength="15"
+                      maxLength="15"
                       onChange={(newValue) => {
                         this.setState({ display_name: newValue });
                       }}
