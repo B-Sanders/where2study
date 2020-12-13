@@ -43,7 +43,7 @@ Please note that there are seperate package.json files for each repo.\
 When you go into a specific folder you may need to run:\
 `npm install`  or  `npm i`
 
-To start the server on your machine:
+To start the server on your machine:\
 `npm run start`
 
 # Known Issues:
