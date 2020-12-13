@@ -188,7 +188,6 @@ class Home extends React.Component {
 
   render() {
     const { formValue } = this.state;
-    console.log(formValue);
     return (
       <>
         <div className="centered">
