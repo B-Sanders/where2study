@@ -239,7 +239,7 @@ class EditRequest extends React.Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: this.context.state.user.uuid,
-          location: this.context.state.user.location,
+          location: this.context.state.requests[this.context.state.user.uuid].location,
         }),
       };
   
@@ -247,7 +247,6 @@ class EditRequest extends React.Component {
     fetch("http://localhost:1337/requests/delete-request", config)
       .then(this.close())
       .catch((error) => console.log(error));
-
     this.updateDb();
 
     Alert.success("Request deleted successfully!", confirm_time);
@@ -255,7 +254,6 @@ class EditRequest extends React.Component {
 
   render() {
     const { formValue } = this.state;
-    console.log( this.context )
     return (
       <>
         <div className="centered">

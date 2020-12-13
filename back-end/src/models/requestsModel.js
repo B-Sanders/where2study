@@ -1,3 +1,4 @@
+import { request } from 'express';
 import db from '../database/base';
 import { updateLocationsNoiseLevels } from './locationsModel';
 
@@ -109,28 +110,32 @@ export function addPartner({partnerId, partnerName, posterId}) {
         ));
 }
 
-export function deleteRequest({userId, location}) {
-
+export function deleteRequest({ userId, location }) {
     var updates = {};
     updates[`Users/${userId}/active_post`] = false;
 
+    var userUpdate = {};
     // Update user active_post to false once request is deleted
     db.database().ref().update(updates);
 
-    // Remove request from location active_requests
-    db.database().ref(`Locations/${location}/active_requests`).child(userId).remove();
-
-    // Remove child via userID
-    return db.database().ref('RequestsList').child(userId).remove().then(() => {
-        "Successful deletion"
+    return db.database().ref(`RequestsList/${userId}/study_partners`).once('value', (snapshot) => {
+        const studyPartners = snapshot.val();
+        Object.keys(studyPartners).forEach((studyPartner) => {
+            userUpdate[`Users/${studyPartner}/active_post`] = false;
+            
+        });
+        db.database().ref(`Locations/${location}/active_requests`).child(userId).remove();
+        db.database().ref('RequestsList').child(userId).remove().then(() => {
+            "Successful deletion"
+        });
+        db.database().ref().update(userUpdate);
     });
 }
 
 export function leaveRequest({userId, posterId}) {
 
     // Add study partner as child to request/study_partners
-    var userUpdate = {};
-    userUpdate[`Users/${userId}/active_post`] = false;
+    
     db.database().ref().update(userUpdate);
 
     return db.database().ref(`RequestsList/${posterId}/study_partners/`).child(userId).remove().then(() => {
