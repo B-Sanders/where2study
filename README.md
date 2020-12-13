@@ -1,6 +1,6 @@
 # Where2Study
 By Team TEAM (Technologically and Efficiently Advanced Musketeers)
-Project Manager: Eamon Moradi-Bidhendi
+Project Manager: Eamon Moradi-Bidhendi\
 Business Analyst: Rigo Carreto
 Senior System Analyst: Laith Bayyari
 Software Architect: Brian Sanders
