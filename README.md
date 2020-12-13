@@ -1,14 +1,14 @@
 # Where2Study
-By Team TEAM (Technologically and Efficiently Advanced Musketeers)
+By Team TEAM (Technologically and Efficiently Advanced Musketeers)\
 Project Manager: Eamon Moradi-Bidhendi\
-Business Analyst: Rigo Carreto
-Senior System Analyst: Laith Bayyari
-Software Architect: Brian Sanders
-Software Development Lead: Erik Flores
-Algorithm Specialist: Carlos Carvajal / Adib Thaqif
-Database Specialist: Pedro Suchite
-Quality Assurance Lead: Brian Solis
-User Interface Specialist: Andre Lopez / Nicholas Weaver
+Business Analyst: Rigo Carreto\
+Senior System Analyst: Laith Bayyari\
+Software Architect: Brian Sanders\
+Software Development Lead: Erik Flores\
+Algorithm Specialist: Carlos Carvajal / Adib Thaqif\
+Database Specialist: Pedro Suchite\
+Quality Assurance Lead: Brian Solis\
+User Interface Specialist: Andre Lopez / Nicholas Weaver\
 
 # Login Credentials:
 Email: tester@ucsd.edu   Password: password 
