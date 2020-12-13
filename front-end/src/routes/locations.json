@@ -14,7 +14,7 @@
     { "label": "Other Location" ,"value": "OtherLocation","role": "Master" },
     { "label": "Price Center East","value": "PriceCenterEast" ,"role": "Master" },
     { "label": "Price Center West","value": "PriceCenterWest" ,"role": "Master" },
-    { "label": "The Loft","value":"The Loft" ,"role": "Master" },
+    { "label": "The Loft","value":"TheLoft" ,"role": "Master" },
     { "label": "Village Eco Flats","value": "VillageEcoFlats","role": "Master" },
     { "label": "Village North Break Study Lounge","value": "VillageNorthBreakStudyLounge","role": "Master" },
     { "label": "Zoom","value": "Zoom" ,"role": "Master" }
