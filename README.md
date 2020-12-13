@@ -48,3 +48,11 @@ To start the server on your machine:\
 
 # Known Issues:
 
+# Technical Support
+Brian Sanders
+bsanders@ucsd.edu
+(925)681-8301
+
+Eamon Moradi
+emoradib@ucsd.edu
+(619)201-3349
