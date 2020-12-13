@@ -95,7 +95,7 @@ class ProfileEdit extends React.Component {
       this.setState({
         display_name: this.context.state.user.display_name,
         major: this.context.state.user.major.split(","),
-        classes: this.context.state.user.classes,
+        classes: this.context.state.user.classes.split(","),
         pronouns: this.context.state.user.pronouns,
       });
     });

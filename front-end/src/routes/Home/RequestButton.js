@@ -98,12 +98,22 @@ class RequestCreation extends React.Component{
                             </Whisper>
                         :
                             <div>
-                                {!this.state.showActiveToolbar ?
-                                    <Whisper placement="top" trigger="hover" speaker={activeTip}>
-                                        <IconButton icon={<Icon icon="calendar-o" />} onClick={()=>{this.setState({showActiveToolbar: true})}}  size="lg" color="yellow" circle />
-                                    </Whisper>
-                                :
-                                    <p></p>
+                                { (this.context.state.user.uuid === this.context.state.user.active_post) ?
+                                    <div>
+                                    {!this.state.showActiveToolbar ?
+                                        <Whisper placement="top" trigger="hover" speaker={activeTip}>
+                                            <IconButton icon={<Icon icon="calendar-o" />} onClick={()=>{this.setState({showActiveToolbar: true})}}  size="lg" color="yellow" circle />
+                                        </Whisper>
+                                        :
+                                        <p></p>
+                                    }
+                                    </div>
+                                    :
+                                    <ButtonGroup size="lg">
+                                        <Whisper placement="topStart" trigger="hover" speaker={viewTip} preventOverflow={false}>   
+                                            <IconButton icon={<Icon icon="eye" />} appearance={"primary"} onClick={ ()=>{this.setState({showActiveModal: true, showActiveToolbar: false})}} size={"lg"} color="yellow" circle></IconButton>
+                                        </Whisper>
+                                    </ButtonGroup>
                                 }
                             </div>
                         }
@@ -120,12 +130,7 @@ class RequestCreation extends React.Component{
                             </ButtonGroup>
                         }
 
-                        { this.state.showActiveToolbar && !(this.context.state.user.uuid === this.context.state.user.active_post) && <ButtonGroup size="lg">
-                                <Whisper placement="topStart" trigger="hover" speaker={viewTip} preventOverflow={false}>   
-                                    <IconButton icon={<Icon icon="eye" />} appearance={"primary"} onClick={ ()=>{this.setState({showActiveModal: true, showActiveToolbar: false})}} size={"lg"} color="yellow" circle></IconButton>
-                                </Whisper>
-                                </ButtonGroup>
-                        }   
+                        
                         </Col>
 
                     </FlexboxGrid.Item>
