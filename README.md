@@ -11,7 +11,7 @@ Quality Assurance Lead: Brian Solis\
 User Interface Specialist: Andre Lopez / Nicholas Weaver
 
 # Login Credentials:
-Email: tester@ucsd.edu   Password: password 
+Email: tester@ucsd.edu   Password: password \
 (Tester should feel free and is encouraged to make make at least one more account with a UCSD email to test the registration process, accept their own posts made from the other account and test the reset password feature)
 
 
