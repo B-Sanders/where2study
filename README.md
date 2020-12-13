@@ -48,6 +48,9 @@ To start the server on your machine:\
 
 # Known Issues:
 
+# Troubleshooting
+If user runs into issues with the Web App, the user should stop running both the front end and the back end, and clear the cookies in their browser. Then Restart the back end and front end in the terminal like before.
+
 # Technical Support
 Brian Sanders\
 bsanders@ucsd.edu\
