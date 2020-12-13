@@ -126,7 +126,7 @@ class Home extends React.Component {
             onHide={this.close}
             style={{
               paddingLeft: "125px",
-              paddingTop: "100px",
+              paddingTop: "25px",
             }}
           >
             <Modal.Header>
