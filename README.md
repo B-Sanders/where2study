@@ -8,7 +8,7 @@ Software Development Lead: Erik Flores\
 Algorithm Specialist: Carlos Carvajal / Adib Thaqif\
 Database Specialist: Pedro Suchite\
 Quality Assurance Lead: Brian Solis\
-User Interface Specialist: Andre Lopez / Nicholas Weaver\
+User Interface Specialist: Andre Lopez / Nicholas Weaver
 
 # Login Credentials:
 Email: tester@ucsd.edu   Password: password 
