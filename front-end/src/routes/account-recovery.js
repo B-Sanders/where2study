@@ -45,7 +45,7 @@ class AccountRecovery extends React.Component {
       email.substr(email.lastIndexOf("@") + 1).split(" ")[0];
     let valid = true;
 
-    if (email.trim() == "") {
+    if (email.trim() === "") {
       Alert.warning("Email and password fields cannot be empty", 4000);
       valid = false;
     }
@@ -123,7 +123,7 @@ class AccountRecovery extends React.Component {
         >
           <FlexboxGrid.Item>
             <Col>
-              <img src={logo} height={250} width={300} />
+              <img src={logo} alt="Logo" height={250} width={300} />
               <Form
                 formValue={this.state.formValue}
                 onChange={(formValue) => this.handleChange(formValue)}
