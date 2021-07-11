@@ -54,12 +54,3 @@ To start the server on your machine:\
 
 # Troubleshooting
 If user runs into issues with the Web App, the user should stop running both the front end and the back end, and clear the cookies in their browser. Then Restart the back end and front end in the terminal like before.
-
-# Technical Support
-Brian Sanders\
-bsanders@ucsd.edu\
-(925)681-8301
-
-Eamon Moradi\
-emoradib@ucsd.edu\
-(619)201-3349
